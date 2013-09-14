@@ -3,7 +3,7 @@
 
 #include "Economy.hpp"
 #include "Consumer.hpp"
-#include "market.hpp"
+#include "Market.hpp"
 
 Economy::Economy(){
     this->dividendrate= 1.0;

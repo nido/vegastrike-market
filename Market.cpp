@@ -22,7 +22,7 @@
  */
 #include <limits>
 
-#include "market.hpp"
+#include "Market.hpp"
 
 #include <math.h>
 

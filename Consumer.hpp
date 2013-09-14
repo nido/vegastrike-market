@@ -5,22 +5,22 @@
 class Consumer;
 
 #include "Economy.hpp"
-#include "factory.hpp"
+#include "Factory.hpp"
 
 class Consumer{
 friend class Economy;
 public:
-    Consumer(double capital, Economy *economy, Products consumption, string name,double subsidyrate);
+    Consumer(double capital, Economy *economy, Products consumption, std::string name,double subsidyrate);
 
     void tick();
 
     ~Consumer();
 
 	void addElement(scew_element* root) const;
-    static Consumer *consumerFromElement(scew_element* root,Economy *economy,string name);
+    static Consumer *consumerFromElement(scew_element* root,Economy *economy,std::string name);
 
 private:
-    string name;
+    std::string name;
     double capital;
     Economy *economy;
     Products consumption;

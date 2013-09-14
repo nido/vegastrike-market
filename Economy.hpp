@@ -8,7 +8,9 @@
 
 class Economy;
 
-#include "factory.hpp"
+#include "Consumer.hpp"
+#include "Factory.hpp"
+#include "Market.hpp"
 
 class Economy{
 friend class Factory;

@@ -6,65 +6,17 @@
 #define __FACTORY_HPP__
 
 #include <string>
-
 #include <vector>
-
 #include <map>
-
-#include "roottracker.hpp"
-
-#include "btree_iterator.hpp"
-
-#include "market.hpp"
 
 #include "scew/scew.h"
 
-//<item name,amount>
-typedef pair<string,double> Stack;
-
-//list of Stacks
-typedef vector<Stack> Products;
-
-//TODO web this class in as a base class
-//for keeping a balance sheet(improvement over capital) and having a name(used as bidderid)
-//also keep track of goods in possession
-//try to get rid of friend-modifiers
-class EconomicEntity {
-    //TODO
-};
-
 class Factory;
-class Consumer;
 
-class ProductionOption {
+#include "ProductionOption.hpp"
+#include "Reserve.hpp"
+#include "Economy.hpp"
 
-public:
-	ProductionOption(Products outputs,Products inputs, double sectorsize, double sectormin, Products costofanother);
-	ProductionOption(Products outputs,Products inputs, double sectorsize, Products costofanother);
-	Products outputs;
-	Products inputs;
-	double sectorsize;
-    double sectormin;
-	Products costofanother;
-	void addElement(scew_element* root) const;
-    static ProductionOption *productionOptionFromElement(scew_element* root);
-
-};
-
-class Reserve {
-public:
-    Reserve();
-    double getReserve();
-    double getReserveValue();
-    double getPrice();
-    void addReserve(double amount,double total,string why);
-    void subtractReserve(double amount,string why);
-	void addElement(scew_element* root) const;
-    static Reserve *reserveFromElement(scew_element* root);
-private:
-    double reserve;
-    double reserveValue;
-};
 
 class Factory {
 
@@ -72,7 +24,7 @@ friend class Economy;
 
 public:
 	//create an empty factory
-	Factory(double capital, Economy *economy,double rateofreturn,string name);
+	Factory(double capital, Economy *economy,double rateofreturn,std::string name);
 
 	void setRateofreturn(double rateofreturn);
 
@@ -89,7 +41,7 @@ public:
 	double executeBestProductionOption();
 
 	//receive or remove resources from the reserve
-	void addResources(string what,double amount,double price);
+	void addResources(std::string what,double amount,double price);
 
 	//dump factory status report for development
 	void dump();
@@ -107,8 +59,8 @@ private:
 	//create a really empty factory with default values for filling from XML
 	Factory();
 
-	string name;
-	vector<ProductionOption> options;
+	std::string name;
+	std::vector<ProductionOption> options;
 
 	ProductionOption *bestOptionPtr;
 	double bestOptionProfit;
@@ -125,7 +77,7 @@ private:
 	double rateofreturn;
 
     //amounts and values
-	std::map<string,Reserve> reserve;
+	std::map<std::string,Reserve> reserve;
 
     //calculate profit; side-effect: set the best Option as the better option
     double calculate_profit(ProductionOption &po,double productionsize,double capitalavailable,bool makeitwork);
