@@ -13,9 +13,7 @@
 
 #include "btree_iterator.hpp"
 
-#ifdef USE_SCEW
-#include <scew.h>
-#endif
+#include "scew/scew.h"
 
 typedef pair<double,string> Payback;
 
@@ -99,10 +97,8 @@ public:
 	//destructor
 	~Market();
 
-#ifdef USE_SCEW
 	void addElement(scew_element* root) const;
     static Market *marketFromElement(scew_element* root);
-#endif
 
 private:
 	vector<Elem*>executedSellOrders;
@@ -120,7 +116,6 @@ private:
 	void setLastDeal(double price, int amount);
 };
 
-#ifdef USE_SCEW
 /* These functions use a static buffer, so strcat(toCString(1.0),toCString(0.5) does not work*/
 const char *toCString(double d);
 const char *toCString(long l);
@@ -131,6 +126,5 @@ long longFromCString(const char* cstr, long defo=0);
 int intFromCString(const char* cstr, int defo=0);
 
 static Elem* elemFrom(scew_element *sub_element);
-#endif
 
 #endif

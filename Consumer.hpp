@@ -1,7 +1,10 @@
 #ifndef H_CONSUMER
 #define H_CONSUMER
-#include "scew/types.h"
+#include "scew/scew.h"
+
 class Consumer;
+
+#include "Economy.hpp"
 #include "factory.hpp"
 
 class Consumer{

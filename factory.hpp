@@ -17,9 +17,7 @@
 
 #include "market.hpp"
 
-#ifdef USE_SCEW
-#include <scew.h>
-#endif
+#include "scew/scew.h"
 
 //<item name,amount>
 typedef pair<string,double> Stack;
@@ -38,86 +36,6 @@ class EconomicEntity {
 class Factory;
 class Consumer;
 
-class Economy{
-friend class Factory;
-friend class Consumer;
-public:
-	Economy();
-
-	~Economy();
-
-	//define the currency
-	void setCurrency(string name);
-
-	//define the race name of the populace
-	void setPopulace(string name);
-
-	//set the dividend rate 0..1
-	void setDividendrate(double dividendrate);
-
-	//add a factory and the markets necessary for it
-	void addFactory(Factory *factory);
-
-	//add a consumer
-	void addConsumer(Consumer *consumer);
-
-	//make the consumer profit from the gains of this factory
-	void addConsumerMap(string factoryName,string consumerName);
-
-	//set a decay rate of goods sold on the market.
-	//0.0<=decay<=1.0 the amount of goods is multplied by the decay rate
-	void setDecayRate(string name, double decayrate);
-
-	//a time tick (which triggers production and decay)
-	void tick();
-
-	//dump status
-	void dump();
-
-	//initialize a market by placing orders
-	void placeSellOrders(string what, double loprice, int loamount,double hiprice,int hiamount, int steps);
-
-	//initialize a market by placing orders
-	void placeBuyOrders(string what, double loprice, int loamount,double hiprice,int hiamount, int steps);
-
-	//distribute successful market transactions
-	bool executeTransactions();
-
-    //flush the statistics
-    void reset_statistics();
-
-#ifdef USE_SCEW
-	void addElement(scew_element* root) const;
-    static Economy *economyFromElement(scew_element* root, Economy *pe);
-#endif
-
-protected:
-	//add a market
-	void addMarket(string name);
-
-	//sell
-	void sellProduct(string what, int amount, double price, string who);
-
-	//buy
-	void buyProduct(string what, int amount, double price, string who);
-
-private:
-	string currencyName;
-	string populaceName;
-
-	std::map <string,Market*> markets;
-
-	std::map <string,Factory*> factories;
-
-	std::map <string,Consumer*> consumers;
-
-    //<factoryName,consumerName
-	std::map <string,string> consumerMap;
-
-	double dividendrate;
-};
-
-
 class ProductionOption {
 
 public:
@@ -128,10 +46,8 @@ public:
 	double sectorsize;
     double sectormin;
 	Products costofanother;
-#ifdef USE_SCEW
 	void addElement(scew_element* root) const;
     static ProductionOption *productionOptionFromElement(scew_element* root);
-#endif
 
 };
 
@@ -143,10 +59,8 @@ public:
     double getPrice();
     void addReserve(double amount,double total,string why);
     void subtractReserve(double amount,string why);
-#ifdef USE_SCEW
 	void addElement(scew_element* root) const;
     static Reserve *reserveFromElement(scew_element* root);
-#endif
 private:
     double reserve;
     double reserveValue;
@@ -186,10 +100,8 @@ public:
 	//track own activity
 	double totalproduction;
 
-#ifdef USE_SCEW
 	void addElement(scew_element* root) const;
     static Factory *factoryFromElement(scew_element* root,Economy *economy);
-#endif
 
 private:
 	//create a really empty factory with default values for filling from XML
@@ -231,9 +143,7 @@ private:
     void growSector(double production);
 };
 
-#ifdef USE_SCEW
 	void Products_addElement(const Products &products, scew_element* root);
     Products *productsFromElement(scew_element* root);
-#endif
 
 #endif
