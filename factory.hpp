@@ -231,28 +231,6 @@ private:
     void growSector(double production);
 };
 
-class Consumer{
-friend class Economy;
-public:
-    Consumer(double capital, Economy *economy, Products consumption, string name,double subsidyrate);
-
-    void tick();
-
-    ~Consumer();
-
-#ifdef USE_SCEW
-	void addElement(scew_element* root) const;
-    static Consumer *consumerFromElement(scew_element* root,Economy *economy,string name);
-#endif
-
-private:
-    string name;
-    double capital;
-    Economy *economy;
-    Products consumption;
-    double subsidyrate;
-};
-
 #ifdef USE_SCEW
 	void Products_addElement(const Products &products, scew_element* root);
     Products *productsFromElement(scew_element* root);
