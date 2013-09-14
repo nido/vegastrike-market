@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+#include "scew/scew.h"
+
 
 //<item name,amount>
 typedef std::pair<std::string,double> Stack;
@@ -20,10 +22,8 @@ public:
 	double sectorsize;
     double sectormin;
 	Products costofanother;
-#ifdef USE_SCEW
 	void addElement(scew_element* root) const;
     static ProductionOption *productionOptionFromElement(scew_element* root);
-#endif
 
 };
 #endif // H_PRODUCTIONOPTION

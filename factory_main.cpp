@@ -14,13 +14,14 @@ factory.exe
 */
 
 
-#include "node.cpp"
+#include "node.hpp"
 
-#include "btree_iterator.cpp"
+#include "btree_iterator.hpp"
 
-#include "market.cpp"
+#include "Economy.hpp"
 
-#include "factory.cpp"
+
+
 
 // for the high-resolution timer
 //#define USETIMER

@@ -17,9 +17,9 @@ typedef Element<double,long,Value> Elem;
 
 class RootTracker;
 
-Node* invalid_ptr = reinterpret_cast<Node*> (-1);
+extern Node* invalid_ptr;
 
-Node* null_ptr = reinterpret_cast<Node*> (0);
+extern Node* null_ptr;
 
 const int invalid_index = -1;
 

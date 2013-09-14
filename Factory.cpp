@@ -277,24 +277,6 @@ void Economy::addConsumerMap(string factoryName,string consumerName){
     this->consumerMap[factoryName]= consumerName;
 }
 
-ProductionOption::ProductionOption(Products outputs, Products inputs, double sectorsize, double sectormin, Products costofanother){
-	this->outputs= outputs;
-	this->inputs= inputs;
-	this->sectorsize = sectorsize;
-	this->sectormin= sectormin;
-	this->costofanother = costofanother;
-}
-
-
-ProductionOption::ProductionOption(Products outputs, Products inputs, double sectorsize, Products costofanother){
-	this->outputs= outputs;
-	this->inputs= inputs;
-	this->sectorsize = sectorsize;
-	this->sectormin= sqrt(sectorsize);
-	this->costofanother = costofanother;
-}
-
-
 //create a really empty factory with default values for filling from XML
 Factory::Factory(){
     this->initialcapital = 0.0;
@@ -773,7 +755,6 @@ Factory::~Factory(){
 }
 
 
-#ifdef USE_SCEW
 void Economy::addElement(scew_element* root) const{
     scew_element* element = NULL;
     scew_element* sub_element = NULL;
@@ -860,147 +841,6 @@ void Factory::addElement(scew_element* root) const{
 	}
 }
 
-void Consumer::addElement(scew_element* root) const{
-    scew_element* element = NULL;
-
-    element = scew_element_add(root, "capital");
-    scew_element_set_contents(element, toCString(capital));
-    element = scew_element_add(root, "consumption");
-    Products_addElement(consumption,element);
-    element = scew_element_add(root, "subsidyrate");
-    scew_element_set_contents(element, toCString(subsidyrate));
-}
-
-void Products_addElement(const Products &products, scew_element* root){
-    scew_element* element = NULL;
-
-    for(Products::const_iterator pitr = products.begin(); pitr != products.end(); ++pitr){
-        element = scew_element_add(root, "product");
-        scew_element_add_attr_pair(element, "name", (*pitr).first.c_str());
-        scew_element_set_contents(element, toCString((*pitr).second));
-    }
-}
-
-void Reserve::addElement(scew_element* root) const{
-    scew_element* element = NULL;
-
-    element = scew_element_add(root, "reserveCount");
-    scew_element_set_contents(element, toCString(reserve));
-    element = scew_element_add(root, "reserveValue");
-    scew_element_set_contents(element, toCString(reserveValue));
-}
-
-void ProductionOption::addElement(scew_element* root) const{
-    scew_element* element = NULL;
-
-    element = scew_element_add(root, "outputs");
-    Products_addElement(outputs,element);
-
-    element = scew_element_add(root, "inputs");
-    Products_addElement(inputs,element);
-
-    element = scew_element_add(root, "sectorsize");
-    scew_element_set_contents(element, toCString(sectorsize));
-
-    element = scew_element_add(root, "sectormin");
-    scew_element_set_contents(element, toCString(sectormin));
-
-    element = scew_element_add(root, "costofanother");
-    Products_addElement(costofanother,element);
-}
-
-ProductionOption *productionOptionFromElement(scew_element* root){
-    ProductionOption *ppo = NULL;
-    scew_element *element = NULL;
-    XML_Char const*contents = NULL;
-
-    double sectorsize = 0.0;
-    double sectormin = 0.0;
-    Products *pinputs, *poutputs, *pcostofanother;
-
-    element = scew_element_by_name(root, "sectorsize");
-    if(NULL !=element){
-        contents= scew_element_contents(element);
-        if(NULL != contents){
-            sectorsize= doubleFromCString(contents,sectorsize);
-        }
-    }
-
-    element = scew_element_by_name(root, "sectormin");
-    if(NULL !=element){
-        contents= scew_element_contents(element);
-        if(NULL != contents){
-            sectormin= doubleFromCString(contents,sectormin);
-        }
-    }
-
-    element = scew_element_by_name(root, "inputs");
-    if(NULL !=element){
-        pinputs= productsFromElement(element);
-    }
-
-    element = scew_element_by_name(root, "outputs");
-    if(NULL !=element){
-        poutputs= productsFromElement(element);
-    }
-
-    element = scew_element_by_name(root, "costofanother");
-    if(NULL !=element){
-        pcostofanother= productsFromElement(element);
-    }
-
-    if( NULL!= poutputs && NULL != pinputs && 0.0<=sectorsize && NULL!= pcostofanother){
-        ppo= new ProductionOption(*poutputs,*pinputs,sectorsize,sectormin,*pcostofanother);
-    }
-
-    //clean up
-    if(NULL!= poutputs){
-        delete poutputs;
-    }
-
-    if(NULL!= pinputs){
-        delete pinputs;
-    }
-
-    if(NULL!= pcostofanother){
-        delete pcostofanother;
-    }
-
-    return ppo;
-}
-
-Reserve *Reserve::reserveFromElement(scew_element* root){
-    Reserve *pr = NULL;
-    scew_element* element = NULL;
-    XML_Char const*contents = NULL;
-
-    double reserve = 0.0;
-    double reserveValue = 0.0;
-
-    element = scew_element_by_name(root, "reserveCount");
-    if(NULL !=element){
-        contents= scew_element_contents(element);
-        if(NULL != contents){
-            reserve= doubleFromCString(contents,reserve);
-        }
-    }
-
-    element = scew_element_by_name(root, "reserveValue");
-    if(NULL !=element){
-        contents= scew_element_contents(element);
-        if(NULL != contents){
-            reserveValue= doubleFromCString(contents,reserve);
-        }
-    }
-
-    if(reserve>0.0){
-        pr= new Reserve();
-        pr->reserve= reserve;
-        pr->reserveValue= reserveValue;
-    }
-
-    return pr;
-}
 
 Factory *Factory::factoryFromElement(scew_element* element,Economy *economy){
     Factory *pf = NULL;
@@ -1096,138 +936,6 @@ Factory *Factory::factoryFromElement(scew_element* element,Economy *economy){
     return pf;
 }
 
-Consumer *Consumer::consumerFromElement(scew_element* element,Economy *economy, string name){
-    Consumer *pc = NULL;
-
-    XML_Char const*contents = NULL;
-
-    Products *pconsumption = NULL;
-    double capital=0.0;
-    double subsidyrate=0.01;
-    //string name= "";
-
-    for(scew_element* sub_element=scew_element_next(element, NULL);NULL != sub_element;sub_element=scew_element_next(element, sub_element)){
-        if(0==strcmp(scew_element_name(sub_element),"consumption")){
-            pconsumption= productsFromElement(sub_element);
-        }else if(0==strcmp(scew_element_name(sub_element),"capital")){
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                capital= doubleFromCString(contents,capital);
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"subsidyrate")){
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                subsidyrate= doubleFromCString(contents,subsidyrate);
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"name")){
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                name= string(contents);
-            }
-        }
-    }
-    if( NULL != pconsumption ){
-        if( 0!=strcmp(name.c_str(),"") ){
-            pc= new Consumer(capital, economy, *pconsumption, name, subsidyrate);
-        }
-        delete pconsumption;
-    }
-    return pc;
-}
-
-Economy *Economy::economyFromElement(scew_element* element, Economy *pe){
-    XML_Char const*contents = NULL;
-
-    for(scew_element* sub_element=scew_element_next(element, NULL);NULL != sub_element;sub_element=scew_element_next(element, sub_element)){
-        if(0==strcmp(scew_element_name(sub_element),"currencyName")){
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                pe->currencyName= string(contents);
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"populaceName")){
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                pe->populaceName= string(contents);
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"dividendrate")){
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                pe->dividendrate= doubleFromCString(contents,pe->dividendrate);
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"markets")){
-            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
-                if(0==strcmp(scew_element_name(sub_sub_element),"market")){
-                    XML_Char const* what = NULL;
-                    scew_attribute* attribute = NULL;
-                    attribute = scew_attribute_by_name(sub_sub_element, "name");
-                    if(NULL!=attribute){
-                        what= scew_attribute_value(attribute);
-                    }
-                    if(NULL != what){
-                        Market *pmarket= Market::marketFromElement(sub_sub_element);
-                        if(NULL != pmarket){
-                            pe->markets[string(what)]= pmarket;
-                            //delete pmarket;
-                        }
-                    }
-                }
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"factories")){
-            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
-                if(0==strcmp(scew_element_name(sub_sub_element),"factory")){
-                    XML_Char const* what = NULL;
-                    scew_attribute* attribute = NULL;
-                    attribute = scew_attribute_by_name(sub_sub_element, "name");
-                    if(NULL!=attribute){
-                        what= scew_attribute_value(attribute);
-                    }
-                    if(NULL != what){
-                        Factory * pf= Factory::factoryFromElement(sub_sub_element, pe);
-                        if(NULL != pf){
-                            pe->factories[string(what)]= pf;
-                            //delete pf;
-                        }
-                    }
-                }
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"consumers")){
-            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
-                if(0==strcmp(scew_element_name(sub_sub_element),"consumer")){
-                    XML_Char const* what = NULL;
-                    scew_attribute* attribute = NULL;
-                    attribute = scew_attribute_by_name(sub_sub_element, "name");
-                    if(NULL!=attribute){
-                        what= scew_attribute_value(attribute);
-                    }
-                    if(NULL != what){
-                        Consumer *pc= Consumer::consumerFromElement(sub_sub_element,pe,string(what));
-                        if(NULL != pc){
-                            pe->consumers[string(what)]= pc;
-                            //delete pc;
-                        }
-                    }
-                }
-            }
-        }else if(0==strcmp(scew_element_name(sub_element),"consumerMap")){
-            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
-                if(0==strcmp(scew_element_name(sub_sub_element),"owner")){
-                    XML_Char const* factory = NULL;
-                    scew_attribute* attribute = NULL;
-                    attribute = scew_attribute_by_name(sub_sub_element, "factory");
-                    if(NULL!=attribute){
-                        factory= scew_attribute_value(attribute);
-                    }
-                    XML_Char const* owner = NULL;
-                    owner= scew_element_contents(sub_sub_element);
-                    if(NULL != factory && NULL != owner){
-                        pe->consumerMap[string(factory)]=string(owner);
-                    }
-                }
-            }
-        }
-    }
-    return pe;
-}
 
 Products *productsFromElement(scew_element* element){
     Products *pp= new Products();
@@ -1252,6 +960,15 @@ Products *productsFromElement(scew_element* element){
 
     return pp;
 }
+void Products_addElement(const Products &products, scew_element* root){
+    scew_element* element = NULL;
 
+    for(Products::const_iterator pitr = products.begin(); pitr != products.end(); ++pitr){
+	element = scew_element_add(root, "product");
+	scew_element_add_attr_pair(element, "name", (*pitr).first.c_str());
+	scew_element_set_contents(element, toCString((*pitr).second));
+    }
+}
 
-#endif
+}
+

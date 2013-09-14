@@ -13,6 +13,10 @@ btree base version:  may 9th, 2003, by toucan@textelectric.net
 
 #include "roottracker.hpp"
 
+Node* invalid_ptr = reinterpret_cast<Node*> (-1);
+
+Node* null_ptr = reinterpret_cast<Node*> (0);
+
 int Node::minimum_keys () {
 
     // minus 1 for the empty slot left for splitting the node

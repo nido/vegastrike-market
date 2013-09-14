@@ -294,3 +294,96 @@ void Economy::addElement(scew_element* root) const{
 	}
 }
 
+Economy *Economy::economyFromElement(scew_element* element, Economy *pe){
+    XML_Char const*contents = NULL;
+
+    for(scew_element* sub_element=scew_element_next(element, NULL);NULL != sub_element;sub_element=scew_element_next(element, sub_element)){
+        if(0==strcmp(scew_element_name(sub_element),"currencyName")){
+            contents= scew_element_contents(sub_element);
+            if(NULL != contents){
+                pe->currencyName= string(contents);
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"populaceName")){
+            contents= scew_element_contents(sub_element);
+            if(NULL != contents){
+                pe->populaceName= string(contents);
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"dividendrate")){
+            contents= scew_element_contents(sub_element);
+            if(NULL != contents){
+                pe->dividendrate= doubleFromCString(contents,pe->dividendrate);
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"markets")){
+            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
+                if(0==strcmp(scew_element_name(sub_sub_element),"market")){
+                    XML_Char const* what = NULL;
+                    scew_attribute* attribute = NULL;
+                    attribute = scew_attribute_by_name(sub_sub_element, "name");
+                    if(NULL!=attribute){
+                        what= scew_attribute_value(attribute);
+                    }
+                    if(NULL != what){
+                        Market *pmarket= Market::marketFromElement(sub_sub_element);
+                        if(NULL != pmarket){
+                            pe->markets[string(what)]= pmarket;
+                            //delete pmarket;
+                        }
+                    }
+                }
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"factories")){
+            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
+                if(0==strcmp(scew_element_name(sub_sub_element),"factory")){
+                    XML_Char const* what = NULL;
+                    scew_attribute* attribute = NULL;
+                    attribute = scew_attribute_by_name(sub_sub_element, "name");
+                    if(NULL!=attribute){
+                        what= scew_attribute_value(attribute);
+                    }
+                    if(NULL != what){
+                        Factory * pf= Factory::factoryFromElement(sub_sub_element, pe);
+                        if(NULL != pf){
+                            pe->factories[string(what)]= pf;
+                            //delete pf;
+                        }
+                    }
+                }
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"consumers")){
+            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
+                if(0==strcmp(scew_element_name(sub_sub_element),"consumer")){
+                    XML_Char const* what = NULL;
+                    scew_attribute* attribute = NULL;
+                    attribute = scew_attribute_by_name(sub_sub_element, "name");
+                    if(NULL!=attribute){
+                        what= scew_attribute_value(attribute);
+                    }
+                    if(NULL != what){
+                        Consumer *pc= Consumer::consumerFromElement(sub_sub_element,pe,string(what));
+                        if(NULL != pc){
+                            pe->consumers[string(what)]= pc;
+                            //delete pc;
+                        }
+                    }
+                }
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"consumerMap")){
+            for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
+                if(0==strcmp(scew_element_name(sub_sub_element),"owner")){
+                    XML_Char const* factory = NULL;
+                    scew_attribute* attribute = NULL;
+                    attribute = scew_attribute_by_name(sub_sub_element, "factory");
+                    if(NULL!=attribute){
+                        factory= scew_attribute_value(attribute);
+                    }
+                    XML_Char const* owner = NULL;
+                    owner= scew_element_contents(sub_sub_element);
+                    if(NULL != factory && NULL != owner){
+                        pe->consumerMap[string(factory)]=string(owner);
+                    }
+                }
+            }
+        }
+    }
+    return pe;
+}

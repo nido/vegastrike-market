@@ -49,3 +49,53 @@ void Consumer::tick(){
 
 Consumer::~Consumer(){
 }
+Consumer *Consumer::consumerFromElement(scew_element* element,Economy *economy, string name){
+    Consumer *pc = NULL;
+
+    XML_Char const*contents = NULL;
+
+    Products *pconsumption = NULL;
+    double capital=0.0;
+    double subsidyrate=0.01;
+    //string name= "";
+
+    for(scew_element* sub_element=scew_element_next(element, NULL);NULL != sub_element;sub_element=scew_element_next(element, sub_element)){
+        if(0==strcmp(scew_element_name(sub_element),"consumption")){
+            pconsumption= productsFromElement(sub_element);
+        }else if(0==strcmp(scew_element_name(sub_element),"capital")){
+            contents= scew_element_contents(sub_element);
+            if(NULL != contents){
+                capital= doubleFromCString(contents,capital);
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"subsidyrate")){
+            contents= scew_element_contents(sub_element);
+            if(NULL != contents){
+                subsidyrate= doubleFromCString(contents,subsidyrate);
+            }
+        }else if(0==strcmp(scew_element_name(sub_element),"name")){
+            contents= scew_element_contents(sub_element);
+            if(NULL != contents){
+                name= string(contents);
+            }
+        }
+    }
+    if( NULL != pconsumption ){
+        if( 0!=strcmp(name.c_str(),"") ){
+            pc= new Consumer(capital, economy, *pconsumption, name, subsidyrate);
+        }
+        delete pconsumption;
+    }
+    return pc;
+}
+
+void Consumer::addElement(scew_element* root) const{
+    scew_element* element = NULL;
+
+    element = scew_element_add(root, "capital");
+    scew_element_set_contents(element, toCString(capital));
+    element = scew_element_add(root, "consumption");
+    Products_addElement(consumption,element);
+    element = scew_element_add(root, "subsidyrate");
+    scew_element_set_contents(element, toCString(subsidyrate));
+}
+
