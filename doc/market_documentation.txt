@@ -1,0 +1,75 @@
+Documentation for Market version 0.0.1 by peter.schaefer@gmail.com
+
+Maybe I should explain what I mean by a "market": Not a GUI, it is just a mechanism implementing relatively efficiently how trading for example on a stock market works. You have two graphs/plots of price(x-axis) vs amount(y-axis), one for demand, one for offers and the resulting price is the price where the two graphs meet.
+
+This is implemented by maintaining open orders books for sellers and for buyers. The books never overlap, because all orders that overlap are executed at the moment that the overlapping order is given. You can view such a market in operation at dreamlords or idea futures.
+
+How to set up the market:
+
+    Market market;
+
+How to add sell or buy orders to the market:
+	market.addBuyOrder(price,amount,buyer_ID);//market.addBuyOrder(double,int,string);
+
+	market.addSellOrder(price,amount,seller_ID);//market.addSellOrder(double,int,string);
+
+After adding your orders, check whether some orders where executed:
+	//gets the sell orders
+	vector<Elem*> exSell= getExecutedSellOrders();
+
+	//gets the buy orders
+	vector<Elem*> exBuy = getExecutedBuyOrders();
+
+Do not free the pointers to Elem's - ownership stays with the Market class until you tell the Market class to dispose the Elements with "resetExecutedOrders".
+
+You can also dump the orders for debugging:
+    market.dumpExecutedOrders();
+
+After checking and using the executed order lists, clear the executed order lists.
+    market.resetExecutedOrders();
+
+How to process the current state of the market for example for output as a graph:
+	Elem *buy_order;
+	//gets the buy orders in descending order
+	BTree_Iterator buy_orders= market.getBuyOrders();
+	while( (buy_order = buy_orders.prev())!= NULL){
+		.. do something with *buy_order ..
+	}
+
+	Elem *sell_order;
+	//gets the sell orders ascending order
+	BTree_Iterator sell_orders= market.getSellOrders();
+	while( (sell_order = sell_orders.next())!= NULL){
+		.. do something with *sell_order ..
+	}
+
+Notice that "prev()" is used to list buy orders, while "next()" is used for sell orders. Mixing prev() and next() is untested.
+
+In order to display to the user how much it costs to buy a certain amount of goods, use code like the following:
+
+
+    double accumulated;
+    double market_price;
+
+    int amount = 88;
+
+    market_price= market.max_market_price_when_buying_n(amount,accumulated);
+    cerr << "max market price buying " << amount << " at: " << market_price << " total: " << accumulated << endl;
+
+    market_price= market.min_market_price_when_selling_n(amount,accumulated);
+    cerr << "min market price selling " << amount << " at: " << market_price << " total: " << accumulated << endl;
+
+Finally, the market maintains a last deal price: 
+	double last = last_deal_price();
+
+The price will be 0.0 if no deal has taken place yet.
+
+
+Advantages of the current implementation using btree's:
+	- fast adding of orders that cannot be executed into a sorted and balanced tree.
+Disadvantages:
+	- currently there is no fast or elegant method to delete a range of btree values or to delete all entries with a certain seller/buyer id.
+
+Testing status: I believe all code paths have been tested, but it could need more testing.
+
+--Peter Schaefer, 19.01.2009
