@@ -95,7 +95,5 @@ private:
     void growSector(double production);
 };
 
-	void Products_addElement(const Products &products, scew_element* root);
-    Products *productsFromElement(scew_element* root);
 
 #endif

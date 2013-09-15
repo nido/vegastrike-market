@@ -1,5 +1,6 @@
 #include <assert.h>
 #include "Reserve.hpp"
+#include "Market.hpp"
 
 Reserve::Reserve(){
     this->reserve=0.0;

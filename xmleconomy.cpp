@@ -22,7 +22,7 @@
 #define USE_SCEW 1
 
 #include "xmleconomy.hpp"
-#include <scew.h>
+#include "scew/scew.h"
 
 XMLEconomy::XMLEconomy():Economy(){
 }

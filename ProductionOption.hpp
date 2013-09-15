@@ -26,4 +26,6 @@ public:
     static ProductionOption *productionOptionFromElement(scew_element* root);
 
 };
+	void Products_addElement(const Products &products, scew_element* root);
+    Products *productsFromElement(scew_element* root);
 #endif // H_PRODUCTIONOPTION

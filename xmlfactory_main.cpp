@@ -15,11 +15,11 @@ XML Factory Main current version: 19th of february 2009 by peter.schaefer@gmail.
 
 #include "btree_iterator.cpp"
 
-#include "market.cpp"
+#include "Market.hpp"
 
-#include "factory.cpp"
+#include "Factory.hpp"
 
-#include "xmleconomy.cpp"
+#include "xmleconomy.hpp"
 
 // for the high-resolution timer
 //#define _WIN32

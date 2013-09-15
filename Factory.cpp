@@ -29,8 +29,8 @@
 #include "btree_iterator.hpp"
 
 #include "Market.hpp"
-
 #include "Factory.hpp"
+#include "ProductionOption.hpp"
 
 #include <assert.h>
 
@@ -869,7 +869,7 @@ Factory *Factory::factoryFromElement(scew_element* element,Economy *economy){
         }else if(0==strcmp(scew_element_name(sub_element),"options")){
             for(scew_element* sub_sub_element=scew_element_next(sub_element, NULL);NULL != sub_sub_element;sub_sub_element=scew_element_next(sub_element, sub_sub_element)){
                 if(0==strcmp(scew_element_name(sub_sub_element),"option")){
-                    ProductionOption *ppo= productionOptionFromElement(sub_sub_element);
+                    ProductionOption *ppo= ProductionOption::productionOptionFromElement(sub_sub_element);
                     if(NULL != ppo){
                         pf->addProductionOption(*ppo);
                         delete ppo;
@@ -960,15 +960,3 @@ Products *productsFromElement(scew_element* element){
 
     return pp;
 }
-void Products_addElement(const Products &products, scew_element* root){
-    scew_element* element = NULL;
-
-    for(Products::const_iterator pitr = products.begin(); pitr != products.end(); ++pitr){
-	element = scew_element_add(root, "product");
-	scew_element_add_attr_pair(element, "name", (*pitr).first.c_str());
-	scew_element_set_contents(element, toCString((*pitr).second));
-    }
-}
-
-}
-

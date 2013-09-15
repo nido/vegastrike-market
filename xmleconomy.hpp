@@ -1,7 +1,7 @@
 
-#include "factory.hpp"
+#include "Factory.hpp"
 
-#include <scew.h>
+#include "scew/scew.h"
 
 class XMLEconomy : public Economy{
 public:

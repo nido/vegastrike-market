@@ -69,6 +69,8 @@ at: http://www.mars.dti.ne.jp/~torao/program/structure/btree.html
 
 #include <sstream>
 
+#include <stdio.h>
+
 using namespace std;
 
 
@@ -1262,7 +1264,7 @@ Elem Node::m_failure = Elem();
 
 // for the high-resolution timer
 
-#include <windows.h>
+//#include <windows.h>
 
 
 
@@ -1280,9 +1282,8 @@ int main(int argc, char* argv[])
 
 
 
-    __int64 frequency, start, end, total;
+    int frequency, start, end, total;
 
-    QueryPerformanceFrequency( (LARGE_INTEGER *)&frequency );
 
 
 
@@ -1324,7 +1325,6 @@ int main(int argc, char* argv[])
 
     cout << "finished preparing key strings\n";
 
-    QueryPerformanceCounter ( (LARGE_INTEGER *)&start);
 
     for (int i=0; i<100000; i++) {
 
@@ -1366,7 +1366,6 @@ int main(int argc, char* argv[])
 
 
 
-    QueryPerformanceCounter ( (LARGE_INTEGER *)&end);
 
     total = (end-start)/(frequency/1000);
 

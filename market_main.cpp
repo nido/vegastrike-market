@@ -17,7 +17,7 @@ market.exe
 
 #include "btree_iterator.cpp"
 
-#include "market.cpp"
+#include "Market.cpp"
 
 
 // for the high-resolution timer

@@ -1,5 +1,5 @@
 #include "ProductionOption.hpp"
-
+#include "Market.hpp"
 #include "math.h"
 #include "scew/scew.h"
 
@@ -97,22 +97,13 @@ ProductionOption *productionOptionFromElement(scew_element* root){
 
     return ppo;
 }
+void Products_addElement(const Products &products, scew_element* root){
+    scew_element* element = NULL;
 
-ProductionOption::ProductionOption(Products outputs, Products inputs, double sectorsize, double sectormin, Products costofanother){
-	this->outputs= outputs;
-	this->inputs= inputs;
-	this->sectorsize = sectorsize;
-	this->sectormin= sectormin;
-	this->costofanother = costofanother;
+    for(Products::const_iterator pitr = products.begin(); pitr != products.end(); ++pitr){
+	element = scew_element_add(root, "product");
+	scew_element_add_attr_pair(element, "name", (*pitr).first.c_str());
+	scew_element_set_contents(element, toCString((*pitr).second));
+    }
 }
-
-
-ProductionOption::ProductionOption(Products outputs, Products inputs, double sectorsize, Products costofanother){
-	this->outputs= outputs;
-	this->inputs= inputs;
-	this->sectorsize = sectorsize;
-	this->sectormin= sqrt(sectorsize);
-	this->costofanother = costofanother;
-}
-
 
