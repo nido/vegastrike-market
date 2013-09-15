@@ -11,9 +11,9 @@ XML Factory Main current version: 19th of february 2009 by peter.schaefer@gmail.
 
 #define USE_SCEW 1
 
-#include "node.cpp"
+#include "node.hpp"
 
-#include "btree_iterator.cpp"
+#include "btree_iterator.hpp"
 
 #include "Market.hpp"
 

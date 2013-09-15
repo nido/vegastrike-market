@@ -13,11 +13,11 @@ Run with:
 market.exe
 */
 
-#include "node.cpp"
+#include "node.hpp"
 
-#include "btree_iterator.cpp"
+#include "btree_iterator.hpp"
 
-#include "Market.cpp"
+#include "Market.hpp"
 
 
 // for the high-resolution timer
