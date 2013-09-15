@@ -418,10 +418,6 @@ Market::~Market() {
 	resetExecutedOrders();
 }
 
-#ifdef USE_SCEW
-
-#pragma warning(disable:4996)
-
 //#include <sstream>
 #include <cstdio>
 const char *toCString(double d)
@@ -679,4 +675,3 @@ static Elem* elemFrom(scew_element * sub_element){
         return NULL;
     }
 }
-#endif

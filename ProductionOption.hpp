@@ -20,12 +20,13 @@ public:
 	Products outputs;
 	Products inputs;
 	double sectorsize;
-    double sectormin;
+	double sectormin;
 	Products costofanother;
 	void addElement(scew_element* root) const;
-    static ProductionOption *productionOptionFromElement(scew_element* root);
-
+	static ProductionOption *productionOptionFromElement(_scew_element* root);
 };
-	void Products_addElement(const Products &products, scew_element* root);
-    Products *productsFromElement(scew_element* root);
+
+void Products_addElement(const Products &products, scew_element* root);
+Products *productsFromElement(scew_element* root);
+
 #endif // H_PRODUCTIONOPTION

@@ -19,7 +19,7 @@ factory.exe
 #include "btree_iterator.hpp"
 
 #include "Economy.hpp"
-
+#include "Factory.hpp"
 
 
 

@@ -1,3 +1,5 @@
+#ifndef H_RESERVE
+#define H_RESERVE
 #include <string>
 #include "scew/scew.h"
 
@@ -15,3 +17,4 @@ private:
     double reserve;
     double reserveValue;
 };
+#endif //H_RESERVE
