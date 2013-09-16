@@ -390,12 +390,14 @@ int main(int argc, char* argv[])
 
     //pre-heat economy
 	for(i=0;3*i<turns;++i){
+		cout<<"pre-turn: "<<i<<endl;
 		economy.tick();
 	}
 
     economy.reset_statistics();
 
 	for(i=0;i<turns;++i){
+		cout<<"turn: "<<i<<endl;
 		economy.tick();
 	}
 	economy.dump();
