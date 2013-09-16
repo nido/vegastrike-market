@@ -18,6 +18,11 @@ class Factory;
 #include "Economy.hpp"
 
 
+/**An economical sector defined by what it can output given its input.
+ *
+ * Not a single factory. Rather every factory of that type put together,
+ * all following the same strategy as all other factories created.
+ */
 class Factory {
 
 friend class Economy;
