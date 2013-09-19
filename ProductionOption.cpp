@@ -1,136 +1,74 @@
-#include "math.h"
+/*
+ * Copyright(c) 2009: peter.schaefer@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ * ProductionOption for producing goods, v 0.1.3
+ * @author peter.schaefer@gmail.com
+ */
+#include <limits>
 
-#include "scew/scew.h"
+#include <string>
 
-#include "ProductionOption.hpp"
+#include <vector>
+
+#include "images.h"
+
+#include "roottracker.hpp"
+
+#include "btree_iterator.hpp"
+
 #include "Market.hpp"
+#include "ProductionOption.hpp"
 
-ProductionOption::ProductionOption(Products outputs, Products inputs, double sectorsize, double sectormin, Products costofanother){
-	this->outputs= outputs;
-	this->inputs= inputs;
-	this->sectorsize = sectorsize;
-	this->sectormin= sectormin;
-	this->costofanother = costofanother;
+#include <assert.h>
+
+#include <math.h>
+
+
+/** TODO: Make sure it has its own stores of Cargo to draw from */
+ProductionOption::ProductionOption(Cargo* consumes, uint consumeCount, Cargo* produces, uint produceCount, Cargo* inputs, Cargo* outputs){
+	this->inputs = inputs;
+	this->outputs = outputs;
+	this->produceCount = produceCount;
+	this->consumeCount = consumeCount;
+	this->consumes = consumes;
+	this->produces = produces;
+
 }
 
-
-ProductionOption::ProductionOption(Products outputs, Products inputs, double sectorsize, Products costofanother){
-	this->outputs= outputs;
-	this->inputs= inputs;
-	this->sectorsize = sectorsize;
-	this->sectormin= sqrt(sectorsize);
-	this->costofanother = costofanother;
+ProductionOption::~ProductionOption(){
 }
 
-void ProductionOption::addElement(scew_element* root) const{
-    scew_element* element = NULL;
-
-    element = scew_element_add(root, "outputs");
-    Products_addElement(outputs,element);
-
-    element = scew_element_add(root, "inputs");
-    Products_addElement(inputs,element);
-
-    element = scew_element_add(root, "sectorsize");
-    scew_element_set_contents(element, toCString(sectorsize));
-
-    element = scew_element_add(root, "sectormin");
-    scew_element_set_contents(element, toCString(sectormin));
-
-    element = scew_element_add(root, "costofanother");
-    Products_addElement(costofanother,element);
+/** Determines whether the factory is able to produce (at all). */
+bool ProductionOption::CanProduce(void){
+	for(int i = 0; i < consumeCount; i++){
+		if (this->consumes[i].quantity > this->inputs[i].quantity) {
+			return false;
+		}
+	}
+	return true;
 }
 
-ProductionOption *ProductionOption::productionOptionFromElement(scew_element* root){
-    ProductionOption *ppo = NULL;
-    scew_element *element = NULL;
-    XML_Char const*contents = NULL;
-
-    double sectorsize = 0.0;
-    double sectormin = 0.0;
-    Products *pinputs, *poutputs, *pcostofanother;
-
-    element = scew_element_by_name(root, "sectorsize");
-    if(NULL !=element){
-        contents= scew_element_contents(element);
-        if(NULL != contents){
-            sectorsize= doubleFromCString(contents,sectorsize);
-        }
-    }
-
-    element = scew_element_by_name(root, "sectormin");
-    if(NULL !=element){
-        contents= scew_element_contents(element);
-        if(NULL != contents){
-            sectormin= doubleFromCString(contents,sectormin);
-        }
-    }
-
-    element = scew_element_by_name(root, "inputs");
-    if(NULL !=element){
-        pinputs= productsFromElement(element);
-    }
-
-    element = scew_element_by_name(root, "outputs");
-    if(NULL !=element){
-        poutputs= productsFromElement(element);
-    }
-
-    element = scew_element_by_name(root, "costofanother");
-    if(NULL !=element){
-        pcostofanother= productsFromElement(element);
-    }
-
-    if( NULL!= poutputs && NULL != pinputs && 0.0<=sectorsize && NULL!= pcostofanother){
-        ppo= new ProductionOption(*poutputs,*pinputs,sectorsize,sectormin,*pcostofanother);
-    }
-
-    //clean up
-    if(NULL!= poutputs){
-        delete poutputs;
-    }
-
-    if(NULL!= pinputs){
-        delete pinputs;
-    }
-
-    if(NULL!= pcostofanother){
-        delete pcostofanother;
-    }
-
-    return ppo;
-}
-void Products_addElement(const Products &products, scew_element* root){
-    scew_element* element = NULL;
-
-    for(Products::const_iterator pitr = products.begin(); pitr != products.end(); ++pitr){
-	element = scew_element_add(root, "product");
-	scew_element_add_attr_pair(element, "name", (*pitr).first.c_str());
-	scew_element_set_contents(element, toCString((*pitr).second));
-    }
-}
-
-
-Products *productsFromElement(scew_element* element){
-    Products *pp= new Products();
-    XML_Char const*contents = NULL;
-
-    for(scew_element* sub_element=scew_element_next(element, NULL);NULL != sub_element;sub_element=scew_element_next(element, sub_element)){
-        if(0==strcmp(scew_element_name(sub_element),"product")){
-            string name;
-            double amount=0.0;
-            for(scew_attribute* attribute=scew_attribute_next(sub_element, NULL);NULL != attribute;attribute=scew_attribute_next(sub_element, attribute)){
-                if(0==strcmp(scew_attribute_name(attribute),"name")){
-                    name= string(scew_attribute_value(attribute));
-                }
-            }
-            contents= scew_element_contents(sub_element);
-            if(NULL != contents){
-                amount= doubleFromCString(contents,amount);
-            }
-            pp->push_back(Stack(name,amount));
-        }
-    }
-
-    return pp;
+void ProductionOption::Produce(){
+	if (this->CanProduce()){
+		for(uint i = 0; i < consumeCount; i++){
+			this->inputs[i].quantity -= this->consumes[i].quantity;
+		}
+		for(uint i = 0; i < this->produceCount; i++){
+			this->outputs[i].quantity += this->produces[i].quantity;
+		}
+	}
 }

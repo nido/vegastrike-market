@@ -1,32 +1,50 @@
-#ifndef H_PRODUCTIONOPTION
-#define H_PRODUCTIONOPTION
-#include <vector>
+/*
+ * ProductionOption for producing goods, v 0.0.4
+ * @author peter.schaefer@gmail.com
+ */
+#ifndef __FACTORY_HPP__
+#define __FACTORY_HPP__
+
 #include <string>
+#include <vector>
+#include <map>
+#include <stdbool.h>
 
-#include "scew/scew.h"
+class ProductionOption;
+
+//#include "Reserve.hpp"
+//#include "Economy.hpp"
 
 
-//<item name,amount>
-typedef std::pair<std::string,double> Stack;
-
-//list of Stacks
-typedef std::vector<Stack> Products;
-
+/**An economical sector defined by what it can output given its input.
+ *
+ * Not a single factory. Rather every factory of that type put together,
+ * all following the same strategy as all other factories created.
+ */
 class ProductionOption {
 
 public:
-	ProductionOption(Products outputs,Products inputs, double sectorsize, double sectormin, Products costofanother);
-	ProductionOption(Products outputs,Products inputs, double sectorsize, Products costofanother);
-	Products outputs;
-	Products inputs;
-	double sectorsize;
-	double sectormin;
-	Products costofanother;
-	void addElement(scew_element* root) const;
-	static ProductionOption *productionOptionFromElement(_scew_element* root);
+	ProductionOption(Cargo* consumes, uint consumeCount, Cargo* produces, uint produceCount, Cargo* inputs, Cargo* outputs);
+	~ProductionOption();
+	/** (if possible) Do producuce */
+	void Produce();
+
+private:
+	ProductionOption();
+	/** determine whether production is possible */
+	bool CanProduce(void);
+	/** Points to a Cargo source where Cargo can be gotten. */
+	Cargo* inputs;
+	/** Points to where the result cargo needs to be saved. */
+	Cargo* outputs;
+	/** How much of which cargo is consumed in production. */
+	Cargo* consumes;
+	/** How much of each cargo is produced in production. */
+	Cargo* produces;
+	/** How much different input Cargo's there are. */
+	uint consumeCount;
+	/** How much Cargo outputs are produced. */
+	uint produceCount;
 };
 
-void Products_addElement(const Products &products, scew_element* root);
-Products *productsFromElement(scew_element* root);
-
-#endif // H_PRODUCTIONOPTION
+#endif
