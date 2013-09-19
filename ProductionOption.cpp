@@ -26,24 +26,12 @@
 
 #include "images.h"
 
-#include "roottracker.hpp"
-
-#include "btree_iterator.hpp"
-
-#include "Market.hpp"
 #include "ProductionOption.hpp"
 
 #include <assert.h>
 
-#include <math.h>
-
-
 /** TODO: Make sure it has its own stores of Cargo to draw from */
-ProductionOption::ProductionOption(Cargo* consumes, uint consumeCount, Cargo* produces, uint produceCount, Cargo* inputs, Cargo* outputs){
-	this->inputs = inputs;
-	this->outputs = outputs;
-	this->produceCount = produceCount;
-	this->consumeCount = consumeCount;
+ProductionOption::ProductionOption(std::vector<Cargo> consumes, std::vector<Cargo> produces){
 	this->consumes = consumes;
 	this->produces = produces;
 
@@ -52,23 +40,55 @@ ProductionOption::ProductionOption(Cargo* consumes, uint consumeCount, Cargo* pr
 ProductionOption::~ProductionOption(){
 }
 
-/** Determines whether the factory is able to produce (at all). */
-bool ProductionOption::CanProduce(void){
-	for(int i = 0; i < consumeCount; i++){
-		if (this->consumes[i].quantity > this->inputs[i].quantity) {
-			return false;
+/** Determines whether the factory is able to produce (at all).
+ *
+ * Production can commence when the cargoStore provided has at least
+ * the Cargo defined in the 'consumes' vector.
+ */
+bool ProductionOption::CanProduce(std::vector<Cargo> cargoStore){
+	for(size_t i = 0; i < this->consumes.size(); i++){
+		for(size_t j = 0; j < cargoStore.size(); j++){
+			Cargo* temp = findCargo(consumes[i].content, cargoStore);
+			if (temp == NULL){
+				// cargo not found, cannot produce.
+				return false;
+			}
+			if(temp->quantity >= consumes[i].quantity) {
+				// Not enough of a certain input
+				// is available, cannot produce.
+				return false;
+			}
 		}
 	}
 	return true;
 }
 
-void ProductionOption::Produce(){
-	if (this->CanProduce()){
-		for(uint i = 0; i < consumeCount; i++){
-			this->inputs[i].quantity -= this->consumes[i].quantity;
-		}
-		for(uint i = 0; i < this->produceCount; i++){
-			this->outputs[i].quantity += this->produces[i].quantity;
+void ProductionOption::Produce(std::vector<Cargo> cargoStore){
+	Cargo* temp;
+	if (this->CanProduce(cargoStore) == false){
+		return;
+	}
+	for(size_t i = 0; i < this->consumes.size(); i++){
+		temp = findCargo(consumes[i].content, cargoStore);
+		assert (temp != NULL);
+		temp->quantity -= consumes[i].quantity;
+	}
+	for(size_t i = 0; i < this->produces.size(); i++){
+		temp = findCargo(produces[i].content, cargoStore);
+		assert (temp != NULL);
+		temp->quantity -= produces[i].quantity;
+	}
+}
+
+/** Finds a specific cargo type in a random cargo vector.
+ *
+ * returns NULL when the cargo is not present in the list.
+ */
+Cargo* findCargo(std::string name, std::vector<Cargo> cargoStore){
+	for(size_t i = 0; i < cargoStore.size(); i++){
+		if (name.compare(cargoStore[i].content) == 0){
+			return &cargoStore[i];
 		}
 	}
+	return NULL;
 }
