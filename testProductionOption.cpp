@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 #include <assert.h>
 
 #include "images.h"
@@ -17,12 +18,13 @@ int main(void){
 
 	ProductionOption* o = new ProductionOption(stuff1, stuff2);
 
-	Cargo* in = findCargo("input", stuff3);
-	Cargo* out = findCargo("output", stuff3);
 
 	for(int i=1; i <= TURNS; i++) {
 		o->Produce(stuff3);
-		assert(in->quantity == TURNS - i);
+	Cargo* in = findCargo("input", stuff3);
+	Cargo* out = findCargo("output", stuff3);
+	std::cout<<in->quantity<<" versus"<<out->quantity<<std::endl;
+		assert(in->quantity == (TURNS - i));
 		assert(out->quantity == i);
 	}
 
