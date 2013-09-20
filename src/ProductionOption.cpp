@@ -45,7 +45,7 @@ ProductionOption::~ProductionOption(){
 bool ProductionOption::CanProduce(std::vector<Cargo> *cargoStore){
 	for(size_t i = 0; i < this->consumes.size(); i++){
 		for(size_t j = 0; j < cargoStore->size(); j++){
-			Cargo* temp = findCargo(consumes[i].content, cargoStore);
+			Cargo* temp = findCargo(consumes[i].type, cargoStore);
 
 			if (temp == NULL){
 				// cargo not found, cannot produce.
@@ -67,18 +67,17 @@ void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
 		return;
 	}
 	for(size_t i = 0; i < this->consumes.size(); i++){
-		temp = findCargo(consumes[i].content, cargoStore);
+		temp = findCargo(consumes[i].type, cargoStore);
 		assert (temp != NULL);
 		temp->quantity -= consumes[i].quantity;
 	}
 	for(size_t i = 0; i < this->produces.size(); i++){
 		// TODO: add output cargo to cargolist if nonexistent
-		temp = findCargo(produces[i].content, cargoStore);
+		temp = findCargo(produces[i].type, cargoStore);
 		if (temp == NULL){
-//			temp = new Cargo(produces[i].content,"",0,0,0,0,0,0);
-			cargoStore->push_back(Cargo(produces[i].content,"",0,0,0,0,0,0));
+			cargoStore->push_back(Cargo(produces[i].type, 0));
 //			delete temp; // it is stored in th
-			temp = findCargo(produces[i].content, cargoStore);
+			temp = findCargo(produces[i].type, cargoStore);
 		}
 		assert (temp != NULL);
 		temp->quantity += produces[i].quantity;
@@ -90,9 +89,9 @@ void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
  *
  * returns NULL when the cargo is not present in the list.
  */
-Cargo* findCargo(std::string name, std::vector<Cargo> *cargoStore){
+Cargo* findCargo(const CargoType* type, std::vector<Cargo> *cargoStore){
 	for(size_t i = 0; i < cargoStore->size(); i++){
-		if (name.compare(cargoStore[0][i].content) == 0){
+		if (type == cargoStore[0][i].type){
 			return &cargoStore[0][i];
 		}
 	}

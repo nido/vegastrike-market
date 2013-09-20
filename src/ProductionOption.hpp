@@ -15,7 +15,7 @@
 //      people to check out all of vegastrike for this, or an altered
 //      version for here for the moment to make it work with sortof
 //      vegacargo
-#include "../images.h"
+#include "Cargo.hpp"
 
 class ProductionOption;
 
@@ -40,5 +40,5 @@ private:
 	std::vector<Cargo> produces;
 };
 
-Cargo* findCargo(std::string name, std::vector<Cargo> *cargoStore);
+Cargo* findCargo(const CargoType* type, std::vector<Cargo> *cargoStore);
 #endif // H_PRODUCTIONOPTION
