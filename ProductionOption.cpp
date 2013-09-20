@@ -75,8 +75,9 @@ void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
 		// TODO: add output cargo to cargolist if nonexistent
 		temp = findCargo(produces[i].content, cargoStore);
 		if (temp == NULL){
-			temp = new Cargo(produces[i].content,"",0,0,0,0,0,0);
-			cargoStore->push_back(*temp);
+//			temp = new Cargo(produces[i].content,"",0,0,0,0,0,0);
+			cargoStore->push_back(Cargo(produces[i].content,"",0,0,0,0,0,0));
+//			delete temp; // it is stored in th
 			temp = findCargo(produces[i].content, cargoStore);
 		}
 		assert (temp != NULL);
