@@ -24,8 +24,6 @@
 
 #include <vector>
 
-#include "images.h"
-
 #include "ProductionOption.hpp"
 
 #include <assert.h>
@@ -45,9 +43,9 @@ ProductionOption::~ProductionOption(){
  * Production can commence when the cargoStore provided has at least
  * the Cargo defined in the 'consumes' vector.
  */
-bool ProductionOption::CanProduce(std::vector<Cargo> cargoStore){
+bool ProductionOption::CanProduce(std::vector<Cargo> *cargoStore){
 	for(size_t i = 0; i < this->consumes.size(); i++){
-		for(size_t j = 0; j < cargoStore.size(); j++){
+		for(size_t j = 0; j < cargoStore->size(); j++){
 			Cargo* temp = findCargo(consumes[i].content, cargoStore);
 			if (temp == NULL){
 				// cargo not found, cannot produce.
@@ -63,7 +61,7 @@ bool ProductionOption::CanProduce(std::vector<Cargo> cargoStore){
 	return true;
 }
 
-void ProductionOption::Produce(std::vector<Cargo> cargoStore){
+void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
 	Cargo* temp;
 	if (this->CanProduce(cargoStore) == false){
 		return;
@@ -84,10 +82,10 @@ void ProductionOption::Produce(std::vector<Cargo> cargoStore){
  *
  * returns NULL when the cargo is not present in the list.
  */
-Cargo* findCargo(std::string name, std::vector<Cargo> cargoStore){
-	for(size_t i = 0; i < cargoStore.size(); i++){
-		if (name.compare(cargoStore[i].content) == 0){
-			return &cargoStore[i];
+Cargo* findCargo(std::string name, std::vector<Cargo> *cargoStore){
+	for(size_t i = 0; i < cargoStore->size(); i++){
+		if (name.compare(cargoStore[0][i].content) == 0){
+			return &cargoStore[0][i];
 		}
 	}
 	return NULL;

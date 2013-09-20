@@ -8,6 +8,8 @@
 #include <vector>
 #include <stdbool.h>
 
+#include "images.h"
+
 class ProductionOption;
 
 /** One of the possibilities for a factory to produce.
@@ -21,17 +23,15 @@ public:
 	ProductionOption(std::vector<Cargo> consumes, std::vector<Cargo> produces);
 	~ProductionOption();
 	/** (if possible) Do producuce */
-	void Produce(std::vector<Cargo> cargoStore);
+	void Produce(std::vector<Cargo> *cargoStore);
 	/** determine whether production is possible */
-	bool CanProduce(std::vector<Cargo> cargoStore);
-
+	bool CanProduce(std::vector<Cargo> *cargoStore);
 private:
-	ProductionOption();
 	/** Cargo consumed by production. */
 	std::vector<Cargo> consumes;
 	/** Cargo produced by production. */
 	std::vector<Cargo> produces;
 };
 
-Cargo* findCargo(std::string name, std::vector<Cargo> cargoStore);
+Cargo* findCargo(std::string name, std::vector<Cargo> *cargoStore);
 #endif
