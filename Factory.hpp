@@ -22,9 +22,12 @@ public:
 	~Factory();
 
 	/** (if possible) Do producuce */
-	void Produce(Cargo cargoStore);
+	void Produce(std::vector<Cargo>* cargoStore);
+	bool CanProduce(std::vector<Cargo>* cargoStore);
 	/** describes extra requiested input cargo */
 	std::vector<Cargo> ProductionOrder();
+private:
+	std::vector<ProductionOption> options;
 };
 
 #endif //H_FACTORY
