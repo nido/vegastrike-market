@@ -7,8 +7,6 @@
 
 #include <vector>
 
-#include "images.h"
-
 #include "Factory.hpp"
 
 #include <assert.h>

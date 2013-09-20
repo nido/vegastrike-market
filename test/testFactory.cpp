@@ -1,11 +1,18 @@
 #include <vector>
 #include <assert.h>
 
-#include "images.h"
+//TODO: make this vegastrike's version. This file contains the Cargo
+//      class; and use of vegacargo in the economy would make it a lot
+//      easier to integrate the two at a later date. Still, that leaves
+//      us with requiring a vegastrike_dir variable of sorts and getting
+//      people to check out all of vegastrike for this, or an altered
+//      version for here for the moment to make it work with sortof
+//      vegacargo
+#include "../images.h"
 #include "Factory.hpp"
 #include "ProductionOption.hpp"
 
-#define TURNS 200000
+#define TURNS 300000
 
 int main(void){
 	std::vector<Cargo> stuff1 = std::vector<Cargo>();
