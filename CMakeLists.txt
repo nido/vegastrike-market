@@ -6,3 +6,4 @@ cmake_minimum_required(VERSION 2.8)
 set(CMAKE_CXX_FLAGS "-ggdb -Og -Wall -Wextra")
 
 add_executable(testProductionOption testProductionOption.cpp ProductionOption.cpp)
+add_executable(testFactory testFactory.cpp Factory.cpp ProductionOption.cpp)
