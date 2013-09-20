@@ -19,5 +19,11 @@ int main(void){
 	for(int i=0; i<TURNS; i++) {
 		o->Produce(stuff3);
 	}
+
+	delete stuff1;
+	delete stuff2;
+	delete stuff3;
+	delete o;
+
 	return 0;
 }
