@@ -23,7 +23,6 @@
 #include <string>
 
 #include <vector>
-
 #include "ProductionOption.hpp"
 
 #include <assert.h>
@@ -47,11 +46,12 @@ bool ProductionOption::CanProduce(std::vector<Cargo> *cargoStore){
 	for(size_t i = 0; i < this->consumes.size(); i++){
 		for(size_t j = 0; j < cargoStore->size(); j++){
 			Cargo* temp = findCargo(consumes[i].content, cargoStore);
+
 			if (temp == NULL){
 				// cargo not found, cannot produce.
 				return false;
 			}
-			if(temp->quantity >= consumes[i].quantity) {
+			if(temp->quantity < consumes[i].quantity) {
 				// Not enough of a certain input
 				// is available, cannot produce.
 				return false;
@@ -72,9 +72,16 @@ void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
 		temp->quantity -= consumes[i].quantity;
 	}
 	for(size_t i = 0; i < this->produces.size(); i++){
+		// TODO: add output cargo to cargolist if nonexistent
 		temp = findCargo(produces[i].content, cargoStore);
+		if (temp == NULL){
+			temp = new Cargo(produces[i].content,"",0,0,0,0,0,0);
+			cargoStore->push_back(*temp);
+			temp = findCargo(produces[i].content, cargoStore);
+		}
 		assert (temp != NULL);
-		temp->quantity -= produces[i].quantity;
+		temp->quantity += produces[i].quantity;
+		
 	}
 }
 
