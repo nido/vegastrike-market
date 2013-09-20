@@ -1,3 +1,5 @@
+#ifndef H_XMLECONOMY
+#define H_XMLECONOMY
 
 #include "Factory.hpp"
 
@@ -11,3 +13,5 @@ public:
     static XMLEconomy *xmleconomyFromElement(scew_element* root);
 	~XMLEconomy();
 };
+
+#endif //H_XMLECONOMY

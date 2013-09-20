@@ -1,9 +1,9 @@
+#ifndef H_PRODUCTIONOPTION
+#define H_PRODUCTIONOPTION
 /*
  * ProductionOption for producing goods, v 0.0.4
  * @author peter.schaefer@gmail.com
  */
-#ifndef __FACTORY_HPP__
-#define __FACTORY_HPP__
 
 #include <vector>
 #include <stdbool.h>
@@ -34,4 +34,4 @@ private:
 };
 
 Cargo* findCargo(std::string name, std::vector<Cargo> *cargoStore);
-#endif
+#endif // H_PRODUCTIONOPTION

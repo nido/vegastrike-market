@@ -27,4 +27,4 @@ private:
     double subsidyrate;
 };
 
-#endif
+#endif //H_CONSUMER

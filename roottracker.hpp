@@ -1,5 +1,5 @@
-#ifndef __ROOTTRACKER_HPP__
-#define __ROOTTRACKER_HPP__
+#ifndef H_ROOTTRACKER
+#define H_ROOTTRACKER
 
 #include "node.hpp"
 
@@ -61,4 +61,4 @@ public:
 
 }; //_______________________________________________________________________
 
-#endif
+#endif //H_ROOTTRACKER

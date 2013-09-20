@@ -1,9 +1,9 @@
+#ifndef H_MARKET
+#define H_MARKET
 /*
  * Market for trading goods, version 0.0.1
  * @author peter.schaefer@gmail.com
  */
-#ifndef __MARKET_HPP__
-#define __MARKET_HPP__
 
 #include <string>
 
@@ -127,4 +127,4 @@ int intFromCString(const char* cstr, int defo=0);
 
 static Elem* elemFrom(scew_element *sub_element);
 
-#endif
+#endif //H_MARKET

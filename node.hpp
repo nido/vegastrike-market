@@ -1,3 +1,5 @@
+#ifndef H_NODE
+#define H_NODE
 /*
 
 The base version of the btree by Toucan may be freely copied.
@@ -5,9 +7,6 @@ The base version of the btree by Toucan may be freely copied.
 btree base version:  may 9th, 2003, by toucan@textelectric.net
 
 */
-
-#ifndef __NODE_HPP__
-#define __NODE_HPP__
 
 #include "element.hpp"
 
@@ -136,4 +135,4 @@ public:
 
 }; //______________________________________________________________________
 
-#endif
+#endif //H_NODE

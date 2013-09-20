@@ -1,9 +1,5 @@
- /*
- * Iterator for the toucan's btree
- * @author peter.schaefer@gmail.com
- */
-#ifndef __BTREE_ITERATOR_HPP__
-#define __BTREE_ITERATOR_HPP__
+#ifndef H_BTREE_ITERATOR
+#define H_BTREE_ITERATOR
 
 
 #include "element.hpp"
@@ -23,4 +19,4 @@ private:
 	Node *mp_here;
 }; //_______________________________________________________________________
 
-#endif
+#endif //H_BTREE_ITERATOR

@@ -1,3 +1,5 @@
+#ifndef H_ELEMENT
+#define H_ELEMENT
 /*
 
 The base version of the btree by Toucan may be freely copied.
@@ -51,8 +53,6 @@ at: http://www.mars.dti.ne.jp/~torao/program/structure/btree.html
 
 */
 
-#ifndef __ELEMENT_HPP__
-#define __ELEMENT_HPP__
 
 
 //#include "stdafx.h"
@@ -141,4 +141,4 @@ template<class key, class secondkey, class payload> void Element<key, secondkey,
 }; //_______________________________________________________________________
 
 
-#endif
+#endif //H_ELEMENT
