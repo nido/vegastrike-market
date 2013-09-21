@@ -11,7 +11,7 @@ enable_testing()
 
 
 
-set(CMAKE_CXX_FLAGS "-ggdb -Og -Wall -Wextra -Weffc++ -I$(CMAKE_SOURCE_DIR)/src")
+set(CMAKE_CXX_FLAGS "-ggdb -Og -Wall -Wextra -I$(CMAKE_SOURCE_DIR)/src")
 
 add_executable(testProductionOption test/testProductionOption.cpp src/ProductionOption.cpp)
 add_test(testProductionOption testProductionOption)
