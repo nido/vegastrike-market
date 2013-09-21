@@ -40,5 +40,5 @@ private:
 	std::vector<Cargo> produces;
 };
 
-Cargo* findCargo(const CargoType* type, std::vector<Cargo> *cargoStore);
+Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore);
 #endif // H_PRODUCTIONOPTION

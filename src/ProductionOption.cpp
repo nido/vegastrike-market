@@ -85,15 +85,12 @@ void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
 	}
 }
 
-/** Finds a specific cargo type in a random cargo vector.
- *
- * returns NULL when the cargo is not present in the list.
- */
-Cargo* findCargo(const CargoType* type, std::vector<Cargo> *cargoStore){
-	for(size_t i = 0; i < cargoStore->size(); i++){
-		if (type == cargoStore[0][i].type){
-			return &cargoStore[0][i];
-		}
-	}
-	return NULL;
+Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore){
+       for(size_t i = 0; i < cargoStore->size(); i++){
+               if (type == cargoStore[0][i].type){
+                       return &cargoStore[0][i];
+               }
+       }
+       return NULL;
 }
+

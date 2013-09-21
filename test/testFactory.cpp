@@ -14,8 +14,8 @@
 #define TURNS 300000
 
 int main(void){
-	const CargoType *input = new CargoType( "input", "test/test", 0.0, 0.0);
-	const CargoType *output = new CargoType( "output", "test/test", 0.0, 0.0);
+	CargoType *input = new CargoType( "input", "test/test", 0.0, 0.0);
+	CargoType *output = new CargoType( "output", "test/test", 0.0, 0.0);
 
 	std::vector<Cargo> stuff1 = std::vector<Cargo>();
 	std::vector<Cargo> stuff2 = std::vector<Cargo>();

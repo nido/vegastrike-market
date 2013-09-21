@@ -1,23 +1,32 @@
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
-PROJECT(VegastrikeEconomy)
+project(VegastrikeEconomy)
 
 enable_testing()
+
+include(FindCppUnit)
+find_package(CppUnit)
 
 #include(FindEXPAT)
 #find_package(EXPAT REQUIRED)
 #include_directories(${EXPAT_INCLUDE_DIRS})
 
+set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Og -Wall -Wextra")
+set(CMAKE_BUILD_TYPE "Debug")
 
-
-
-set(CMAKE_CXX_FLAGS "-ggdb -Og -Wall -Wextra -I$(CMAKE_SOURCE_DIR)/src")
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_executable(testProductionOption test/testProductionOption.cpp src/ProductionOption.cpp)
 add_test(testProductionOption testProductionOption)
 
 add_executable(testFactory test/testFactory.cpp src/Factory.cpp src/ProductionOption.cpp)
 add_test(testFactory testFactory)
+
+
+add_executable(cppunittest test/cppunittest.cpp test/testCargoHold.cpp src/CargoHold.cpp src/Cargo.cpp)
+target_link_libraries(cppunittest ${CPPUNIT_LIBRARIES})
+add_test(cppunittest cppunittest)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
