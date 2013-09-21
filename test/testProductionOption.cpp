@@ -37,6 +37,7 @@ int main(void){
 
 	delete stuff3;
 	delete o;
-
+	delete input;
+	delete output;
 	return 0;
 }

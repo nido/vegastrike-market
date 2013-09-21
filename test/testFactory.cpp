@@ -37,7 +37,7 @@ int main(void){
 
 	Factory *f = new Factory(options);
 
-	for(int i=1; i <= TURNS; i++) {
+	for(unsigned int i=1; i <= TURNS; i++) {
 		f->Produce(stuff3);
 		Cargo* in = findCargo(input, stuff3);
 		Cargo* out = findCargo(output, stuff3);
