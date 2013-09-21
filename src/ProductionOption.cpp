@@ -19,19 +19,20 @@
  * @author peter.schaefer@gmail.com
  */
 #include <limits>
-
+#include <algorithm>
 #include <string>
-
 #include <vector>
+
 #include "ProductionOption.hpp"
 
 #include <assert.h>
 
-/** TODO: Make sure it has its own stores of Cargo to draw from */
+/** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
 ProductionOption::ProductionOption(std::vector<Cargo> consumes, std::vector<Cargo> produces){
 	this->consumes = consumes;
 	this->produces = produces;
-
+	std::sort(this->consumes.begin(), this->consumes.end());
+	std::sort(this->produces.begin(), this->produces.end());
 }
 
 ProductionOption::~ProductionOption(){
@@ -76,7 +77,6 @@ void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
 		temp = findCargo(produces[i].type, cargoStore);
 		if (temp == NULL){
 			cargoStore->push_back(Cargo(produces[i].type, 0));
-//			delete temp; // it is stored in th
 			temp = findCargo(produces[i].type, cargoStore);
 		}
 		assert (temp != NULL);

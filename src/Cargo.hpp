@@ -6,6 +6,7 @@
 
 class Cargo;
 class CargoType;
+class CargoPile;
 
 /** A pile of a certain type of cargo.
  * For example, if the player has 4 middles, 2 Iron Ores, and 300
@@ -21,6 +22,20 @@ public:
 	/** Create a new pile of Cargo */
 	Cargo(const CargoType* type, unsigned int quantity) :
 		type(type), quantity(quantity){};
+
+	/** Cargo is sorted in relation to its CargoType and quantity
+	 * Whilst these two Cargo's of the same type should be combined
+	 * into a single cargo and not sorted as such, assertions which
+	 * pile of cargo is bigger may be useful in other ways.
+	 */
+	bool operator<( const Cargo &that ) const
+	{
+		if(this->type == that.type){
+			return this->quantity < that.quantity;
+		} else {
+			return this->type < that.type;
+		}		
+	}
 };
 
 /** Types of Cargo available. 
@@ -53,7 +68,7 @@ public:
 	/** Create a new CargoType
  	 */
 	CargoType( std::string name, std::string catagory, float mass, float volume) :
-        	name(name), catagory(catagory), mass(mass), volume(volume){};
+        	name(name), catagory(catagory), mass(mass), volume(volume){}
 
 	/** Compare cargotypes.
 	 * Returns true when both the name and catagory of the cargo are
@@ -75,6 +90,25 @@ public:
 			(this->name < that.name) :
 			(this->catagory < that.catagory));
     }
+};
+
+/** A bunch of different cargos together */
+class CargoHold
+{
+public:
+	/** The actual cargo(s) itself. */
+	std::vector<Cargo> cargo;
+
+	/** Generate an actual cargo */
+	CargoHold(std::vector<Cargo> cargo) :
+		cargo(cargo){}
+
+	void addCargo(CargoType type, unsigned int quantity);
+	void addCargo(Cargo newCargo);
+	void addCargo(CargoHold newCargo);
+	bool delCargo(CargoType type, unsigned int quantity);
+	bool delCargo(Cargo newCargo);
+	bool delCargo(CargoHold newCargo);
 };
 
 #endif // H_CARGO
