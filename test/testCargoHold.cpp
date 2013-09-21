@@ -9,12 +9,6 @@
 #include "testCargoHold.hpp"
 #include "CargoHold.hpp"
 
-	void CargoHoldTest::testAddition()
-	{
-		CPPUNIT_ASSERT(true);
-		CPPUNIT_ASSERT(false);
-	}
-	
 
 
 
@@ -62,6 +56,27 @@ void CargoHoldTest::testAddCargo()
 	CPPUNIT_ASSERT(result3 == NULL);
 }
 
+void CargoHoldTest::testDelCargo()
+{
+	bool result;
+	// hold 2 has 100 stuff1, 100 stuff2
+	result = hold2.delCargo(stuff1, 50);
+	CPPUNIT_ASSERT(result == true);
+
+	// hold 2 has 50 stuff1, 100 stuff2
+	result = hold2.delCargo(stuff1, 75);
+	CPPUNIT_ASSERT(result == false);
+
+	// hold 2 has 50 stuff1, 100 stuff2
+	result = hold2.delCargo(stuff1, 50);
+
+	// hold 2 has 0 stuff1, 100 stuff2
+	CPPUNIT_ASSERT(result == true);
+	result = hold2.delCargo(stuff1, 50);
+	CPPUNIT_ASSERT(result == false);
+}
+	
+
   CppUnit::Test* CargoHoldTest::suite()
   {
     CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "CargoHoldTest" );
@@ -69,5 +84,8 @@ void CargoHoldTest::testAddCargo()
     suiteOfTests->addTest( new CppUnit::TestCaller<CargoHoldTest>(
                                    "testAddCargo", 
                                    &CargoHoldTest::testAddCargo) );
+    suiteOfTests->addTest( new CppUnit::TestCaller<CargoHoldTest>(
+                                   "testDelCargo", 
+                                   &CargoHoldTest::testDelCargo) );
     return suiteOfTests;
   }
