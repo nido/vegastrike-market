@@ -1,0 +1,9 @@
+test -f ./cppunittest || make
+
+lcov -z --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage.info
+./cppunittest
+lcov -c --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage.info
+lcov -e coverage.info "@CMAKE_CURRENT_SOURCE_DIR@/*" -o codecoverage.info
+genhtml codecoverage.info --output-directory "@CMAKE_CURRENT_BINARY_DIR@/coverage/"
+
+echo `dirname "$0"`
