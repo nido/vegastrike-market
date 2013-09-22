@@ -37,13 +37,32 @@ bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 		return false;
 	}
 }
-/**
-bool CargoHold::delCargo(Cargo newCargo);
-	Cargo* pile = this->findCargo(newCargo.type);
 
-bool CargoHold::delCargo(CargoHold newCargo);
+bool CargoHold::delCargo(Cargo newCargo){
 	Cargo* pile = this->findCargo(newCargo.type);
-*/
+	if (pile->quantity >= newCargo.quantity){
+		pile->quantity -= newCargo.quantity;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool CargoHold::delCargo(CargoHold newCargo){
+	Cargo* pile1;
+	for(size_t i=0; i<newCargo.cargo.size(); i++){
+		pile1 = this->findCargo(newCargo.cargo[i].type);
+		if (pile1->quantity <= newCargo.cargo[i].quantity){
+			return false;
+		}
+	}
+	for(size_t i=0; i<newCargo.cargo.size(); i++){
+		pile1 = this->findCargo(newCargo.cargo[i].type);
+		pile1->quantity =- newCargo.cargo[i].quantity;
+	}
+	return true;
+}
+
 Cargo* CargoHold::findCargo(CargoType* type){
 	for(size_t i = 0; i < this->cargo.size(); i++){
 		if (type == this->cargo[i].type){
