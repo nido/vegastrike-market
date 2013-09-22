@@ -5,12 +5,14 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include "testCargoHold.hpp"
+#include "testProductionOption.hpp"
 
 int main(void){
 	CppUnit::TestResult result;
 	CppUnit::TestSuite suite;
 	CppUnit::TextUi::TestRunner runner;
 
+	runner.addTest( ProductionOptionTest::suite() );
 	runner.addTest( CargoHoldTest::suite() );
 	runner.run();
 	return 0;

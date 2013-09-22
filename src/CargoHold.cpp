@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include <assert.h>
+
 #include "CargoHold.hpp"
 
 void addCargo(CargoType type, unsigned int quantity);
@@ -50,16 +52,23 @@ bool CargoHold::delCargo(Cargo newCargo){
 }
 
 bool CargoHold::delCargo(CargoHold newCargo){
-	Cargo* pile1;
+	Cargo* pile;
+	// check if all can be subtracted
 	for(size_t i=0; i<newCargo.cargo.size(); i++){
-		pile1 = this->findCargo(newCargo.cargo[i].type);
-		if (pile1->quantity <= newCargo.cargo[i].quantity){
+		pile = this->findCargo(newCargo.cargo[i].type);
+		if (pile == NULL){
+			std::cout<<"Couldn't delete cargo because part was not available"<<std::endl;
+			return false;
+		}
+		if (pile->quantity > this->cargo[i].quantity){
 			return false;
 		}
 	}
+	// subtract actual stuff
 	for(size_t i=0; i<newCargo.cargo.size(); i++){
-		pile1 = this->findCargo(newCargo.cargo[i].type);
-		pile1->quantity =- newCargo.cargo[i].quantity;
+		pile = this->findCargo(newCargo.cargo[i].type);
+		assert(pile != NULL);
+		this->delCargo(*pile);
 	}
 	return true;
 }

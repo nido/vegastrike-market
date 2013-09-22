@@ -61,7 +61,7 @@ void CargoHoldTest::testDelCargo()
 	CPPUNIT_ASSERT(result == true);
 
 	// hold 2 has 50 stuff1, 100 stuff2
-	result = hold2.delCargo(stuff1, 75);
+	result = hold2.delCargo(in1);
 	CPPUNIT_ASSERT(result == false);
 
 	// hold 2 has 50 stuff1, 100 stuff2
@@ -75,6 +75,10 @@ void CargoHoldTest::testDelCargo()
 	result = hold2.delCargo(hold3);
 	CPPUNIT_ASSERT(result == false);
 
+	hold2.addCargo(hold3);
+
+	result = hold2.delCargo(hold3);
+	CPPUNIT_ASSERT(result == true);
 }
 	
 

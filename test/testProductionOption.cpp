@@ -8,11 +8,15 @@
 //      people to check out all of vegastrike for this, or an altered
 //      version for here for the moment to make it work with sortof
 //      vegacargo
+#include "testProductionOption.hpp"
 #include "ProductionOption.hpp"
 
-#define TURNS 200000
+#define TURNS 10
 
-int main(void){
+void ProductionOptionTest::setUp(){}
+void ProductionOptionTest::tearDown(){}
+
+void ProductionOptionTest::smokeTest(){
         CargoType *input = new CargoType( "input", "test/test", 0.0, 0.0);
         CargoType *output = new CargoType( "output", "test/test", 0.0, 0.0);
 
@@ -39,5 +43,13 @@ int main(void){
 	delete o;
 	delete input;
 	delete output;
-	return 0;
+	return;
+}
+
+CppUnit::Test* ProductionOptionTest::suite()
+{
+	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "ProductionOptionTest" );
+	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
+			"smokeTest", &ProductionOptionTest::smokeTest) );
+	return suiteOfTests;
 }
