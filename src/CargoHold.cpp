@@ -5,8 +5,6 @@
 
 #include "CargoHold.hpp"
 
-void addCargo(CargoType type, unsigned int quantity);
-
 void CargoHold::addCargo(CargoType* type, unsigned int quantity){
 	Cargo* pile = this->findCargo(type);
 	if (pile == NULL){
@@ -27,8 +25,9 @@ void CargoHold::addCargo(Cargo newCargo){
 	}
 }
 void CargoHold::addCargo(CargoHold newCargo){
-	for(size_t i = 0; i< newCargo.cargo.size(); i++){
-		this->addCargo(newCargo.cargo[i]);
+	for(CargoHold::iterator i = newCargo.begin();
+	    i != newCargo.end(); i++){
+		this->addCargo(*i);
 	}
 }
 bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
@@ -46,6 +45,9 @@ bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 
 bool CargoHold::delCargo(Cargo newCargo){
 	Cargo* pile = this->findCargo(newCargo.type);
+	if (pile == NULL){
+		return false;
+	}
 	if (pile->getCount() >= newCargo.getCount() ){
 		pile->delCargo(newCargo.getCount());
 		return true;
@@ -54,7 +56,7 @@ bool CargoHold::delCargo(Cargo newCargo){
 	}
 }
 
-bool CargoHold::delCargo(CargoHold newCargo){
+bool CargoHold::contains(CargoHold newCargo){
 	Cargo* pile;
 	// check if all can be subtracted
 	for(size_t i=0; i<newCargo.cargo.size(); i++){
@@ -65,6 +67,13 @@ bool CargoHold::delCargo(CargoHold newCargo){
 		if (pile->getCount() < newCargo.cargo[i].getCount()){
 			return false;
 		}
+	}
+	return true;
+}
+
+bool CargoHold::delCargo(CargoHold newCargo){
+	if (this->contains(newCargo) == false){
+		return false;
 	}
 	// subtract actual stuff
 	for(size_t i=0; i<newCargo.cargo.size(); i++){
@@ -80,7 +89,15 @@ Cargo* CargoHold::findCargo(CargoType* type){
 		}
 	}
 	return NULL;
-};
+}
+
+CargoHold::iterator CargoHold::begin(){
+	return this->cargo.begin();
+}
+
+CargoHold::iterator CargoHold::end(){
+	return this->cargo.end();
+}
 
 /*void CargoHold::printOut(){
 	std::cout<<"Cargo hold printout:"<<std::endl;

@@ -57,21 +57,6 @@ private:
 class CargoType
 {
 public:
-	/** Name of the cargo, for example "Iron Ore" */
-	std::string name;
-	/** Cargo catagory. Part of vegastrike's core thoug it is packed in
-	 * a different sort of string container.
-	 * TODO: At the moment, I assume the difference between "Raw
-	 * Materials" and "Ores" is done with a sort of separator like "Raw
-	 * Materials/Ores" and consider this a problem for interation later.
-	 */
-	std::string catagory;
-	/** Long description of the cargo. */
-	std::string description;
-	/** Mass of one cargo. Weight, more or less. */
-	float mass;
-	/* space taken up by one unit of this type of cargo */
-	float volume;
 
 
 	/** Create a new CargoType
@@ -99,5 +84,21 @@ public:
 			(this->name < that.name) :
 			(this->catagory < that.catagory));
 	}
+private:
+	/** Name of the cargo, for example "Iron Ore" */
+	std::string name;
+	/** Cargo catagory. Part of vegastrike's core thoug it is packed in
+	 * a different sort of string container.
+	 * TODO: At the moment, I assume the difference between "Raw
+	 * Materials" and "Ores" is done with a sort of separator like "Raw
+	 * Materials/Ores" and consider this a problem for interation later.
+	 */
+	std::string catagory;
+	/** Long description of the cargo. */
+	std::string description;
+	/** Mass of one cargo. Weight, more or less. */
+	float mass;
+	/* space taken up by one unit of this type of cargo */
+	float volume;
 };
 #endif // H_CARGO

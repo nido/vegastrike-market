@@ -11,8 +11,12 @@ typedef std::vector<Cargo> CargoPile;
 class CargoHold
 {
 public:
-	/** The actual cargo(s) itself. */
-	std::vector<Cargo> cargo;
+	/** Iterator access */
+	typedef std::vector<Cargo>::iterator iterator;
+	typedef std::vector<Cargo>::const_iterator const_iterator;
+	iterator begin();
+	iterator end();
+	
 
 	/** empty one */
 	CargoHold() : cargo(std::vector<Cargo>()){}
@@ -32,6 +36,8 @@ public:
 	/** Remove cargo from the hold
 	 * returns a boolean saying whether the action succeded */
 	bool delCargo(Cargo newCargo);
+	/** check whether the content of newCargo is in the cargohold */
+	bool contains(CargoHold newCargo);
 	/** Remove a bunch of cargo from the hold
 	 * returns a boolean saying whether the action succeded */
 	bool delCargo(CargoHold newCargo);
@@ -42,6 +48,9 @@ public:
 	Cargo* findCargo(CargoType* type);
 	/** Print this particular cargohold */
 	void printOut();
+private:
+	/** The actual cargo(s) itself. */
+	std::vector<Cargo> cargo;
 };
 
 #endif //H_CARGOHOLD

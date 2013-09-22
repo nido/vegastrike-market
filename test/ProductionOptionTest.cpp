@@ -41,13 +41,15 @@ void ProductionOptionTest::tearDown(){
 }
 
 void ProductionOptionTest::smokeTest(){
-	for(unsigned int i=1; i <= 10; i++) {
+	for(unsigned int i=1; i < 10; i++) {
 		this->o1->Produce(stuff3);
-		Cargo* in = findCargo(this->input, &this->stuff3->cargo);
-		Cargo* out = findCargo(this->output, &this->stuff3->cargo);
+		Cargo* in = this->stuff3->findCargo(this->input);
+		Cargo* out = this->stuff3->findCargo(this->output);
 		CPPUNIT_ASSERT(in->getCount() == (10 - i));
 		CPPUNIT_ASSERT(out->getCount() == i);
 	}
+	this->o1->Produce(stuff3);
+	CPPUNIT_ASSERT(this->stuff3->findCargo(this->input) == NULL);
 	return;
 }
 

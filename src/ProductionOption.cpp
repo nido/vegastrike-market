@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "ProductionOption.hpp"
+#include "CargoHold.hpp"
 
 #include <assert.h>
 
@@ -42,15 +43,16 @@ ProductionOption::~ProductionOption(){
  * the Cargo defined in the 'consumes' vector.
  */
 bool ProductionOption::CanProduce(CargoHold *cargoStore){
-	for(size_t i = 0; i < this->consumes.cargo.size(); i++){
-		for(size_t j = 0; j < cargoStore->cargo.size(); j++){
-			Cargo* temp = cargoStore->findCargo(consumes.cargo[i].type);
-
+	for(CargoHold::iterator i = this->consumes.begin();
+			i != this->consumes.end(); i++){
+		for(CargoHold::iterator j = cargoStore->begin();
+				j != cargoStore->end(); j++){
+			Cargo* temp = cargoStore->findCargo(j->type);
 			if (temp == NULL){
 				// cargo not found, cannot produce.
 				return false;
 			}
-			if(temp->getCount() < consumes.cargo[i].getCount() ) {
+			if(temp->getCount() < i->getCount() ) {
 				// Not enough of a certain input
 				// is available, cannot produce.
 				return false;
@@ -65,29 +67,32 @@ void ProductionOption::Produce(CargoHold *cargoStore){
 	if (this->CanProduce(cargoStore) == false){
 		return;
 	}
-	for(size_t i = 0; i < this->consumes.cargo.size(); i++){
-		temp = cargoStore->findCargo(consumes.cargo[i].type);
+	for(CargoHold::iterator i = this->consumes.begin();
+			i != this->consumes.end(); i++){
+		temp = cargoStore->findCargo(i->type);
 		assert(temp != NULL);
-		temp->delCargo(consumes.cargo[i].getCount());
+		temp->delCargo(i->getCount());
 	}
-	for(size_t i = 0; i < this->produces.cargo.size(); i++){
+	for(CargoHold::iterator i = this->produces.begin();
+			i != this->produces.end(); i++){
 		// TODO: add output cargo to cargolist if nonexistent
-		temp = cargoStore->findCargo(produces.cargo[i].type);
+		temp = cargoStore->findCargo(i->type);
 		if (temp == NULL){
-			cargoStore->cargo.push_back(Cargo(produces.cargo[i].type, produces.cargo[i].getCount()));
+			cargoStore->addCargo(Cargo(i->type, i->getCount()));
 		} else {
-			temp->addCargo(produces.cargo[i].getCount());
+			temp->addCargo(i->getCount());
 		}
 	}
 }
 
 Cargo* findCargo(CargoType* type, CargoHold *cargoStore){
-       for(size_t i = 0; i < cargoStore->cargo.size(); i++){
-               if (type == cargoStore->cargo[i].type){
-                       return &cargoStore->cargo[i];
-               }
-       }
-       return NULL;
+	for(CargoHold::iterator i = cargoStore->begin();
+			i != cargoStore->end(); i++){
+		if (type == i->type){
+			return &(*i);
+		}
+	}
+	return NULL;
 }
 
 Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore){
