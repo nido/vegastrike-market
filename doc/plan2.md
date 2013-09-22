@@ -54,8 +54,15 @@ CargoHold as well as a Cargo Hold. Removing cargo by any of these
 methods will only work if _all_ cargo can be removed. On success, that
 function returns true, on failure, it will return false.
 
-Factories
----------
+ProductionOption
+----------------
+
+A ProductionOption represents a possible act of production of a Factory.
+A factory may have multiple ProductionOptions available, one of which it
+may use in an economic turn. 
+
+Factory
+-------
 
 Cargo can be produced. Cargo is produced at a Factory. Factories can
 have different ProductionOptions giving different options to produce in
@@ -66,6 +73,9 @@ eachother, and have a possibility of multiple inputs and outputs. Whilst
 not used in the initial economy, it is perfectly possible to have a
 factory produce either one good or another from totally different input
 cargo.
+
+Governor
+--------
 
 A base is ruled by a Governor which is in charge of making sure a sane
 amount of goods is available. The governor is to be responsible for

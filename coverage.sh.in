@@ -1,9 +1,20 @@
+#!/bin/bash
+
+TESTCASES="cargo cargohold productionoption factory"
 test -f ./cppunittest || make
 
-lcov -z --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage.info
-./cppunittest
-lcov -c --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage.info
-lcov -e coverage.info "@CMAKE_CURRENT_SOURCE_DIR@/*" -o codecoverage.info
-genhtml codecoverage.info --output-directory "@CMAKE_CURRENT_BINARY_DIR@/coverage/"
+for TEST in ${TESTCASES};
+do
+        lcov -z --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info
+        ./cppunittest ${TEST}
+        lcov -c -t ${TEST} --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info
+        lcov -e coverage${TEST}.info "@CMAKE_CURRENT_SOURCE_DIR@/*" -o codecoverage${TEST}.info
+done
+
+lcov -o codecoverage.info -a codecoverage`echo ${TESTCASES} | sed "s/ /.info -a codecoverage/g"`.info
+
+
+genhtml --legend --show-details --title "Vegastrike Economy" --demangle-cpp codecoverage.info --output-directory "@CMAKE_CURRENT_BINARY_DIR@/coverage/"
 
 echo `dirname "$0"`
+
