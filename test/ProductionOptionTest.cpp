@@ -13,36 +13,37 @@
 
 #define TURNS 10
 
-void ProductionOptionTest::setUp(){}
-void ProductionOptionTest::tearDown(){}
+void ProductionOptionTest::setUp()
+{
+        this->input = new CargoType( "input", "test/test", 0.0, 0.0);
+        this->output = new CargoType( "output", "test/test", 0.0, 0.0);
 
-void ProductionOptionTest::smokeTest(){
-        CargoType *input = new CargoType( "input", "test/test", 0.0, 0.0);
-        CargoType *output = new CargoType( "output", "test/test", 0.0, 0.0);
+	this->stuff1 = std::vector<Cargo>();
+	this->stuff2 = std::vector<Cargo>();
+	this->stuff3 = new std::vector<Cargo>();
 
-	std::vector<Cargo> stuff1 = std::vector<Cargo>();
-	std::vector<Cargo> stuff2 = std::vector<Cargo>();
-	std::vector<Cargo> *stuff3 = new std::vector<Cargo>();
+	this->stuff1.push_back(Cargo(input, 1));
+	this->stuff2.push_back(Cargo(output, 1));
+	this->stuff3->push_back(Cargo(input, TURNS));
 
-	stuff1.push_back(Cargo(input, 1));
-	stuff2.push_back(Cargo(output, 1));
-	stuff3->push_back(Cargo(input, TURNS));
+	this->o = new ProductionOption(stuff1, stuff2);
+}
 
-	ProductionOption* o = new ProductionOption(stuff1, stuff2);
-
-
-	for(unsigned int i=1; i <= TURNS; i++) {
-		o->Produce(stuff3);
-	Cargo* in = findCargo(input, stuff3);
-	Cargo* out = findCargo(output, stuff3);
-		assert(in->quantity == (TURNS - i));
-		assert(out->quantity == i);
-	}
-
+void ProductionOptionTest::tearDown(){
 	delete stuff3;
 	delete o;
 	delete input;
 	delete output;
+}
+
+void ProductionOptionTest::smokeTest(){
+	for(unsigned int i=1; i <= TURNS; i++) {
+		o->Produce(stuff3);
+		Cargo* in = findCargo(this->input, this->stuff3);
+		Cargo* out = findCargo(this->output, this->stuff3);
+		assert(in->quantity == (TURNS - i));
+		assert(out->quantity == i);
+	}
 	return;
 }
 

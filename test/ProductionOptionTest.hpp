@@ -5,6 +5,7 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include <vector>
+#include "ProductionOption.hpp"
 
 class ProductionOptionTest : public CppUnit::TestFixture  {
 public:
@@ -12,5 +13,12 @@ public:
 	void tearDown();
 	static CppUnit::Test* suite();
 	void smokeTest();
+private:
+	CargoType *input;
+	CargoType *output;
+	std::vector<Cargo> stuff1;
+        std::vector<Cargo> stuff2;
+        std::vector<Cargo> *stuff3;
+	ProductionOption* o;
 };
 
