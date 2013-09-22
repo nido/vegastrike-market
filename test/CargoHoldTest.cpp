@@ -58,41 +58,87 @@ void CargoHoldTest::testAddCargo()
 void CargoHoldTest::testDelCargo()
 {
 	bool result;
+	// hold 1 is empty.
 	// hold 2 has 100 stuff1, 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
+	result = hold2.delCargo(stuff1, 150);
+	CPPUNIT_ASSERT(result == false);
+
 	result = hold2.delCargo(stuff1, 50);
 	CPPUNIT_ASSERT(result == true);
 
+	// hold 1 is empty.
 	// hold 2 has 50 stuff1, 100 stuff2
+	CPPUNIT_ASSERT(hold2.findCargo(stuff1)->quantity == 50);
+	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(in1);
 	CPPUNIT_ASSERT(result == false);
 
+	// hold 1 is empty.
 	// hold 2 has 50 stuff1, 100 stuff2
+	CPPUNIT_ASSERT(hold2.findCargo(stuff1)->quantity == 50);
+	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(stuff1, 50);
-
-	// hold 2 has 0 stuff1, 100 stuff2
 	CPPUNIT_ASSERT(result == true);
+
+	// hold 1 is empty.
+	// hold 2 has 100 stuff2
+	CPPUNIT_ASSERT(hold2.findCargo(stuff1) == NULL);
+	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(stuff1, 50);
 	CPPUNIT_ASSERT(result == false);
 
+	// hold 1 is empty.
+	// hold 2 has 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(hold3);
 	CPPUNIT_ASSERT(result == false);
 
+	// hold 1 is empty.
+	// hold 2 has 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
 	hold2.addCargo(hold3);
 
+	// hold 1 is empty.
+	// hold 2 has 100 stuff1, 100 stuff2, 100 stuff3
+	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(hold3);
 	CPPUNIT_ASSERT(result == true);
+
+	// hold 1 is empty.
+	// hold 2 has 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
+	result = hold2.delCargo(hold3);
+	CPPUNIT_ASSERT(result == false);
+
+	// hold 1 is empty.
+	// hold 2 has 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
+	hold1.addCargo(hold3);
+	// hold 1 has 100 stuff1, 100 stuff3
+	// hold 2 has 50 stuff1, 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
+	hold1.addCargo(hold3);
+	// hold 1 has 200 stuff1, 200 stuff3
+	// hold 2 has 50 stuff1, 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
+	result = hold3.delCargo(hold1);
+	CPPUNIT_ASSERT(result == false);
+	// hold 1 has 200 stuff1, 200 stuff3
+	// hold 2 has 50 stuff1, 100 stuff2
+	// hold 3 has 100 stuff1, 100 stuff3
 }
 	
 
-  CppUnit::Test* CargoHoldTest::suite()
-  {
-    CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "CargoHoldTest" );
+CppUnit::Test* CargoHoldTest::suite()
+{
+	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "CargoHoldTest" );
 
-    suiteOfTests->addTest( new CppUnit::TestCaller<CargoHoldTest>(
-                                   "testAddCargo", 
-                                   &CargoHoldTest::testAddCargo) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<CargoHoldTest>(
-                                   "testDelCargo", 
-                                   &CargoHoldTest::testDelCargo) );
-    return suiteOfTests;
-  }
+	suiteOfTests->addTest( new CppUnit::TestCaller<CargoHoldTest>(
+			"testAddCargo", 
+			&CargoHoldTest::testAddCargo) );
+	suiteOfTests->addTest( new CppUnit::TestCaller<CargoHoldTest>(
+			"testDelCargo", 
+			&CargoHoldTest::testDelCargo) );
+	return suiteOfTests;
+}

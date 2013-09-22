@@ -28,11 +28,9 @@
 #include <assert.h>
 
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
-ProductionOption::ProductionOption(std::vector<Cargo> consumes, std::vector<Cargo> produces){
+ProductionOption::ProductionOption(CargoHold consumes, CargoHold produces){
 	this->consumes = consumes;
 	this->produces = produces;
-	std::sort(this->consumes.begin(), this->consumes.end());
-	std::sort(this->produces.begin(), this->produces.end());
 }
 
 ProductionOption::~ProductionOption(){
@@ -43,16 +41,16 @@ ProductionOption::~ProductionOption(){
  * Production can commence when the cargoStore provided has at least
  * the Cargo defined in the 'consumes' vector.
  */
-bool ProductionOption::CanProduce(std::vector<Cargo> *cargoStore){
-	for(size_t i = 0; i < this->consumes.size(); i++){
-		for(size_t j = 0; j < cargoStore->size(); j++){
-			Cargo* temp = findCargo(consumes[i].type, cargoStore);
+bool ProductionOption::CanProduce(CargoHold *cargoStore){
+	for(size_t i = 0; i < this->consumes.cargo.size(); i++){
+		for(size_t j = 0; j < cargoStore->cargo.size(); j++){
+			Cargo* temp = cargoStore->findCargo(consumes.cargo[i].type);
 
 			if (temp == NULL){
 				// cargo not found, cannot produce.
 				return false;
 			}
-			if(temp->quantity < consumes[i].quantity) {
+			if(temp->quantity < consumes.cargo[i].quantity) {
 				// Not enough of a certain input
 				// is available, cannot produce.
 				return false;
@@ -62,27 +60,34 @@ bool ProductionOption::CanProduce(std::vector<Cargo> *cargoStore){
 	return true;
 }
 
-void ProductionOption::Produce(std::vector<Cargo> *cargoStore){
+void ProductionOption::Produce(CargoHold *cargoStore){
 	Cargo* temp;
 	if (this->CanProduce(cargoStore) == false){
 		return;
 	}
-	for(size_t i = 0; i < this->consumes.size(); i++){
-		temp = findCargo(consumes[i].type, cargoStore);
+	for(size_t i = 0; i < this->consumes.cargo.size(); i++){
+		temp = cargoStore->findCargo(consumes.cargo[i].type);
 		assert (temp != NULL);
-		temp->quantity -= consumes[i].quantity;
+		temp->quantity -= consumes.cargo[i].quantity;
 	}
-	for(size_t i = 0; i < this->produces.size(); i++){
+	for(size_t i = 0; i < this->produces.cargo.size(); i++){
 		// TODO: add output cargo to cargolist if nonexistent
-		temp = findCargo(produces[i].type, cargoStore);
+		temp = cargoStore->findCargo(produces.cargo[i].type);
 		if (temp == NULL){
-			cargoStore->push_back(Cargo(produces[i].type, 0));
-			temp = findCargo(produces[i].type, cargoStore);
+			cargoStore->cargo.push_back(Cargo(produces.cargo[i].type, produces.cargo[i].quantity));
+		} else {
+			temp->quantity += produces.cargo[i].quantity;
 		}
-		assert (temp != NULL);
-		temp->quantity += produces[i].quantity;
-		
 	}
+}
+
+Cargo* findCargo(CargoType* type, CargoHold *cargoStore){
+       for(size_t i = 0; i < cargoStore->cargo.size(); i++){
+               if (type == cargoStore->cargo[i].type){
+                       return &cargoStore->cargo[i];
+               }
+       }
+       return NULL;
 }
 
 Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore){
@@ -93,4 +98,3 @@ Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore){
        }
        return NULL;
 }
-

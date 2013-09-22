@@ -10,7 +10,6 @@
 #include "FactoryTest.hpp"
 
 int main(void){
-	CppUnit::TestResult result;
 	CppUnit::TestSuite suite;
 	CppUnit::TextUi::TestRunner runner;
 
@@ -18,6 +17,7 @@ int main(void){
 	runner.addTest( CargoHoldTest::suite() );
 	runner.addTest( ProductionOptionTest::suite() );
 	runner.addTest( FactoryTest::suite() );
+
 	runner.run();
 	return 0;
 }

@@ -6,16 +6,11 @@
  */
 
 #include <vector>
+
 #include <stdbool.h>
 
-//TODO: make this vegastrike's version. This file contains the Cargo
-//      class; and use of vegacargo in the economy would make it a lot
-//      easier to integrate the two at a later date. Still, that leaves
-//      us with requiring a vegastrike_dir variable of sorts and getting
-//      people to check out all of vegastrike for this, or an altered
-//      version for here for the moment to make it work with sortof
-//      vegacargo
 #include "Cargo.hpp"
+#include "CargoHold.hpp"
 
 class ProductionOption;
 
@@ -27,18 +22,19 @@ class ProductionOption;
 class ProductionOption {
 
 public:
-	ProductionOption(std::vector<Cargo> consumes, std::vector<Cargo> produces);
+	ProductionOption(CargoHold consumes, CargoHold produces);
 	~ProductionOption();
 	/** (if possible) Do producuce */
-	void Produce(std::vector<Cargo> *cargoStore);
+	void Produce(CargoHold *cargoStore);
 	/** determine whether production is possible */
-	bool CanProduce(std::vector<Cargo> *cargoStore);
+	bool CanProduce(CargoHold *cargoStore);
 private:
 	/** Cargo consumed by production. */
-	std::vector<Cargo> consumes;
+	CargoHold consumes;
 	/** Cargo produced by production. */
-	std::vector<Cargo> produces;
+	CargoHold produces;
 };
 
 Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore);
+Cargo* findCargo(CargoType* type, CargoHold *cargoStore);
 #endif // H_PRODUCTIONOPTION

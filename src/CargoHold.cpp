@@ -33,6 +33,9 @@ void CargoHold::addCargo(CargoHold newCargo){
 }
 bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 	Cargo* pile = this->findCargo(type);
+	if (pile == NULL){
+		return false;
+	}
 	if (pile->quantity >= quantity){
 		pile->delCargo(quantity);
 		return true;
@@ -59,22 +62,20 @@ bool CargoHold::delCargo(CargoHold newCargo){
 		if (pile == NULL){
 			return false;
 		}
-		if (pile->quantity > this->cargo[i].quantity){
+		if (pile->quantity < newCargo.cargo[i].quantity){
 			return false;
 		}
 	}
 	// subtract actual stuff
 	for(size_t i=0; i<newCargo.cargo.size(); i++){
-		pile = this->findCargo(newCargo.cargo[i].type);
-		assert(pile != NULL);
-		this->delCargo(*pile);
+		assert(this->delCargo(newCargo.cargo[i]) == true);
 	}
 	return true;
 }
 
 Cargo* CargoHold::findCargo(CargoType* type){
 	for(size_t i = 0; i < this->cargo.size(); i++){
-		if (type == this->cargo[i].type){
+		if ((type == this->cargo[i].type) && (this->cargo[i].quantity > 0)){
 			return &cargo[i];
 		}
 	}

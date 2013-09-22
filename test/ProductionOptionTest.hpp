@@ -13,12 +13,15 @@ public:
 	void tearDown();
 	static CppUnit::Test* suite();
 	void smokeTest();
+	void CanProduceTest();
+	void ProduceTest();
 private:
 	CargoType *input;
 	CargoType *output;
-	std::vector<Cargo> stuff1;
-        std::vector<Cargo> stuff2;
-        std::vector<Cargo> *stuff3;
-	ProductionOption* o;
+	CargoHold stuff1;
+        CargoHold stuff2;
+        CargoHold *stuff3;
+	ProductionOption* o1;
+	ProductionOption* o10;
 };
 
