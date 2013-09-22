@@ -17,7 +17,16 @@ set(CMAKE_BUILD_TYPE "Debug")
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
-add_executable(cppunittest test/cppunittest.cpp test/FactoryTest.cpp test/ProductionOptionTest.cpp test/CargoHoldTest.cpp src/Factory.cpp src/ProductionOption.cpp src/CargoHold.cpp src/Cargo.cpp)
+add_executable(cppunittest
+	test/cppunittest.cpp
+	test/FactoryTest.cpp
+	test/ProductionOptionTest.cpp
+	test/CargoHoldTest.cpp
+	test/CargoTest.cpp
+	src/Factory.cpp
+	src/ProductionOption.cpp
+	src/CargoHold.cpp
+	src/Cargo.cpp)
 
 target_link_libraries(cppunittest ${CPPUNIT_LIBRARIES})
 

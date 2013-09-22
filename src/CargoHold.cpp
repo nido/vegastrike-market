@@ -81,9 +81,9 @@ Cargo* CargoHold::findCargo(CargoType* type){
 	return NULL;
 };
 
-void CargoHold::printOut(){
+/*void CargoHold::printOut(){
 	std::cout<<"Cargo hold printout:"<<std::endl;
 	for(unsigned int i=0; i<this->cargo.size(); i++){
 		this->cargo[i].printOut();
 	}
-}
+}*/

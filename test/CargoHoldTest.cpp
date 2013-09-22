@@ -38,7 +38,9 @@ void CargoHoldTest::tearDown(){
 void CargoHoldTest::testAddCargo()
 {
 	// hold 1 is empty
-	this->hold1.addCargo(stuff1, 10);
+	this->hold1.addCargo(stuff1, 5);
+	// hold 1 has 5 stuff1
+	this->hold1.addCargo(stuff1, 5);
 	// hold 1 has 10 stuff1
 	this->hold1.addCargo(in1);
 	// hold 1 has 110 stuff1
