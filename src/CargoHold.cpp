@@ -57,7 +57,6 @@ bool CargoHold::delCargo(CargoHold newCargo){
 	for(size_t i=0; i<newCargo.cargo.size(); i++){
 		pile = this->findCargo(newCargo.cargo[i].type);
 		if (pile == NULL){
-			std::cout<<"Couldn't delete cargo because part was not available"<<std::endl;
 			return false;
 		}
 		if (pile->quantity > this->cargo[i].quantity){

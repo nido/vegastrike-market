@@ -4,8 +4,9 @@
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-#include "testCargoHold.hpp"
-#include "testProductionOption.hpp"
+#include "CargoHoldTest.hpp"
+#include "ProductionOptionTest.hpp"
+#include "FactoryTest.hpp"
 
 int main(void){
 	CppUnit::TestResult result;
@@ -14,6 +15,7 @@ int main(void){
 
 	runner.addTest( ProductionOptionTest::suite() );
 	runner.addTest( CargoHoldTest::suite() );
+	runner.addTest( FactoryTest::suite() );
 	runner.run();
 	return 0;
 }

@@ -6,9 +6,10 @@
 
 #include <vector>
 
-class @template@ : public CppUnit::TestFixture  {
+class FactoryTest : public CppUnit::TestFixture  {
 public:
 	void setUp();
 	void tearDown();
+	void smokeTest();
 	static CppUnit::Test* suite();
 };
