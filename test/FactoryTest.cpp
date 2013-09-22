@@ -44,8 +44,8 @@ void FactoryTest::smokeTest(){
 		f->Produce(stuff3);
 		Cargo* in = findCargo(input, stuff3);
 		Cargo* out = findCargo(output, stuff3);
-		CPPUNIT_ASSERT(in->quantity == (TURNS - i));
-		CPPUNIT_ASSERT(out->quantity == i);
+		CPPUNIT_ASSERT(in->getCount() == (TURNS - i));
+		CPPUNIT_ASSERT(out->getCount() == i);
 	}
 
 	delete stuff3;

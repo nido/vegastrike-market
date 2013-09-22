@@ -50,8 +50,8 @@ void CargoHoldTest::testAddCargo()
 	Cargo* result1 = hold1.findCargo(stuff1);
 	Cargo* result2 = hold1.findCargo(stuff2);
 	Cargo* result3 = hold1.findCargo(stuff3);
-	CPPUNIT_ASSERT(result1->quantity == 210);
-	CPPUNIT_ASSERT(result2->quantity == 100);
+	CPPUNIT_ASSERT(result1->getCount() == 210);
+	CPPUNIT_ASSERT(result2->getCount() == 100);
 	CPPUNIT_ASSERT(result3 == NULL);
 }
 
@@ -69,14 +69,14 @@ void CargoHoldTest::testDelCargo()
 
 	// hold 1 is empty.
 	// hold 2 has 50 stuff1, 100 stuff2
-	CPPUNIT_ASSERT(hold2.findCargo(stuff1)->quantity == 50);
+	CPPUNIT_ASSERT(hold2.findCargo(stuff1)->getCount() == 50);
 	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(in1);
 	CPPUNIT_ASSERT(result == false);
 
 	// hold 1 is empty.
 	// hold 2 has 50 stuff1, 100 stuff2
-	CPPUNIT_ASSERT(hold2.findCargo(stuff1)->quantity == 50);
+	CPPUNIT_ASSERT(hold2.findCargo(stuff1)->getCount() == 50);
 	// hold 3 has 100 stuff1, 100 stuff3
 	result = hold2.delCargo(stuff1, 50);
 	CPPUNIT_ASSERT(result == true);

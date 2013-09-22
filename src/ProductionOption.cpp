@@ -50,7 +50,7 @@ bool ProductionOption::CanProduce(CargoHold *cargoStore){
 				// cargo not found, cannot produce.
 				return false;
 			}
-			if(temp->quantity < consumes.cargo[i].quantity) {
+			if(temp->getCount() < consumes.cargo[i].getCount() ) {
 				// Not enough of a certain input
 				// is available, cannot produce.
 				return false;
@@ -67,16 +67,16 @@ void ProductionOption::Produce(CargoHold *cargoStore){
 	}
 	for(size_t i = 0; i < this->consumes.cargo.size(); i++){
 		temp = cargoStore->findCargo(consumes.cargo[i].type);
-		assert (temp != NULL);
-		temp->quantity -= consumes.cargo[i].quantity;
+		assert(temp != NULL);
+		temp->delCargo(consumes.cargo[i].getCount());
 	}
 	for(size_t i = 0; i < this->produces.cargo.size(); i++){
 		// TODO: add output cargo to cargolist if nonexistent
 		temp = cargoStore->findCargo(produces.cargo[i].type);
 		if (temp == NULL){
-			cargoStore->cargo.push_back(Cargo(produces.cargo[i].type, produces.cargo[i].quantity));
+			cargoStore->cargo.push_back(Cargo(produces.cargo[i].type, produces.cargo[i].getCount()));
 		} else {
-			temp->quantity += produces.cargo[i].quantity;
+			temp->addCargo(produces.cargo[i].getCount());
 		}
 	}
 }

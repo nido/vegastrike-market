@@ -16,7 +16,6 @@ class Cargo
 {
 public:
 	CargoType* type;
-	unsigned int quantity;
 
 	/** Stupid experiment */
 	Cargo() : type(NULL), quantity(1){};
@@ -41,7 +40,10 @@ public:
 
 	void addCargo(unsigned int quantity);
 	void delCargo(unsigned int quantity);
+	unsigned int getCount();
 	void printOut();
+private:
+	unsigned int quantity;
 };
 
 /** Types of Cargo available. 
@@ -91,11 +93,11 @@ public:
 	}
 
 	/** Comparator to have a way to order (types of) cargo */
-    bool operator<( const CargoType &that ) const
-    {
+	bool operator<( const CargoType &that ) const
+	{
 		return((this->catagory == that.catagory) ?
 			(this->name < that.name) :
 			(this->catagory < that.catagory));
-    }
+	}
 };
 #endif // H_CARGO

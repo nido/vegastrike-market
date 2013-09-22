@@ -11,6 +11,10 @@ void Cargo::delCargo(unsigned int quantity){
 	this->quantity -= quantity;
 }
 
+unsigned int Cargo::getCount(){
+	return this->quantity;
+}
+
 /*void Cargo::printOut(){
 	std::cout<<quantity<<" count of "<<this->type->name<<std::endl;
 }*/

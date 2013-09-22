@@ -22,7 +22,7 @@ void CargoHold::addCargo(Cargo newCargo){
 		this->cargo.push_back(newCargo);
 		std::sort(this->cargo.begin(), this->cargo.end());
 	} else {
-		pile->addCargo(newCargo.quantity);
+		pile->addCargo(newCargo.getCount());
 		
 	}
 }
@@ -36,7 +36,7 @@ bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 	if (pile == NULL){
 		return false;
 	}
-	if (pile->quantity >= quantity){
+	if (pile->getCount() >= quantity){
 		pile->delCargo(quantity);
 		return true;
 	} else {
@@ -46,8 +46,8 @@ bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 
 bool CargoHold::delCargo(Cargo newCargo){
 	Cargo* pile = this->findCargo(newCargo.type);
-	if (pile->quantity >= newCargo.quantity){
-		pile->delCargo(newCargo.quantity);
+	if (pile->getCount() >= newCargo.getCount() ){
+		pile->delCargo(newCargo.getCount());
 		return true;
 	} else {
 		return false;
@@ -62,7 +62,7 @@ bool CargoHold::delCargo(CargoHold newCargo){
 		if (pile == NULL){
 			return false;
 		}
-		if (pile->quantity < newCargo.cargo[i].quantity){
+		if (pile->getCount() < newCargo.cargo[i].getCount()){
 			return false;
 		}
 	}
@@ -75,7 +75,7 @@ bool CargoHold::delCargo(CargoHold newCargo){
 
 Cargo* CargoHold::findCargo(CargoType* type){
 	for(size_t i = 0; i < this->cargo.size(); i++){
-		if ((type == this->cargo[i].type) && (this->cargo[i].quantity > 0)){
+		if ((type == this->cargo[i].type) && (this->cargo[i].getCount() > 0)){
 			return &cargo[i];
 		}
 	}

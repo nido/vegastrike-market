@@ -45,8 +45,8 @@ void ProductionOptionTest::smokeTest(){
 		this->o1->Produce(stuff3);
 		Cargo* in = findCargo(this->input, &this->stuff3->cargo);
 		Cargo* out = findCargo(this->output, &this->stuff3->cargo);
-		CPPUNIT_ASSERT(in->quantity == (10 - i));
-		CPPUNIT_ASSERT(out->quantity == i);
+		CPPUNIT_ASSERT(in->getCount() == (10 - i));
+		CPPUNIT_ASSERT(out->getCount() == i);
 	}
 	return;
 }
