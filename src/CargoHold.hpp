@@ -40,7 +40,8 @@ public:
 	 * returns NULL when the cargo is not present in the list.
 	 */
 	Cargo* findCargo(CargoType* type);
-
+	/** Print this particular cargohold */
+	void printOut();
 };
 
 #endif //H_CARGOHOLD

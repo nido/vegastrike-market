@@ -41,6 +41,7 @@ public:
 
 	void addCargo(unsigned int quantity);
 	void delCargo(unsigned int quantity);
+	void printOut();
 };
 
 /** Types of Cargo available. 
@@ -69,6 +70,7 @@ public:
 	float mass;
 	/* space taken up by one unit of this type of cargo */
 	float volume;
+
 
 	/** Create a new CargoType
  	 */

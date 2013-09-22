@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream>
 
 #include "CargoHold.hpp"
 
@@ -31,7 +32,7 @@ void CargoHold::addCargo(CargoHold newCargo){
 bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 	Cargo* pile = this->findCargo(type);
 	if (pile->quantity >= quantity){
-		pile->quantity -= quantity;
+		pile->delCargo(quantity);
 		return true;
 	} else {
 		return false;
@@ -41,7 +42,7 @@ bool CargoHold::delCargo(CargoType* type, unsigned int quantity){
 bool CargoHold::delCargo(Cargo newCargo){
 	Cargo* pile = this->findCargo(newCargo.type);
 	if (pile->quantity >= newCargo.quantity){
-		pile->quantity -= newCargo.quantity;
+		pile->delCargo(newCargo.quantity);
 		return true;
 	} else {
 		return false;
@@ -71,3 +72,10 @@ Cargo* CargoHold::findCargo(CargoType* type){
 	}
 	return NULL;
 };
+
+void CargoHold::printOut(){
+	std::cout<<"Cargo hold printout:"<<std::endl;
+	for(unsigned int i=0; i<this->cargo.size(); i++){
+		this->cargo[i].printOut();
+	}
+}
