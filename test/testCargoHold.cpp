@@ -9,9 +9,6 @@
 #include "testCargoHold.hpp"
 #include "CargoHold.hpp"
 
-
-
-
 void CargoHoldTest::setUp()
 {
 	this->stuff1 = new CargoType("stuff1","",0,0);
@@ -74,6 +71,10 @@ void CargoHoldTest::testDelCargo()
 	CPPUNIT_ASSERT(result == true);
 	result = hold2.delCargo(stuff1, 50);
 	CPPUNIT_ASSERT(result == false);
+
+	result = hold2.delCargo(hold3);
+	CPPUNIT_ASSERT(result == false);
+
 }
 	
 
