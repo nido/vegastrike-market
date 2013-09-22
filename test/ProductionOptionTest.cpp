@@ -8,7 +8,6 @@
 //      version for here for the moment to make it work with sortof
 //      vegacargo
 #include "ProductionOptionTest.hpp"
-#include "ProductionOption.hpp"
 
 void ProductionOptionTest::setUp()
 {

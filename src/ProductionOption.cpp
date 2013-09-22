@@ -84,22 +84,3 @@ void ProductionOption::Produce(CargoHold *cargoStore){
 		}
 	}
 }
-
-Cargo* findCargo(CargoType* type, CargoHold *cargoStore){
-	for(CargoHold::iterator i = cargoStore->begin();
-			i != cargoStore->end(); i++){
-		if (type == i->type){
-			return &(*i);
-		}
-	}
-	return NULL;
-}
-
-Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore){
-       for(size_t i = 0; i < cargoStore->size(); i++){
-               if (type == cargoStore[0][i].type){
-                       return &cargoStore[0][i];
-               }
-       }
-       return NULL;
-}
