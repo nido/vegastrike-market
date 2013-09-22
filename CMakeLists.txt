@@ -12,7 +12,7 @@ find_package(CppUnit)
 #find_package(EXPAT REQUIRED)
 #include_directories(${EXPAT_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Og -Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Og -Wall -Wextra -fprofile-arcs -ftest-coverage")
 set(CMAKE_BUILD_TYPE "Debug")
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
