@@ -6,7 +6,7 @@ project(VegastrikeEconomy)
 enable_testing()
 
 include(FindCppUnit)
-find_package(CppUnit)
+#find_package(CppUnit)
 
 #include(FindEXPAT)
 #find_package(EXPAT REQUIRED)
