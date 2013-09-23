@@ -3,19 +3,66 @@
 #include <cppunit/TestResult.h>
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
-
 #include <vector>
+#include <assert.h>
 
 #include "FactoryTest.hpp"
 #include "Factory.hpp"
 
 #include "Cargo.hpp"
+#include "CargoHold.hpp"
 
 void FactoryTest::setUp(){
+	this->inputType = new CargoType("input", "test/test", 1.0, 2.0);
+	this->outputType = new CargoType("output", "test/test", 1.0, 2.0);
+	this->in1 = Cargo(inputType, 1);
+	this->out1 = Cargo(outputType, 1);
+	this->in10 = Cargo(inputType, 10);
+	this->out10 = Cargo(outputType, 10);
+	this->input1 = CargoHold();
+	this->output1 = CargoHold();
+	this->input10 = CargoHold();
+	this->output10 = CargoHold();
+	this->hold = CargoHold();
+	this->input1.addCargo(in1);
+	this->output1.addCargo(out1);
+	this->input10.addCargo(in10);
+	this->output10.addCargo(out10);
+	this->produce1 = ProductionOption(input1, output1);
+	this->produce10 = ProductionOption(input10, output10);
+	std::vector<ProductionOption> pos = std::vector<ProductionOption>();
+	pos.push_back(this->produce1);
+	pos.push_back(this->produce10);
+	this->factory = Factory(pos);
 }
 
 void FactoryTest::tearDown(){
+	delete this->inputType;
+	delete this->outputType;
 }
+
+void FactoryTest::testCanProduce(){
+	CPPUNIT_ASSERT(this->factory.CanProduce(&this->hold) == false);
+	assert(this->factory.CanProduce(&this->hold) == false);
+	this->hold.addCargo(in1);
+	CPPUNIT_ASSERT(this->factory.CanProduce(&this->hold) == true);
+	this->hold.delCargo(in1);
+	CPPUNIT_ASSERT(this->factory.CanProduce(&this->hold) == false);
+}
+
+void FactoryTest::testProduce(){
+	Cargo* found;
+	this->hold.addCargo(in1);
+	found = this->hold.findCargo(inputType);
+	assert(found != NULL);
+	// produce cargo
+	this->factory.Produce(&this->hold);
+	found = this->hold.findCargo(inputType);
+	CPPUNIT_ASSERT(found == NULL);
+	found = this->hold.findCargo(outputType);
+	CPPUNIT_ASSERT(found->getCount() == 1);
+}
+
 
 void FactoryTest::smokeTest(){
 	CargoType *input = new CargoType( "input", "test/test", 0.0, 0.0);
@@ -63,5 +110,11 @@ CppUnit::Test* FactoryTest::suite()
 	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
 			"smokeTest",
 			&FactoryTest::smokeTest));
+	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
+			"testCanProduce",
+			&FactoryTest::testCanProduce));
+	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
+			"testProduce",
+			&FactoryTest::testProduce));
 	return suiteOfTests;
 }

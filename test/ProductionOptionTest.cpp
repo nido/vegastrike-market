@@ -53,6 +53,8 @@ void ProductionOptionTest::smokeTest(){
 }
 
 void ProductionOptionTest::CanProduceTest(){
+	CargoHold hold = CargoHold();
+	CPPUNIT_ASSERT(o1->CanProduce(&hold) == false);
 	// stuff3 has 10 input, stuff1 has 1 input
 	CPPUNIT_ASSERT(o1->CanProduce(stuff3) == true);
 	CPPUNIT_ASSERT(o1->CanProduce(&stuff1) == true);
@@ -65,6 +67,7 @@ void ProductionOptionTest::CanProduceTest(){
 
 void ProductionOptionTest::ProduceTest(){
 }
+
 
 CppUnit::Test* ProductionOptionTest::suite()
 {

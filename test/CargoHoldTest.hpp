@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "CargoHold.hpp"
+#include "Cargo.hpp"
 
 
 class CargoHoldTest : public CppUnit::TestFixture  {
