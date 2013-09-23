@@ -3,6 +3,14 @@
 
 #include "Cargo.hpp"
 
+Cargo::Cargo() : type(NULL), quantity(1){};
+
+	/** Create a new pile of Cargo */
+Cargo::Cargo(CargoType* type, unsigned int quantity) :
+		type(type), quantity(quantity){};
+
+Cargo::~Cargo(){}
+
 void Cargo::addCargo(unsigned int quantity){
 	this->quantity += quantity;
 }
@@ -11,10 +19,24 @@ void Cargo::delCargo(unsigned int quantity){
 	this->quantity -= quantity;
 }
 
+bool Cargo::operator==( const Cargo &that ) const
+{
+	return this->type == that.type;
+}
+
+bool Cargo::operator<( const Cargo &that ) const
+{
+	if(this->type == that.type){
+		return this->quantity < that.quantity;
+	} else {
+		return this->type < that.type;
+	}		
+}
+
 unsigned int Cargo::getCount(){
 	return this->quantity;
 }
 
-/*void Cargo::printOut(){
-	std::cout<<quantity<<" count of "<<this->type->name<<std::endl;
-}*/
+CargoType::CargoType( std::string name, std::string catagory, float mass, float volume) :
+        	name(name), catagory(catagory), mass(mass), volume(volume){
+}

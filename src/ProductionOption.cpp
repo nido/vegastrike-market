@@ -28,6 +28,10 @@
 
 #include <assert.h>
 
+/** Empty constructor for cpptest */
+ProductionOption::ProductionOption(){
+}
+
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
 ProductionOption::ProductionOption(CargoHold consumes, CargoHold produces){
 	this->consumes = consumes;
@@ -43,20 +47,18 @@ ProductionOption::~ProductionOption(){
  * the Cargo defined in the 'consumes' vector.
  */
 bool ProductionOption::CanProduce(CargoHold *cargoStore){
-	for(CargoHold::iterator i = this->consumes.begin();
-			i != this->consumes.end(); i++){
-		for(CargoHold::iterator j = cargoStore->begin();
-				j != cargoStore->end(); j++){
-			Cargo* temp = cargoStore->findCargo(j->type);
-			if (temp == NULL){
-				// cargo not found, cannot produce.
-				return false;
-			}
-			if(temp->getCount() < i->getCount() ) {
-				// Not enough of a certain input
-				// is available, cannot produce.
-				return false;
-			}
+	for(CargoHold::iterator consumesIterator = this->consumes.begin();
+			consumesIterator != this->consumes.end();
+			consumesIterator++){
+		Cargo* temp = cargoStore->findCargo(consumesIterator->type);
+		if (temp == NULL){
+			// cargo not found, cannot produce.
+			return false;
+		}
+		if(temp->getCount() < consumesIterator->getCount() ) {
+			// Not enough of a certain input
+			// is available, cannot produce.
+			return false;
 		}
 	}
 	return true;

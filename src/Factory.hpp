@@ -18,7 +18,11 @@ class Factory;
  */
 class Factory{
 public:
+	/** Create an empty Factory for cppunit */
+	Factory();
+	/** Create a Factory */
 	Factory(std::vector<ProductionOption> options);
+	/** delete a factory */
 	~Factory();
 
 	/** (if possible) Do producuce */

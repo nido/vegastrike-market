@@ -14,6 +14,9 @@
 #include <math.h>
 
 
+Factory::Factory(){
+}
+
 /** TODO: Make sure it has its own stores of Cargo to draw from */
 Factory::Factory(std::vector<ProductionOption> options){
 	// TODO: sort according to output size.

@@ -22,6 +22,7 @@ class ProductionOption;
 class ProductionOption {
 
 public:
+	ProductionOption();
 	ProductionOption(CargoHold consumes, CargoHold produces);
 	~ProductionOption();
 	/** (if possible) Do producuce */
@@ -34,7 +35,4 @@ private:
 	/** Cargo produced by production. */
 	CargoHold produces;
 };
-
-Cargo* findCargo(CargoType* type, std::vector<Cargo> *cargoStore);
-Cargo* findCargo(CargoType* type, CargoHold *cargoStore);
 #endif // H_PRODUCTIONOPTION

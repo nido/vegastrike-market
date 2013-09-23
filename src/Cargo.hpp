@@ -18,25 +18,30 @@ public:
 	CargoType* type;
 
 	/** Stupid experiment */
-	Cargo() : type(NULL), quantity(1){};
+	Cargo();
 
 	/** Create a new pile of Cargo */
-	Cargo(CargoType* type, unsigned int quantity) :
-		type(type), quantity(quantity){};
+	Cargo(CargoType* type, unsigned int quantity);
+
+	~Cargo();
+
+	/** Check whether two Cargo are (of) the same (type).
+	 * One Cargo is equal to another cargo if they are of the same
+	 * type. Note that this definition, along with the way "<" is
+	 * defined, that this does not confirm with assumptions
+	 * belonging to the mathematical operators. For example, it is
+	 * perfectly possible for a pile of cargo to be both the same
+	 * and smaller then another pile of cargo by virtue of being
+	 * less cargo of the same type.
+	 */
+	bool operator==( const Cargo &that ) const;
 
 	/** Cargo is sorted in relation to its CargoType and quantity
 	 * Whilst these two Cargo's of the same type should be combined
 	 * into a single cargo and not sorted as such, assertions which
 	 * pile of cargo is bigger may be useful in other ways.
 	 */
-	bool operator<( const Cargo &that ) const
-	{
-		if(this->type == that.type){
-			return this->quantity < that.quantity;
-		} else {
-			return this->type < that.type;
-		}		
-	}
+	bool operator<( const Cargo &that ) const;
 
 	void addCargo(unsigned int quantity);
 	void delCargo(unsigned int quantity);
@@ -61,8 +66,7 @@ public:
 
 	/** Create a new CargoType
  	 */
-	CargoType( std::string name, std::string catagory, float mass, float volume) :
-        	name(name), catagory(catagory), mass(mass), volume(volume){}
+	CargoType( std::string name, std::string catagory, float mass, float volume);
 
 	/** Compare cargotypes.
 	 * Returns true when both the name and catagory of the cargo are
