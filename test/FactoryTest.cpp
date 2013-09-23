@@ -52,6 +52,11 @@ void FactoryTest::testCanProduce(){
 
 void FactoryTest::testProduce(){
 	Cargo* found;
+	// check whether trying to produce without input gives no output.
+	this->factory.Produce(&this->hold);
+	found = this->hold.findCargo(outputType);
+	assert(found == NULL);
+
 	this->hold.addCargo(in1);
 	found = this->hold.findCargo(inputType);
 	assert(found != NULL);
