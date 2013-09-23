@@ -1,5 +1,7 @@
 #!/bin/bash
 
+make
+
 TESTCASES="cargo cargohold productionoption factory"
 
 if test -n "$1"
