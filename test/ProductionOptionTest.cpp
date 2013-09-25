@@ -29,6 +29,7 @@ void ProductionOptionTest::setUp()
 	this->o1 = new ProductionOption(stuff1, stuff2);
 	this->o10 = new ProductionOption(*stuff3, stuff2);
 
+	this->voidpo = new ProductionOption();
 }
 
 void ProductionOptionTest::tearDown(){
@@ -37,6 +38,7 @@ void ProductionOptionTest::tearDown(){
 	delete o10;
 	delete input;
 	delete output;
+	delete this->voidpo;
 }
 
 void ProductionOptionTest::smokeTest(){
@@ -66,6 +68,16 @@ void ProductionOptionTest::CanProduceTest(){
 }
 
 void ProductionOptionTest::ProduceTest(){
+	// try to produce in an empty hold
+	CargoHold hold = CargoHold();
+	Cargo* produced; 
+	o1->Produce(&hold);
+	// try tp produce 1 output from a pile of 10 input
+	o1->Produce(stuff3);
+	produced = stuff3->findCargo(this->output);
+	CPPUNIT_ASSERT(produced->getCount() == 1);
+	
+	
 }
 
 
@@ -76,5 +88,7 @@ CppUnit::Test* ProductionOptionTest::suite()
 			"smokeTest", &ProductionOptionTest::smokeTest) );
 	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
 			"CanProduceTest", &ProductionOptionTest::CanProduceTest) );
+	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
+			"ProduceTest", &ProductionOptionTest::ProduceTest) );
 	return suiteOfTests;
 }

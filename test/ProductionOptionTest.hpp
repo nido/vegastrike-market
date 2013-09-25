@@ -23,5 +23,6 @@ private:
         CargoHold *stuff3;
 	ProductionOption* o1;
 	ProductionOption* o10;
+	ProductionOption* voidpo;
 };
 
