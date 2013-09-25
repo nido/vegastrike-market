@@ -74,6 +74,30 @@ not used in the initial economy, it is perfectly possible to have a
 factory produce either one good or another from totally different input
 cargo.
 
+Base
+----
+
+Economically, bases are collections of factories packed together on a
+single station. From an economic perspective, Cargo can travel instantly
+within a base. Between bases, transfer takes time (and money?).
+
+PriceList
+---------
+
+A priceList is an indication of what the prices are.
+Initially; are dependant on a price indication (the current base price),
+a modifier which can differ from basetype/universe/other(?) and a
+quantity modifier.
+
+The price is also dependant on who is requesting it. A base considering
+the worth of its own products will get the price as calculated above. A
+Player may get charget some space-VAT, and a discount or markup
+depending on faction standing. Prices for bases of different factions
+may also change depending on mutual standing. Transfer of goods between
+bases will also cost depending on distance (and may or may not succeed
+due to piracy, accidents and the sorts), but that is to be covered
+elsewhere.
+
 Governor
 --------
 
@@ -83,14 +107,6 @@ deciding how many or which goods are to be produced in a particular
 factory, though initial factories may use a function choosing a default
 production option. Still, Initially this governer is to call these
 functions and give the factories access to the correct cargo.
-
-Base
-----
-
-Economically, bases are collections of factories packed together on a
-single station. Within a Base, Cargo can travel instantly. Between
-bases, transfer takes time (and money?). 
-
 
 
 
