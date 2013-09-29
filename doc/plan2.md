@@ -1,6 +1,10 @@
 Vegastrike Economy Simplified Algorithm {#mainpage}
 =======================================
 
+[Coverage](../coverage/index.html)
+
+[Unit Test Callgraph](../unittest-callgrind.svg)
+
 This is an implemenatation proposal for getting an economy running
 within vegastrike. This proposal is based on RedAdders code and text
 and contributions by others at 
@@ -14,7 +18,7 @@ giving it the ability create missions and ships flying around, to having
 the economy production linked into the availability of ships and
 weapons.
 
-The latter will give an extra option for the ongoing war between
+he latter will give an extra option for the ongoing war between
 factions between other then blowing bases to bits. If the parts to make
 missles never arrive, no missles can be made and no missles can be
 fired.

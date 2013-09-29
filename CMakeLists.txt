@@ -8,27 +8,31 @@ enable_testing()
 include(FindCppUnit)
 #find_package(CppUnit)
 
-#include(FindEXPAT)
-#find_package(EXPAT REQUIRED)
+include(FindEXPAT)
+find_package(EXPAT REQUIRED)
 #include_directories(${EXPAT_INCLUDE_DIRS})
+#include_directories(${EXPAT_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${EXPAT_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra -fprofile-arcs -ftest-coverage")
 set(CMAKE_BUILD_TYPE "Debug")
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_executable(cppunittest
 	test/cppunittest.cpp
+	test/XMLParseTest.cpp
 	test/FactoryTest.cpp
 	test/ProductionOptionTest.cpp
 	test/CargoHoldTest.cpp
 	test/CargoTest.cpp
+	src/XMLParse.cpp
 	src/Factory.cpp
 	src/ProductionOption.cpp
 	src/CargoHold.cpp
 	src/Cargo.cpp)
 
-target_link_libraries(cppunittest ${CPPUNIT_LIBRARIES})
+target_link_libraries(cppunittest ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
 add_test(cppunittest cppunittest)
 

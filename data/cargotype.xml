@@ -1,0 +1,2 @@
+<CargoType name="input" mass="10" volume="10" />
+<CargoType name="output" mass="10" volume="10" />

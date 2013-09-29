@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cmake "@CMAKE_SOURCE_DIR@" -D"CMAKE_CXX_FLAGS:string=-fprofile-arcs -ftest-coverage -DNDEBUG"
+
+
 if test "@CMAKE_CURRENT_BINARY_DIR@" == @"CMAKE_CURRENT_BINARY_DIR"@
 then
 	echo "You are trying to execute a template, aint gonna do this for you, sorry"
@@ -8,7 +11,7 @@ fi
 
 make
 
-TESTCASES="cargo cargohold productionoption factory"
+TESTCASES="cargo cargohold productionoption factory xmlparse"
 
 if test -n "$1"
 then

@@ -76,8 +76,10 @@ bool CargoHold::delCargo(CargoHold newCargo){
 		return false;
 	}
 	// subtract actual stuff
-	for(size_t i=0; i<newCargo.cargo.size(); i++){
-		assert(this->delCargo(newCargo.cargo[i]) == true);
+	for(CargoHold::iterator i = newCargo.begin();
+	    i != newCargo.end(); i++){
+		bool result = this->delCargo(*i);
+		assert(result == true);
 	}
 	return true;
 }

@@ -1,6 +1,7 @@
 #ifndef H_CARGO
 #define H_CARGO
 
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -77,6 +78,9 @@ public:
 	 */ 
 	bool operator==( const CargoType &that ) const
 	{
+#ifndef NDEBUG
+		std::cout<<"Coparing CargoTypes: "<<this->name<<", "<<this->catagory<<", "<<that.name<<", "<<that.catagory<<std::endl;
+#endif
 		return ((this->name.compare(that.name) == 0)
 			&& (this->catagory.compare(that.catagory) == 0));
 	}
@@ -91,11 +95,12 @@ public:
 private:
 	/** Name of the cargo, for example "Iron Ore" */
 	std::string name;
-	/** Cargo catagory. Part of vegastrike's core thoug it is packed in
-	 * a different sort of string container.
-	 * TODO: At the moment, I assume the difference between "Raw
-	 * Materials" and "Ores" is done with a sort of separator like "Raw
-	 * Materials/Ores" and consider this a problem for interation later.
+	/** Cargo catagory.
+	 * Part of vegastrike's core thoug it is packed in a different
+	 * sort of string container.  The difference between "Raw
+	 * Materials" and "Ores" is done with a separator like "Raw
+	 * Materials/Ores" and is a problem already solved in the
+	 * vegastrike player trade interface.
 	 */
 	std::string catagory;
 	/** Long description of the cargo. */
