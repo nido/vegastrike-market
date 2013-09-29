@@ -20,7 +20,7 @@ set(CMAKE_BUILD_TYPE "Debug")
 
 
 add_executable(cppunittest
-	test/cppunittest.cpp
+	test/main.cpp
 	test/XMLParseTest.cpp
 	test/FactoryTest.cpp
 	test/ProductionOptionTest.cpp
