@@ -8,9 +8,9 @@
 
 void CargoTypeTest::setUp()
 {
-	one = CargoType("1", "1", 0, 0);
-	two = CargoType("2", "1", 0, 0);
-	three = CargoType("1", "2", 0, 0);
+	one = CargoType("1", "1", 0, 0,0);
+	two = CargoType("2", "1", 0, 0,0);
+	three = CargoType("1", "2", 0, 0,0);
 	
 }
 

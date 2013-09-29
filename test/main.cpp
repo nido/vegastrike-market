@@ -7,6 +7,7 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 
+#include "BaseTest.hpp"
 #include "CargoTest.hpp"
 #include "CargoTypeTest.hpp"
 #include "FactoryTest.hpp"
@@ -18,17 +19,38 @@ int main(int argc, char* argv[]){
 	CppUnit::TextUi::TestRunner runner;
 
 
+	if (argc != 1 && strcmp(argv[1], "BaseTest") == 0 ){
+		std::cout<<argv[1]<<" "<<std::endl;
+	}
+	if (argc == 1 || strcmp(argv[1], "BaseTest") == 0){
+		 runner.addTest( BaseTest::suite());
+	}
+	if (argc != 1 && strcmp(argv[1], "CargoTest") == 0 ){
+		std::cout<<argv[1]<<" "<<std::endl;
+	}
 	if (argc == 1 || strcmp(argv[1], "CargoTest") == 0){
 		 runner.addTest( CargoTest::suite());
+	}
+	if (argc != 1 && strcmp(argv[1], "CargoTypeTest") == 0 ){
+		std::cout<<argv[1]<<" "<<std::endl;
 	}
 	if (argc == 1 || strcmp(argv[1], "CargoTypeTest") == 0){
 		 runner.addTest( CargoTypeTest::suite());
 	}
+	if (argc != 1 && strcmp(argv[1], "FactoryTest") == 0 ){
+		std::cout<<argv[1]<<" "<<std::endl;
+	}
 	if (argc == 1 || strcmp(argv[1], "FactoryTest") == 0){
 		 runner.addTest( FactoryTest::suite());
 	}
+	if (argc != 1 && strcmp(argv[1], "ProductionOptionTest") == 0 ){
+		std::cout<<argv[1]<<" "<<std::endl;
+	}
 	if (argc == 1 || strcmp(argv[1], "ProductionOptionTest") == 0){
 		 runner.addTest( ProductionOptionTest::suite());
+	}
+	if (argc != 1 && strcmp(argv[1], "XMLParseTest") == 0 ){
+		std::cout<<argv[1]<<" "<<std::endl;
 	}
 	if (argc == 1 || strcmp(argv[1], "XMLParseTest") == 0){
 		 runner.addTest( XMLParseTest::suite());

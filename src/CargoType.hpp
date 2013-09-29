@@ -23,7 +23,7 @@ public:
 
 	/** Create a new CargoType
  	 */
-	CargoType( std::string name, std::string catagory, float mass, float volume);
+	CargoType( std::string name, std::string catagory, float mass, float volume, float price);
 
 	/** Compare cargotypes.
 	 * Returns true when both the name and catagory of the cargo are
@@ -53,5 +53,7 @@ private:
 	float mass;
 	/* space taken up by one unit of this type of cargo */
 	float volume;
+	/* Base price */
+	float basePrice;
 };
 #endif // H_CARGOTYPE

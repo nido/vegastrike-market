@@ -23,6 +23,7 @@ add_library(market
 	src/Cargo
 	src/ProductionOption
 	src/Factory
+	src/Base
 	src/XMLParse
 )
 
@@ -32,6 +33,7 @@ add_executable(cppunittest
 	test/CargoTest
 	test/ProductionOptionTest
 	test/FactoryTest
+	test/BaseTest
 	test/XMLParseTest
 	)
 

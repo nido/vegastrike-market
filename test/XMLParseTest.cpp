@@ -17,8 +17,8 @@
 
 void XMLParseTest::setUp()
 {
-	this->inputcargostring = "<CargoType name=\"input\" catagory =\"test\" mass=\"10\" volume=\"10\" />";
-	this->input = new CargoType("input", "test", 10.0, 10.0);
+	this->inputcargostring = "<CargoType name=\"input\" catagory =\"test\" mass=\"10\" volume=\"10\" price=\"10\" />";
+	this->input = new CargoType("input", "test", 10.0, 10.0, 1.0);
 	this->parser = XML_ParserCreate(NULL);
 }
 
@@ -29,7 +29,7 @@ void XMLParseTest::tearDown()
 }
 
 void XMLParseTest::testParseCargoType(){
-	CargoType* test = new CargoType("","",0,0);
+	CargoType* test = new CargoType();
 	XML_SetElementHandler(this->parser, XMLParseElement, NULL);
 	XML_SetUserData(this->parser, test);
 	XML_Parse(parser, this->inputcargostring.c_str(), inputcargostring.size(), 0);
@@ -41,7 +41,7 @@ void XMLParseTest::testParseCargoType(){
 
 static void endElement( void *userData, const XML_Char *name)
 {
-	printf("Ending %s\n");
+	printf("Ending %s\n", name);
 }
 
 CppUnit::Test* XMLParseTest::suite()

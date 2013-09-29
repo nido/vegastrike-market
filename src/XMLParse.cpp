@@ -37,6 +37,7 @@ void ParseCargoType(CargoType* output, const XML_Char **atts )
 	std::string catagory;
 	float mass;
 	float volume;
+	float price;
 	std::string temp;
 
 	do {
@@ -65,5 +66,10 @@ void ParseCargoType(CargoType* output, const XML_Char **atts )
 	volume = atof(temp.c_str());
 	assert(volume != NAN);
 
-	*output = CargoType(name, catagory, mass, volume);
+	temp = dict["price"];
+	assert(temp.compare("")!=0);
+	price = atof(temp.c_str());
+	assert(price != NAN);
+
+	*output = CargoType(name, catagory, mass, volume, price);
 }

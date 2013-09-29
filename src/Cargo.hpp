@@ -14,13 +14,6 @@ public:
 	/** empty one */
 	Cargo();
 
-	/** iterator access */
-	typedef std::map<CargoType, unsigned int>::iterator iterator;
-	typedef std::map<CargoType, unsigned int>::const_iterator const_iterator;
-        iterator begin();
-        iterator end();
-
-
 	/**  Add quantity cargo of type to the cargohold */
 	void addCargo(CargoType type, unsigned int quantity);
 
@@ -37,6 +30,11 @@ public:
 	bool contains(Cargo newCargo);
 
 private:
+	/** iterator access */
+	typedef std::map<CargoType, unsigned int>::iterator iterator;
+	typedef std::map<CargoType, unsigned int>::const_iterator const_iterator;
+        iterator begin();
+        iterator end();
 
 	/** The actual cargo(s) itself. */
 	std::map<CargoType, unsigned int> cargo;

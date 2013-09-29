@@ -52,14 +52,13 @@ bool ProductionOption::canProduce(Cargo *cargoStore){
 
 void ProductionOption::Produce(Cargo *cargoStore){
 	bool result;
-	Cargo* temp;
 	if (this->canProduce(cargoStore) == false){
 		return;
 	}
 
 	result = cargoStore->delCargo(consumes);
 	// make sure this actually happened
-	assert(result != flase);
+	assert(result != false);
 
 	cargoStore->addCargo(produces);
 }

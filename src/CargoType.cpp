@@ -4,12 +4,12 @@
 #include "CargoType.hpp"
 
 CargoType::CargoType():
-	name("DebugCargo"), catagory("DebugCargo"), mass(1000.0), volume(1000.0)
+	name("Debug"), catagory("Debug"), mass(1.0), volume(1.0), basePrice(1.0)
 {
 }
 
-CargoType::CargoType( std::string name, std::string catagory, float mass, float volume) :
-        	name(name), catagory(catagory), mass(mass), volume(volume)
+CargoType::CargoType( std::string name, std::string catagory, float mass, float volume, float price) :
+        	name(name), catagory(catagory), mass(mass), volume(volume), basePrice(price)
 {
 }
 
