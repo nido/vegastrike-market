@@ -10,5 +10,6 @@ class @template@ : public CppUnit::TestFixture  {
 public:
 	void setUp();
 	void tearDown();
+@headercode@
 	static CppUnit::Test* suite();
 };

@@ -5,8 +5,16 @@
 #include <cppunit/ui/text/TestRunner.h>
 
 #include "@template@.hpp"
-void @template@::setUp(){}
-void @template@::tearDown(){}
+
+void @template@::setUp()
+{
+}
+
+void @template@::tearDown()
+{
+}
+
+@testcode@
 
 CppUnit::Test* @template@::suite()
 {
@@ -14,5 +22,7 @@ CppUnit::Test* @template@::suite()
 //	suiteOfTests->addTest( new CppUnit::TestCaller<@template@>(
 //			"testFunction",
 //			&@template@::testFunction));
+
+	@suitecode@
 	return suiteOfTests;
 }
