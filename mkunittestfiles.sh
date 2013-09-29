@@ -10,6 +10,9 @@ FILES=$(ls test/*Test.hpp | sed "s/test\/\([a-zA-Z]*\).hpp/\1/g")
 
 for FILE in ${FILES}
 do
+	UNITTESTCODE="${UNITTESTCODE}\n\tif (argc != 1 \&\& strcmp(argv[1], \"${FILE}\") == 0 ){"
+	UNITTESTCODE="${UNITTESTCODE}\n\t\tstd::cout<<argv[1]<<\" \"<<std::endl;"
+	UNITTESTCODE="${UNITTESTCODE}\n\t}"
 	UNITTESTCODE="${UNITTESTCODE}\n\tif (argc == 1 || strcmp(argv[1], \"${FILE}\") == 0){"
 	UNITTESTCODE="${UNITTESTCODE}\n\t\t runner.addTest( ${FILE}::suite());"
 	UNITTESTCODE="${UNITTESTCODE}\n\t}"

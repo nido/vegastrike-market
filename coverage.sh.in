@@ -14,7 +14,7 @@ fi
 
 make
 
-TESTCASES=$(ls "@CMAKE_SOURCE_DIR@/test/" | grep -Go ".*Test")
+TESTCASES=$(ls "@CMAKE_SOURCE_DIR@/test/" | grep -Go ".*Test" | sort | uniq)
 
 if test -n "$1"
 then
@@ -24,8 +24,9 @@ fi
 for TEST in ${TESTCASES};
 do
         lcov --quiet --rc lcov_branch_coverage=1 -z --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info
-        ./cppunittest ${TEST}
-        lcov --quiet --rc lcov_branch_coverage=1 -c -t ${TEST} --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info
+        ./cppunittest ${TEST} 2>&1 | grep -v "^[[:space:]]*$"
+        lcov --quiet --rc lcov_branch_coverage=1 -c -t ${TEST} --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info 2>&1 |
+			fgrep -v "geninfo: WARNING: no data found for /usr/include/"
         lcov --quiet --rc lcov_branch_coverage=1 -e coverage${TEST}.info "@CMAKE_CURRENT_SOURCE_DIR@/*" -o codecoverage${TEST}.info
 
 done
