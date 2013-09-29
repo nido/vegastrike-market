@@ -19,12 +19,13 @@ void XMLParseTest::setUp()
 {
 	this->inputcargostring = "<CargoType name=\"input\" catagory =\"test\" mass=\"10\" volume=\"10\" />";
 	this->input = new CargoType("input", "test", 10.0, 10.0);
-
 	this->parser = XML_ParserCreate(NULL);
 }
 
 void XMLParseTest::tearDown()
 {
+	delete this->input;
+ 	XML_ParserFree(this->parser);
 }
 
 void XMLParseTest::testParseCargoType(){
@@ -34,6 +35,7 @@ void XMLParseTest::testParseCargoType(){
 	XML_Parse(parser, this->inputcargostring.c_str(), inputcargostring.size(), 0);
 	std::cout<<test<<", "<<input<<std::endl;
 	CPPUNIT_ASSERT(*test == *(this->input));
+	delete test;
 }
 
 
