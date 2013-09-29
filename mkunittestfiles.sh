@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 NAME="$1"
 
@@ -25,9 +25,12 @@ else
 
 TESTS=$(cat "src/${NAME}.cpp" | 
 	grep -Go "${NAME}::[^(\ ]\+" | 
+	sed "s/${NAME}::${NAME}//g" |
+	sed "s/${NAME}::~${NAME}//g" |
 	sed "s/${NAME}::/test/g" |
 	sed "s/==/Equals/g" |
-	sed "s/</LessThen/g" | sort | uniq)
+	sed "s/</LessThen/g" | 
+	sort | uniq)
 
 
 TESTCODE=""

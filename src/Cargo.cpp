@@ -1,56 +1,81 @@
-#include <assert.h>
+#include <algorithm>
 #include <iostream>
+
+#include <assert.h>
+#include <stdbool.h>
 
 #include "Cargo.hpp"
 
-Cargo::Cargo() : type(NULL), quantity(1)
+Cargo::Cargo()
 {
 }
 
-	/** Create a new pile of Cargo */
-Cargo::Cargo(CargoType* type, unsigned int quantity) :
-		type(type), quantity(quantity)
+void Cargo::addCargo(CargoType type, unsigned int quantity)
 {
+	assert( quantity != 0);
+	Cargo::iterator current = this->cargo.find(type);
+	if (current != this->end()){
+		quantity += current->second;
+	}
+	this->cargo[type] = quantity;
 }
 
-Cargo::~Cargo()
+void Cargo::addCargo(Cargo newCargo)
 {
+	Cargo::iterator newStock;
+	for (newStock = newCargo.begin();
+		newStock != newCargo.end();
+		newStock++)
+	{
+		this->addCargo(newStock->first, newStock->second);
+	}
 }
 
-void Cargo::addCargo(unsigned int quantity)
+unsigned int Cargo::getCount(CargoType type)
 {
-	this->quantity += quantity;
+	return this->cargo[type];
 }
 
-void Cargo::delCargo(unsigned int quantity)
+bool Cargo::contains(Cargo newCargo)
 {
-	assert (this->quantity >= quantity);
-	this->quantity -= quantity;
+	Cargo::iterator newStock;
+	for (newStock = newCargo.begin();
+		newStock != newCargo.end();
+		newStock++)
+	{
+		if (this->cargo[newStock->first] < newStock->second)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
-bool Cargo::operator==( const Cargo &that ) const
+bool Cargo::delCargo(Cargo newCargo)
 {
-#ifndef NDEBUG
-	std::cout<<"Cargo=="<<this->type<<", "<<that.type<<std::endl;
-#endif
-	return this->type == that.type;
+	Cargo::iterator newStock;
+	if (this->contains(newCargo) == false){
+		return false;
+	}
+	for (newStock = newCargo.begin();
+		newStock != newCargo.end();
+		newStock++)
+	{
+		this->cargo[newStock->first] -= newStock->second;
+		if (this->cargo[newStock->first] == 0) {
+			this->cargo.erase(newStock->first);
+		}
+	}
+	return true;
 }
 
-bool Cargo::operator<( const Cargo &that ) const
+Cargo::iterator Cargo::begin()
 {
-	if(this->type == that.type){
-		return this->quantity < that.quantity;
-	} else {
-		return this->type < that.type;
-	}		
+	return this->cargo.begin();
 }
 
-unsigned int Cargo::getCount()
-{
-	return this->quantity;
+Cargo::iterator Cargo::end(){
+	return this->cargo.end();
 }
 
-CargoType::CargoType( std::string name, std::string catagory, float mass, float volume) :
-        	name(name), catagory(catagory), mass(mass), volume(volume)
-{
-}
+

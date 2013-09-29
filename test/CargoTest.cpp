@@ -6,99 +6,91 @@
 
 #include "CargoTest.hpp"
 
-#include "Cargo.hpp"
-
-void CargoTest::setUp(){
-	this->type = new CargoType("type", "category", 1.0, 2.0);
-	this->cargop = new Cargo(type, 1);
-	this->cargoi = Cargo();
-}
-void CargoTest::tearDown(){
-	delete this->cargop;
-	delete this->type;
+void CargoTest::setUp()
+{
+	type1 = CargoType("1", "test", 1,1);
+	type2 = CargoType("2", "test", 2,2);
+	type3 = CargoType("3", "test", 3,3);
+	pile1 = Cargo();
+	pile2 = Cargo();
+	pile3 = Cargo();
 }
 
-void CargoTest::testCompare(){
-	CargoType* type1 = new CargoType("cargotype2", "category2", 2.0, 3.0);
-	CargoType* type2 = new CargoType("cargotype3", "category2", 2.0, 3.0);
-	CargoType* type3 = new CargoType("cargotype2", "category3", 2.0, 3.0);
-
-	Cargo one = Cargo(type1, 1);
-	Cargo two = Cargo(type1, 2);
-	// check the same cargo type
-	bool result = one < two;
-	CPPUNIT_ASSERT(result == true);
-	result = two < one;
-	CPPUNIT_ASSERT(result == false);
-	// check different cargo names
-	two = Cargo(type2, 1);
-	result = one < two;
-	CPPUNIT_ASSERT(result == true);
-	result = two < one;
-	CPPUNIT_ASSERT(result == false);
-	// check different cargo types
-	two = Cargo(type3, 1);
-	result = one < two;
-	CPPUNIT_ASSERT(result == true);
-	result = two < one;
-	CPPUNIT_ASSERT(result == false);
-	delete type1;
-	delete type2;
-	delete type3;
+void CargoTest::tearDown()
+{
 }
 
-void CargoTest::testEqual(){
-	CargoType* type1 = new CargoType("cargotype2", "category2", 2.0, 3.0);
-	CargoType* type2 = new CargoType("cargotype3", "category2", 2.0, 3.0);
-	CargoType* type3 = new CargoType("cargotype2", "category3", 2.0, 3.0);
+void CargoTest::testaddCargo()
+{
+	pile1.addCargo(type1, 1);
+	// pile1 now has 1 type1 cargo
+	CPPUNIT_ASSERT(pile1.getCount(type1) == 1);
 
-	Cargo one = Cargo(type1, 1);
-	Cargo two = Cargo(type1, 2);
+	pile2.addCargo(pile1);
+	// pile2 now has 1 type1 cargo
+	CPPUNIT_ASSERT(pile2.getCount(type1) == 1);
 
-	bool result = one == two;
-	CPPUNIT_ASSERT(result == true);
-
-	two = Cargo(type2, 1);
-	result = one == two;
-	CPPUNIT_ASSERT(result == false);
-
-	two = Cargo(type3, 1);
-	result = one == two;
-	CPPUNIT_ASSERT(result == false);
-	delete type1;
-	delete type2;
-	delete type3;
+	pile1.addCargo(type1, 1);
+	CPPUNIT_ASSERT(pile1.getCount(type1) == 2);
+	CPPUNIT_ASSERT(pile2.getCount(type1) == 1);
 }
 
-void CargoTest::testAddCargo(){
-	this->cargop->addCargo(1);
-	CPPUNIT_ASSERT(this->cargop->getCount() == 2);
+void CargoTest::testcontains()
+{
+	pile1.addCargo(type1, 1);
+	pile2.addCargo(type2, 1);
+	pile3.addCargo(type1, 3);
+
+	CPPUNIT_ASSERT(pile1.contains(pile2) == false);
+	CPPUNIT_ASSERT(pile1.contains(pile3) == false);
+
+	CPPUNIT_ASSERT(pile2.contains(pile1) == false);
+	CPPUNIT_ASSERT(pile2.contains(pile3) == false);
+
+	CPPUNIT_ASSERT(pile3.contains(pile1) == true);
+	CPPUNIT_ASSERT(pile3.contains(pile2) == false);
 }
-void CargoTest::testDelCargo(){
-	this->cargop->delCargo(1);
-	CPPUNIT_ASSERT(this->cargop->getCount() == 0);
+
+void CargoTest::testdelCargo()
+{
+	pile1.addCargo(type1, 100);
+	pile2.addCargo(type1, 50);
+
+	CPPUNIT_ASSERT(pile3.delCargo(pile1) == false);
+	CPPUNIT_ASSERT(pile1.getCount(type1) == 100);
+	CPPUNIT_ASSERT(pile3.getCount(type1) == 0);
+	
+
+	CPPUNIT_ASSERT(pile2.delCargo(pile1) == false);
+	CPPUNIT_ASSERT(pile1.getCount(type1) == 100);
+	CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
+
+	CPPUNIT_ASSERT(pile1.delCargo(pile2) == true);
+	CPPUNIT_ASSERT(pile1.getCount(type1) == 50);
+	CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
+	
+	CPPUNIT_ASSERT(pile1.delCargo(pile1) == true);
+	CPPUNIT_ASSERT(pile1.getCount(type1) == 0);
+	CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
 }
-void CargoTest::testGetCount(){
-	CPPUNIT_ASSERT(this->cargop->getCount() == 1);
-}
+
 
 CppUnit::Test* CargoTest::suite()
 {
 	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "CargoTest" );
+//	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
+//			"testFunction",
+//			&CargoTest::testFunction));
+
+	
 	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
-			"testCompare",
-			&CargoTest::testCompare));
+			"testaddCargo", &CargoTest::testaddCargo));
+
 	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
-			"testEqual",
-			&CargoTest::testEqual));
+			"testcontains", &CargoTest::testcontains));
+
 	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
-			"testAddCargo",
-			&CargoTest::testAddCargo));
-	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
-			"testDelCargo",
-			&CargoTest::testDelCargo));
-	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
-			"testGetCount",
-			&CargoTest::testGetCount));
+			"testdelCargo", &CargoTest::testdelCargo));
+
 	return suiteOfTests;
 }

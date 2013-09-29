@@ -24,16 +24,16 @@
 #include <vector>
 
 #include "ProductionOption.hpp"
-#include "CargoHold.hpp"
 
 #include <assert.h>
 
 /** Empty constructor for cpptest */
-ProductionOption::ProductionOption(){
+ProductionOption::ProductionOption()
+{
 }
 
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
-ProductionOption::ProductionOption(CargoHold consumes, CargoHold produces){
+ProductionOption::ProductionOption(Cargo consumes, Cargo produces){
 	this->consumes = consumes;
 	this->produces = produces;
 }
@@ -46,43 +46,20 @@ ProductionOption::~ProductionOption(){
  * Production can commence when the cargoStore provided has at least
  * the Cargo defined in the 'consumes' vector.
  */
-bool ProductionOption::CanProduce(CargoHold *cargoStore){
-	for(CargoHold::iterator consumesIterator = this->consumes.begin();
-			consumesIterator != this->consumes.end();
-			consumesIterator++){
-		Cargo* temp = cargoStore->findCargo(consumesIterator->type);
-		if (temp == NULL){
-			// cargo not found, cannot produce.
-			return false;
-		}
-		if(temp->getCount() < consumesIterator->getCount() ) {
-			// Not enough of a certain input
-			// is available, cannot produce.
-			return false;
-		}
-	}
-	return true;
+bool ProductionOption::canProduce(Cargo *cargoStore){
+	return cargoStore->contains(this->consumes);
 }
 
-void ProductionOption::Produce(CargoHold *cargoStore){
+void ProductionOption::Produce(Cargo *cargoStore){
+	bool result;
 	Cargo* temp;
-	if (this->CanProduce(cargoStore) == false){
+	if (this->canProduce(cargoStore) == false){
 		return;
 	}
-	for(CargoHold::iterator i = this->consumes.begin();
-			i != this->consumes.end(); i++){
-		temp = cargoStore->findCargo(i->type);
-		assert(temp != NULL);
-		temp->delCargo(i->getCount());
-	}
-	for(CargoHold::iterator i = this->produces.begin();
-			i != this->produces.end(); i++){
-		// TODO: add output cargo to cargolist if nonexistent
-		temp = cargoStore->findCargo(i->type);
-		if (temp == NULL){
-			cargoStore->addCargo(Cargo(i->type, i->getCount()));
-		} else {
-			temp->addCargo(i->getCount());
-		}
-	}
+
+	result = cargoStore->delCargo(consumes);
+	// make sure this actually happened
+	assert(result != flase);
+
+	cargoStore->addCargo(produces);
 }

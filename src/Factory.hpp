@@ -18,17 +18,20 @@ class Factory;
  */
 class Factory{
 public:
-	/** Create an empty Factory for cppunit */
+	/** Create an empty Factory */
 	Factory();
-	/** Create a Factory */
-	Factory(std::vector<ProductionOption> options);
+
 	/** delete a factory */
 	~Factory();
 
 	/** (if possible) Do producuce */
-	void Produce(CargoHold* cargoStore);
-	bool CanProduce(CargoHold* cargoStore);
-	/** describes extra requiested input cargo */
+	void Produce(Cargo* cargoStore);
+
+	/** Check if production is possible */
+	bool canProduce(Cargo* cargoStore);
+
+	/** Add another production option */
+	void addProductionOption(ProductionOption option);
 private:
 	std::vector<ProductionOption> options;
 };

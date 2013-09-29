@@ -5,12 +5,9 @@
  * @author peter.schaefer@gmail.com
  */
 
-#include <vector>
-
 #include <stdbool.h>
 
 #include "Cargo.hpp"
-#include "CargoHold.hpp"
 
 class ProductionOption;
 
@@ -23,16 +20,20 @@ class ProductionOption {
 
 public:
 	ProductionOption();
-	ProductionOption(CargoHold consumes, CargoHold produces);
+	ProductionOption(Cargo consumes, Cargo produces);
 	~ProductionOption();
+
 	/** (if possible) Do producuce */
-	void Produce(CargoHold *cargoStore);
+	void Produce(Cargo *cargoStore);
+
 	/** determine whether production is possible */
-	bool CanProduce(CargoHold *cargoStore);
+	bool canProduce(Cargo *cargoStore);
+
 private:
 	/** Cargo consumed by production. */
-	CargoHold consumes;
+	Cargo consumes;
+
 	/** Cargo produced by production. */
-	CargoHold produces;
+	Cargo produces;
 };
 #endif // H_PRODUCTIONOPTION

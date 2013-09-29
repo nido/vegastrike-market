@@ -7,7 +7,7 @@
 #include <cassert>
 #include <cmath>
 
-#include "Cargo.hpp"
+#include "CargoType.hpp"
 #include "XMLParse.hpp"
 
 #define MAXSTRLEN 100

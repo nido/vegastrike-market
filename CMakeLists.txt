@@ -18,21 +18,24 @@ include_directories(${EXPAT_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra -fprofile-arcs -ftest-coverage")
 set(CMAKE_BUILD_TYPE "Debug")
 
+add_library(market
+	src/CargoType
+	src/Cargo
+	src/ProductionOption
+	src/Factory
+	src/XMLParse
+)
 
 add_executable(cppunittest
-	test/main.cpp
-	test/XMLParseTest.cpp
-	test/FactoryTest.cpp
-	test/ProductionOptionTest.cpp
-	test/CargoHoldTest.cpp
-	test/CargoTest.cpp
-	src/XMLParse.cpp
-	src/Factory.cpp
-	src/ProductionOption.cpp
-	src/CargoHold.cpp
-	src/Cargo.cpp)
+	test/main
+	test/CargoTypeTest
+	test/CargoTest
+	test/ProductionOptionTest
+	test/FactoryTest
+	test/XMLParseTest
+	)
 
-target_link_libraries(cppunittest ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
+target_link_libraries(cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
 add_test(cppunittest cppunittest)
 

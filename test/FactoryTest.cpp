@@ -3,123 +3,80 @@
 #include <cppunit/TestResult.h>
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
-#include <vector>
-#include <assert.h>
 
 #include "FactoryTest.hpp"
-#include "Factory.hpp"
 
-#include "Cargo.hpp"
-#include "CargoHold.hpp"
+void FactoryTest::setUp()
+{
+        this->intype = CargoType("in", "test", 1,1);
+        this->outtype = CargoType("out", "test", 1, 1);
 
-void FactoryTest::setUp(){
-	this->inputType = new CargoType("input", "test/test", 1.0, 2.0);
-	this->outputType = new CargoType("output", "test/test", 1.0, 2.0);
-	this->in1 = Cargo(inputType, 1);
-	this->out1 = Cargo(outputType, 1);
-	this->in10 = Cargo(inputType, 10);
-	this->out10 = Cargo(outputType, 10);
-	this->input1 = CargoHold();
-	this->output1 = CargoHold();
-	this->input10 = CargoHold();
-	this->output10 = CargoHold();
-	this->hold = CargoHold();
-	this->input1.addCargo(in1);
-	this->output1.addCargo(out1);
-	this->input10.addCargo(in10);
-	this->output10.addCargo(out10);
-	this->produce1 = ProductionOption(input1, output1);
-	this->produce10 = ProductionOption(input10, output10);
-	std::vector<ProductionOption> pos = std::vector<ProductionOption>();
-	pos.push_back(this->produce1);
-	pos.push_back(this->produce10);
-	this->factory = Factory(pos);
+        this->input = Cargo();
+        this->output = Cargo();
+        this->cargo = Cargo();
+
+        this->input.addCargo(intype, 1);
+        this->output.addCargo(outtype, 1);
+        this->cargo.addCargo(intype, 2);
+
+        this->po = ProductionOption(input, output);
+        this->bigpo = ProductionOption(cargo, output);
+
+	this->factory = Factory();
 }
 
-void FactoryTest::tearDown(){
-	delete this->inputType;
-	delete this->outputType;
-}
-
-void FactoryTest::testCanProduce(){
-	CPPUNIT_ASSERT(this->factory.CanProduce(&this->hold) == false);
-	assert(this->factory.CanProduce(&this->hold) == false);
-	this->hold.addCargo(in1);
-	CPPUNIT_ASSERT(this->factory.CanProduce(&this->hold) == true);
-	this->hold.delCargo(in1);
-	CPPUNIT_ASSERT(this->factory.CanProduce(&this->hold) == false);
-}
-
-void FactoryTest::testProduce(){
-	Cargo* found;
-	// check whether trying to produce without input gives no output.
-	this->factory.Produce(&this->hold);
-	found = this->hold.findCargo(outputType);
-	assert(found == NULL);
-
-	this->hold.addCargo(in1);
-	found = this->hold.findCargo(inputType);
-	assert(found != NULL);
-	// produce cargo
-	this->factory.Produce(&this->hold);
-	found = this->hold.findCargo(inputType);
-	CPPUNIT_ASSERT(found == NULL);
-	found = this->hold.findCargo(outputType);
-	CPPUNIT_ASSERT(found->getCount() == 1);
+void FactoryTest::tearDown()
+{
 }
 
 
-void FactoryTest::smokeTest(){
-	CargoType *input = new CargoType( "input", "test/test", 0.0, 0.0);
-	CargoType *output = new CargoType( "output", "test/test", 0.0, 0.0);
+void FactoryTest::testcanProduce()
+{
+	// empty factory cannot produce
+	CPPUNIT_ASSERT(this->factory.canProduce(&cargo) == false);
 
-	std::vector<Cargo> stuff1 = std::vector<Cargo>();
-	std::vector<Cargo> stuff2 = std::vector<Cargo>();
-	CargoHold *stuff3 = new CargoHold(std::vector<Cargo>());
-	std::vector<Cargo> stuff4 = std::vector<Cargo>();
-	std::vector<Cargo> stuff5 = std::vector<Cargo>();
-	std::vector<ProductionOption> options = std::vector<ProductionOption>();
+	this->factory.addProductionOption(bigpo);
+	// cannot produce with not enough goods
+	CPPUNIT_ASSERT(this->factory.canProduce(&input) == false);
+	// cannot produce without the right goods
+	CPPUNIT_ASSERT(this->factory.canProduce(&output) == false);
 
-	stuff1.push_back(Cargo(input, 1));
-	stuff2.push_back(Cargo(output, 1));
-	stuff3->addCargo(input, 10);
-	stuff4.push_back(Cargo(input, 100));
-	stuff5.push_back(Cargo(output, 100));
+	this->factory.addProductionOption(po);
+	// can produce with just enough input goods
+	CPPUNIT_ASSERT(this->factory.canProduce(&input) == true);
+	// can produce with enough input goods
+	CPPUNIT_ASSERT(this->factory.canProduce(&cargo) == true);
+}
 
-	ProductionOption o1 = ProductionOption(stuff1, stuff2);
-	ProductionOption o2 = ProductionOption(stuff4, stuff5);
-	options.push_back(o1);
-//	options.push_back(o2);
-
-	Factory *f = new Factory(options);
-
-	for(unsigned int i=1; i < 10; i++) {
-		f->Produce(stuff3);
-		Cargo* in = stuff3->findCargo(input);
-		Cargo* out = stuff3->findCargo(output);
-	//	CPPUNIT_ASSERT(in->getCount() == (20 - i));
-	//	CPPUNIT_ASSERT(out->getCount() == i);
-	}
-	f->Produce(stuff3);
-	CPPUNIT_ASSERT(stuff3->findCargo(input) == NULL);	
-
-	delete stuff3;
-	delete f;
-	delete input;
-	delete output;
+void FactoryTest::testProduce()
+{
+	this->factory.addProductionOption(po);
+	// produce with enough goods
+	this->factory.Produce(&cargo);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 1);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 1);
+	// produce with just enough goods
+	this->factory.Produce(&cargo);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 0);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
+	// Production does nothing when impossible
+	this->factory.Produce(&cargo);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 0);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
 }
 
 CppUnit::Test* FactoryTest::suite()
 {
 	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "FactoryTest" );
+//	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
+//			"testFunction",
+//			&FactoryTest::testFunction));
+
 	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
-			"smokeTest",
-			&FactoryTest::smokeTest));
+			"testcanProduce", &FactoryTest::testcanProduce));
+
 	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
-			"testCanProduce",
-			&FactoryTest::testCanProduce));
-	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
-			"testProduce",
-			&FactoryTest::testProduce));
+			"testProduce", &FactoryTest::testProduce));
+
 	return suiteOfTests;
 }

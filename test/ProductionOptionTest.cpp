@@ -1,94 +1,80 @@
-#include <vector>
+#include <cppunit/TestFixture.h>
+#include <cppunit/TestCaller.h>
+#include <cppunit/TestResult.h>
+#include <cppunit/TestSuite.h>
+#include <cppunit/ui/text/TestRunner.h>
 
-//TODO: make this vegastrike's version. This file contains the Cargo
-//      class; and use of vegacargo in the economy would make it a lot
-//      easier to integrate the two at a later date. Still, that leaves
-//      us with requiring a vegastrike_dir variable of sorts and getting
-//      people to check out all of vegastrike for this, or an altered
-//      version for here for the moment to make it work with sortof
-//      vegacargo
 #include "ProductionOptionTest.hpp"
 
 void ProductionOptionTest::setUp()
 {
-        this->input = new CargoType( "input", "test/test", 0.0, 0.0);
-        this->output = new CargoType( "output", "test/test", 0.0, 0.0);
+	this->intype = CargoType("in", "test", 1,1);
+	this->outtype = CargoType("out", "test", 1, 1);
 
-	std::vector<Cargo> vstuff1 = std::vector<Cargo>();
-	std::vector<Cargo> vstuff2 = std::vector<Cargo>();
-	std::vector<Cargo> vstuff3 = std::vector<Cargo>();
+	this->input = Cargo();
+	this->output = Cargo();
+	this->cargo = Cargo();
 
-	vstuff1.push_back(Cargo(input, 1));
-	vstuff2.push_back(Cargo(output, 1));
-	vstuff3.push_back(Cargo(input, 10));
+	this->input.addCargo(intype, 1);
+	this->output.addCargo(outtype, 1);
+	this->cargo.addCargo(intype, 2);
 
-	this->stuff1 = CargoHold(vstuff1);
-	this->stuff2 = CargoHold(vstuff2);
-	this->stuff3 = new CargoHold(vstuff3);
-
-	this->o1 = new ProductionOption(stuff1, stuff2);
-	this->o10 = new ProductionOption(*stuff3, stuff2);
-
-	this->voidpo = new ProductionOption();
+	this->po = ProductionOption(input, output);
+	this->bigpo = ProductionOption(cargo, output);
 }
 
-void ProductionOptionTest::tearDown(){
-	delete stuff3;
-	delete o1;
-	delete o10;
-	delete input;
-	delete output;
-	delete this->voidpo;
+void ProductionOptionTest::tearDown()
+{
 }
 
-void ProductionOptionTest::smokeTest(){
-	for(unsigned int i=1; i < 10; i++) {
-		this->o1->Produce(stuff3);
-		Cargo* in = this->stuff3->findCargo(this->input);
-		Cargo* out = this->stuff3->findCargo(this->output);
-		CPPUNIT_ASSERT(in->getCount() == (10 - i));
-		CPPUNIT_ASSERT(out->getCount() == i);
-	}
-	this->o1->Produce(stuff3);
-	CPPUNIT_ASSERT(this->stuff3->findCargo(this->input) == NULL);
-	return;
+
+void ProductionOptionTest::testCanProduce()
+{
+	CPPUNIT_ASSERT(po.canProduce(&cargo) == true);
+	CPPUNIT_ASSERT(bigpo.canProduce(&input) == false);
+	CPPUNIT_ASSERT(po.canProduce(&output) == false);
 }
 
-void ProductionOptionTest::CanProduceTest(){
-	CargoHold hold = CargoHold();
-	CPPUNIT_ASSERT(o1->CanProduce(&hold) == false);
-	// stuff3 has 10 input, stuff1 has 1 input
-	CPPUNIT_ASSERT(o1->CanProduce(stuff3) == true);
-	CPPUNIT_ASSERT(o1->CanProduce(&stuff1) == true);
-	CPPUNIT_ASSERT(o10->CanProduce(stuff3) == true);
-	// can't produce, not enough goods
-	CPPUNIT_ASSERT(o10->CanProduce(&stuff1) == false);
-	// can't produce, no good available
-	CPPUNIT_ASSERT(o10->CanProduce(&stuff2) == false);
-}
-
-void ProductionOptionTest::ProduceTest(){
-	// try to produce in an empty hold
-	CargoHold hold = CargoHold();
-	Cargo* produced; 
-	o1->Produce(&hold);
-	// try tp produce 1 output from a pile of 10 input
-	o1->Produce(stuff3);
-	produced = stuff3->findCargo(this->output);
-	CPPUNIT_ASSERT(produced->getCount() == 1);
+void ProductionOptionTest::testProduce()
+{
+	// impossible production test
+	bigpo.Produce(&input);
+	po.Produce(&output);
+	CPPUNIT_ASSERT(input.getCount(intype) == 1);
+	CPPUNIT_ASSERT(output.getCount(outtype) == 1);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 2);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 0);
 	
-	
+
+	po.Produce(&cargo);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 1);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 1);
+
+	po.Produce(&cargo);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 0);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
+
+	po.Produce(&cargo);
+	CPPUNIT_ASSERT(cargo.getCount(intype) == 0);
+	CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
+
+
 }
 
 
 CppUnit::Test* ProductionOptionTest::suite()
 {
 	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "ProductionOptionTest" );
+//	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
+//			"testFunction",
+//			&ProductionOptionTest::testFunction));
+
+	
 	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
-			"smokeTest", &ProductionOptionTest::smokeTest) );
+			"testCanProduce", &ProductionOptionTest::testCanProduce));
+
 	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
-			"CanProduceTest", &ProductionOptionTest::CanProduceTest) );
-	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
-			"ProduceTest", &ProductionOptionTest::ProduceTest) );
+			"testProduce", &ProductionOptionTest::testProduce));
+
 	return suiteOfTests;
 }

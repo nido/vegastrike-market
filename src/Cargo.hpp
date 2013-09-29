@@ -1,113 +1,45 @@
 #ifndef H_CARGO
 #define H_CARGO
 
-#include <iostream>
-#include <string>
-#include <vector>
+#include <map>
 
-class Cargo;
-class CargoType;
+#include "CargoType.hpp"
 
-/** A pile of a certain type of cargo.
- * For example, if the player has 4 middles, 2 Iron Ores, and 300
- * LaserDrills, of which 200 are in another ship, this would make 4
- * different Cargo(piles).
+
+/** Cargo represents a collection of individual amounts of different types of cargo.
  */
 class Cargo
 {
 public:
-	CargoType* type;
-
-	/** Stupid experiment */
+	/** empty one */
 	Cargo();
 
-	/** Create a new pile of Cargo */
-	Cargo(CargoType* type, unsigned int quantity);
+	/** iterator access */
+	typedef std::map<CargoType, unsigned int>::iterator iterator;
+	typedef std::map<CargoType, unsigned int>::const_iterator const_iterator;
+        iterator begin();
+        iterator end();
 
-	~Cargo();
 
-	/** Check whether two Cargo are (of) the same (type).
-	 * One Cargo is equal to another cargo if they are of the same
-	 * type. Note that this definition, along with the way "<" is
-	 * defined, that this does not confirm with assumptions
-	 * belonging to the mathematical operators. For example, it is
-	 * perfectly possible for a pile of cargo to be both the same
-	 * and smaller then another pile of cargo by virtue of being
-	 * less cargo of the same type.
-	 */
-	bool operator==( const Cargo &that ) const;
+	/**  Add quantity cargo of type to the cargohold */
+	void addCargo(CargoType type, unsigned int quantity);
 
-	/** Cargo is sorted in relation to its CargoType and quantity
-	 * Whilst these two Cargo's of the same type should be combined
-	 * into a single cargo and not sorted as such, assertions which
-	 * pile of cargo is bigger may be useful in other ways.
-	 */
-	bool operator<( const Cargo &that ) const;
+	/** Add newCargo to the cargohold */
+	void addCargo(Cargo newCargo);
 
-	void addCargo(unsigned int quantity);
-	void delCargo(unsigned int quantity);
-	unsigned int getCount();
-	void printOut();
+	/** Removes cargo from this cargohold
+	 * returns a boolean saying whether the action succeded */
+	bool delCargo(Cargo newCargo);
+
+	unsigned int getCount(CargoType type);
+
+	/** check whether the content of newCargo is in the cargohold */
+	bool contains(Cargo newCargo);
+
 private:
-	unsigned int quantity;
+
+	/** The actual cargo(s) itself. */
+	std::map<CargoType, unsigned int> cargo;
 };
 
-/** Types of Cargo available. 
- * It doesn't matter whether a piece of cargo is on the players ship,
- * his target he just fired a missle at, some random planet, or in the
- * middle of a transaction, like name, mass and volume are constant.
- * Also, being able to compare _types_ of cargo rather then two
- * different cargo piles in order to easily add and remove cargo from
- * eachother.
- */
-class CargoType
-{
-public:
-
-
-	/** Create a new CargoType
- 	 */
-	CargoType( std::string name, std::string catagory, float mass, float volume);
-
-	/** Compare cargotypes.
-	 * Returns true when both the name and catagory of the cargo are
-	 * the same. Note you can have two different CargoType's and still
-	 * have it be the same CargoType in an equastion, though,
-	 * preferably, one would have all Cargo of the same type point to
-	 * the same CargoType.
-	 */ 
-	bool operator==( const CargoType &that ) const
-	{
-#ifndef NDEBUG
-		std::cout<<"Coparing CargoTypes: "<<this->name<<", "<<this->catagory<<", "<<that.name<<", "<<that.catagory<<std::endl;
-#endif
-		return ((this->name.compare(that.name) == 0)
-			&& (this->catagory.compare(that.catagory) == 0));
-	}
-
-	/** Comparator to have a way to order (types of) cargo */
-	bool operator<( const CargoType &that ) const
-	{
-		return((this->catagory == that.catagory) ?
-			(this->name < that.name) :
-			(this->catagory < that.catagory));
-	}
-private:
-	/** Name of the cargo, for example "Iron Ore" */
-	std::string name;
-	/** Cargo catagory.
-	 * Part of vegastrike's core thoug it is packed in a different
-	 * sort of string container.  The difference between "Raw
-	 * Materials" and "Ores" is done with a separator like "Raw
-	 * Materials/Ores" and is a problem already solved in the
-	 * vegastrike player trade interface.
-	 */
-	std::string catagory;
-	/** Long description of the cargo. */
-	std::string description;
-	/** Mass of one cargo. Weight, more or less. */
-	float mass;
-	/* space taken up by one unit of this type of cargo */
-	float volume;
-};
-#endif // H_CARGO
+#endif //H_CARGO

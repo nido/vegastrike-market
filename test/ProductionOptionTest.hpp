@@ -4,25 +4,22 @@
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-#include <vector>
 #include "ProductionOption.hpp"
 
 class ProductionOptionTest : public CppUnit::TestFixture  {
 public:
 	void setUp();
 	void tearDown();
-	static CppUnit::Test* suite();
-	void smokeTest();
-	void CanProduceTest();
-	void ProduceTest();
-private:
-	CargoType *input;
-	CargoType *output;
-	CargoHold stuff1;
-        CargoHold stuff2;
-        CargoHold *stuff3;
-	ProductionOption* o1;
-	ProductionOption* o10;
-	ProductionOption* voidpo;
-};
 
+	void testCanProduce();
+	void testProduce();
+	static CppUnit::Test* suite();
+private:
+	CargoType intype;
+	CargoType outtype;
+	Cargo input;
+	Cargo output;
+	Cargo cargo;
+	ProductionOption po;
+	ProductionOption bigpo;
+};
