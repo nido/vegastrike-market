@@ -1,6 +1,9 @@
 #ifndef H_GOVERNOR
 #define H_GOVERNOR
 
+/** not yet something useful, but maybe a good entry point for ai or player owning a base interaction
+ */
+
 class Governor;
 
 /** Dude running the station */
