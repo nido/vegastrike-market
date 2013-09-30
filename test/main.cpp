@@ -20,37 +20,37 @@ int main(int argc, char* argv[]){
 
 
 	if (argc != 1 && strcmp(argv[1], "BaseTest") == 0 ){
-		std::cout<<argv[1]<<" "<<std::endl;
+		std::cout<<argv[1]<<": ";
 	}
 	if (argc == 1 || strcmp(argv[1], "BaseTest") == 0){
 		 runner.addTest( BaseTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "CargoTest") == 0 ){
-		std::cout<<argv[1]<<" "<<std::endl;
+		std::cout<<argv[1]<<": ";
 	}
 	if (argc == 1 || strcmp(argv[1], "CargoTest") == 0){
 		 runner.addTest( CargoTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "CargoTypeTest") == 0 ){
-		std::cout<<argv[1]<<" "<<std::endl;
+		std::cout<<argv[1]<<": ";
 	}
 	if (argc == 1 || strcmp(argv[1], "CargoTypeTest") == 0){
 		 runner.addTest( CargoTypeTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "FactoryTest") == 0 ){
-		std::cout<<argv[1]<<" "<<std::endl;
+		std::cout<<argv[1]<<": ";
 	}
 	if (argc == 1 || strcmp(argv[1], "FactoryTest") == 0){
 		 runner.addTest( FactoryTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "ProductionOptionTest") == 0 ){
-		std::cout<<argv[1]<<" "<<std::endl;
+		std::cout<<argv[1]<<": ";
 	}
 	if (argc == 1 || strcmp(argv[1], "ProductionOptionTest") == 0){
 		 runner.addTest( ProductionOptionTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "XMLParseTest") == 0 ){
-		std::cout<<argv[1]<<" "<<std::endl;
+		std::cout<<argv[1]<<": ";
 	}
 	if (argc == 1 || strcmp(argv[1], "XMLParseTest") == 0){
 		 runner.addTest( XMLParseTest::suite());

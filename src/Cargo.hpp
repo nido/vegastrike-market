@@ -29,6 +29,8 @@ public:
 	/** check whether the content of newCargo is in the cargohold */
 	bool contains(Cargo newCargo);
 
+	bool operator==(const Cargo &that) const;
+
 private:
 	/** iterator access */
 	typedef std::map<CargoType, unsigned int>::iterator iterator;

@@ -69,6 +69,11 @@ bool Cargo::delCargo(Cargo newCargo)
 	return true;
 }
 
+bool Cargo::operator==(const Cargo &that) const
+{
+	return this->cargo == that.cargo;
+}
+
 Cargo::iterator Cargo::begin()
 {
 	return this->cargo.begin();

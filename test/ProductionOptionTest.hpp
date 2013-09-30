@@ -13,6 +13,7 @@ public:
 
 	void testCanProduce();
 	void testProduce();
+	void testoperatorEquals();
 	static CppUnit::Test* suite();
 private:
 	CargoType intype;

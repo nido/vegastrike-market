@@ -42,6 +42,7 @@ void FactoryTest::testcanProduce()
 	CPPUNIT_ASSERT(this->factory.canProduce(&output) == false);
 
 	this->factory.addProductionOption(po);
+	this->factory.setProductionOption(po);
 	// can produce with just enough input goods
 	CPPUNIT_ASSERT(this->factory.canProduce(&input) == true);
 	// can produce with enough input goods
@@ -50,6 +51,8 @@ void FactoryTest::testcanProduce()
 
 void FactoryTest::testProduce()
 {
+	// test is shitty because produce definition is shitty
+
 	this->factory.addProductionOption(po);
 	// produce with enough goods
 	this->factory.Produce(&cargo);
@@ -65,6 +68,20 @@ void FactoryTest::testProduce()
 	CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
 }
 
+void FactoryTest::testsetProductionOption()
+{
+	this->factory.addProductionOption(po);
+	this->factory.addProductionOption(bigpo);
+	this->factory.setProductionOption(po);
+	// production is possible
+	this->factory.Produce(&(this->cargo));
+	CPPUNIT_ASSERT(this->cargo.getCount(intype) == 1);
+	// production is inpossible
+	this->factory.setProductionOption(bigpo);
+	this->factory.Produce(&(this->cargo));
+	CPPUNIT_ASSERT(this->cargo.getCount(intype) == 1);
+}
+
 CppUnit::Test* FactoryTest::suite()
 {
 	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "FactoryTest" );
@@ -78,5 +95,7 @@ CppUnit::Test* FactoryTest::suite()
 	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
 			"testProduce", &FactoryTest::testProduce));
 
+	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
+			"testsetProductionOption", &FactoryTest::testsetProductionOption));
 	return suiteOfTests;
 }

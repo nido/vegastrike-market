@@ -14,6 +14,7 @@ public:
 	void testaddProductionOption();
 	void testcanProduce();
 	void testProduce();
+	void testsetProductionOption();
 	static CppUnit::Test* suite();
 private:
         CargoType intype;
