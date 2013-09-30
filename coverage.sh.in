@@ -1,6 +1,18 @@
 #!/bin/bash
 
+if `lcov -rc bla=bla 2>&1 | grep -q "lcov: Unknown option: rc"`
+then
+LCOV="lcov --quiet"
+else
+LCOV="lcov --quiet --rc lcov_branch_coverage=1"
+fi
 find "@CMAKE_CURRENT_BINARY_DIR@" -iname "*.gcno" -exec rm -f {} \;
+
+GENHTML=genhtml
+
+genhtml --demangle-cpp -v && GENHTML="${GENHTML} --demangle-cpp"
+genhtml --branch-coverage -v && GENHTML="${GENHTML} --branch-coverage"
+
 
 make clean
 cmake "@CMAKE_SOURCE_DIR@" -D"CMAKE_CXX_FLAGS:string=-fprofile-arcs -ftest-coverage -DNDEBUG"
@@ -23,20 +35,20 @@ fi
 
 for TEST in ${TESTCASES};
 do
-        lcov --quiet --rc lcov_branch_coverage=1 -z --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info
+        $LCOV -z --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info
         ./cppunittest ${TEST} 2>&1 | grep -v "^[[:space:]]*$"
-        lcov --quiet --rc lcov_branch_coverage=1 -c -t ${TEST} --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info 2>&1 |
-			fgrep -v "geninfo: WARNING: no data found for /usr/include/"
-        lcov --quiet --rc lcov_branch_coverage=1 -e coverage${TEST}.info "@CMAKE_CURRENT_SOURCE_DIR@/*" -o codecoverage${TEST}.info
+        $LCOV -c -t ${TEST} --directory "@CMAKE_CURRENT_BINARY_DIR@" -o coverage${TEST}.info 2>&1 |
+			fgrep -v "geninfo: WARNING: no data found for [^ ]*usr[^ ]*include"
+        $LCOV -e coverage${TEST}.info "@CMAKE_CURRENT_SOURCE_DIR@/*" -o codecoverage${TEST}.info
 
 done
 
-lcov --quiet --rc lcov_branch_coverage=1 -o codecoverage.info -a codecoverage`echo ${TESTCASES} | sed "s/ /.info -a codecoverage/g"`.info
+$LCOV -o codecoverage.info -a codecoverage`echo ${TESTCASES} | sed "s/ /.info -a codecoverage/g"`.info
 
-lcov --quiet --rc lcov_branch_coverage=1 -e codecoverage.info "@CMAKE_CURRENT_SOURCE_DIR@/src/*" -o coverage.info
+$LCOV -e codecoverage.info "@CMAKE_CURRENT_SOURCE_DIR@/src/*" -o coverage.info
 
 
-genhtml --branch-coverage --legend --show-details --title "Vegastrike Economy" --demangle-cpp codecoverage.info --output-directory "@CMAKE_CURRENT_BINARY_DIR@/coverage/"
+genhtml --legend --show-details --title "Vegastrike Economy" codecoverage.info --output-directory "@CMAKE_CURRENT_BINARY_DIR@/coverage/"
 
 lcov --summary coverage.info 2>&1 | grep lines | grep -Go "[0-9]\+\.[0-9]%"
 
