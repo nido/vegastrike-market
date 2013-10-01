@@ -3,6 +3,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/TestCaller.h>
 #include <cppunit/TestResult.h>
+#include <cppunit/TestResultCollector.h>
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
@@ -17,7 +18,6 @@
 int main(int argc, char* argv[]){
 	CppUnit::TestSuite suite;
 	CppUnit::TextUi::TestRunner runner;
-
 
 	if (argc != 1 && strcmp(argv[1], "BaseTest") == 0 ){
 		std::cout<<argv[1]<<": ";
@@ -55,7 +55,6 @@ int main(int argc, char* argv[]){
 	if (argc == 1 || strcmp(argv[1], "XMLParseTest") == 0){
 		 runner.addTest( XMLParseTest::suite());
 	}
-
 	runner.run();
-	return 0;
+	return runner.result().testFailuresTotal();
 }
