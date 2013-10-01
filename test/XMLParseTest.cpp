@@ -35,6 +35,7 @@ void XMLParseTest::testParseCargoType(){
 	XML_Parse(parser, this->inputcargostring.c_str(), inputcargostring.size(), 0);
 	std::cout<<test<<", "<<input<<std::endl;
 	CPPUNIT_ASSERT(*test == *(this->input));
+	CPPUNIT_ASSERT(false); // for testing failure of cppunit
 	delete test;
 }
 
