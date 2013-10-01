@@ -29,6 +29,7 @@ public:
 
 	/** add a factory for production to the base */
 	void addFactory(Factory factory);
+	void delFactory(Factory factory);
 
 	/** Add cargo to the base */
 	void addCargo(Cargo cargo);

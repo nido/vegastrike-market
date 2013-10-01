@@ -59,3 +59,8 @@ void Factory::setProductionOption(ProductionOption option)
 		}
 	}
 }
+
+bool Factory::operator==(const Factory &that) const
+{
+	return this->options == that.options;
+}

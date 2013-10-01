@@ -37,6 +37,8 @@ public:
 	 * Note this one needs to be part of the Factory's own ProductionOptions
 	 */
 	void setProductionOption(ProductionOption option);
+
+	bool operator==(const Factory &that) const;
 private:
 	std::vector<ProductionOption> options;
 	std::vector<ProductionOption>::iterator productionPlan;
