@@ -32,8 +32,14 @@ public:
 
 	/** Add another production option */
 	void addProductionOption(ProductionOption option);
+
+	/** Set the active production option.
+	 * Note this one needs to be part of the Factory's own ProductionOptions
+	 */
+	void setProductionOption(ProductionOption option);
 private:
 	std::vector<ProductionOption> options;
+	std::vector<ProductionOption>::iterator productionPlan;
 };
 
 #endif //H_FACTORY

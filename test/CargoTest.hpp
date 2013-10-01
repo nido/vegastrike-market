@@ -15,6 +15,7 @@ public:
 	void testaddCargo();
 	void testcontains();
 	void testdelCargo();
+	void testoperatorEquals();
 	static CppUnit::Test* suite();
 private:
 	CargoType type1;

@@ -74,6 +74,20 @@ void CargoTest::testdelCargo()
 	CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
 }
 
+void CargoTest::testoperatorEquals()
+{
+	pile1.addCargo(type1, 100);
+	// pile1 has 100 type1 cargo, pile2 and pile3 are empty
+	CPPUNIT_ASSERT(pile2 == pile3);
+	CPPUNIT_ASSERT((pile1 == pile2) == false);
+	CPPUNIT_ASSERT(pile1 == pile1);
+	pile3.addCargo(type1, 100);
+	// pile1 and pile3 have 100 type1; pile2 is empty
+	CPPUNIT_ASSERT(pile3 == pile1);
+	pile2.addCargo(type3, 100);
+	// pile1 and pile3 have 100 type1; pile2 has 100 type3
+	CPPUNIT_ASSERT((pile1 == pile2) == false);
+}
 
 CppUnit::Test* CargoTest::suite()
 {
@@ -91,6 +105,9 @@ CppUnit::Test* CargoTest::suite()
 
 	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
 			"testdelCargo", &CargoTest::testdelCargo));
+
+	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
+			"testoperatorEquals", &CargoTest::testoperatorEquals));
 
 	return suiteOfTests;
 }

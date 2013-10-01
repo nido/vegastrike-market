@@ -28,7 +28,8 @@ public:
 
 	/** determine whether production is possible */
 	bool canProduce(Cargo *cargoStore);
-
+	/** check equality of two ProductionOptions */
+	bool operator==( const ProductionOption &that ) const;
 private:
 	/** Cargo consumed by production. */
 	Cargo consumes;

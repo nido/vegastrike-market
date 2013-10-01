@@ -61,6 +61,11 @@ void ProductionOptionTest::testProduce()
 
 }
 
+void ProductionOptionTest::testoperatorEquals()
+{
+	CPPUNIT_ASSERT(bigpo == bigpo);
+	CPPUNIT_ASSERT((po == bigpo) == false);
+}
 
 CppUnit::Test* ProductionOptionTest::suite()
 {
@@ -75,6 +80,9 @@ CppUnit::Test* ProductionOptionTest::suite()
 
 	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
 			"testProduce", &ProductionOptionTest::testProduce));
+
+	suiteOfTests->addTest( new CppUnit::TestCaller<ProductionOptionTest>(
+			"testoperatorEquals", &ProductionOptionTest::testoperatorEquals));
 
 	return suiteOfTests;
 }

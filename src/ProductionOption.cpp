@@ -51,14 +51,26 @@ bool ProductionOption::canProduce(Cargo *cargoStore){
 }
 
 void ProductionOption::Produce(Cargo *cargoStore){
-	bool result;
 	if (this->canProduce(cargoStore) == false){
 		return;
 	}
-
-	result = cargoStore->delCargo(consumes);
+#ifndef NDEBUG
+	bool result =
+#endif //NDEBUG so it won't bother about unused variables when assertions are off
+	cargoStore->delCargo(consumes);
 	// make sure this actually happened
 	assert(result != false);
 
 	cargoStore->addCargo(produces);
 }
+
+bool ProductionOption::operator==( const ProductionOption &that ) const
+{
+	if ((this->consumes == that.consumes) &&
+		(this->produces == that.produces))
+	{
+		return true;
+	}
+	return false;
+}
+
