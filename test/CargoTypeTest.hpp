@@ -13,6 +13,7 @@ public:
 
 	void testoperatorEquals();
 	void testoperatorLessThen();
+	void testgetBasePrice();
 	static CppUnit::Test* suite();
 private:
 	CargoType one;

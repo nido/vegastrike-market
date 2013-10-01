@@ -36,6 +36,9 @@ public:
 
 	/** Comparator to have a way to order (types of) cargo */
 	bool operator<( const CargoType &that ) const;
+
+	/** get base price */
+	float getBasePrice();
 private:
 	/** Name of the cargo, for example "Iron Ore" */
 	std::string name;

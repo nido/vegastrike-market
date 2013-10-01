@@ -37,6 +37,13 @@ void CargoTypeTest::testoperatorLessThen()
 	CPPUNIT_ASSERT(one < three);
 }
 
+void CargoTypetestgetBasePrice()
+{
+	CargoType type = CargoType("yay", "cata/gory", 1, 2, 3);
+	CPPUNIT_ASSERT(type.getBasePrice() == 3);
+	type = CargoType("yay", "cata/gory", 1, 2, 0);
+	CPPUNIT_ASSERT(type.getBasePrice() == 0);
+}
 
 CppUnit::Test* CargoTypeTest::suite()
 {

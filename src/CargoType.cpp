@@ -28,3 +28,8 @@ bool CargoType::operator<( const CargoType &that ) const
 		(this->name < that.name) :
 		(this->catagory < that.catagory));
 }
+
+float CargoType::getBasePrice()
+{
+	return this->basePrice;
+}
