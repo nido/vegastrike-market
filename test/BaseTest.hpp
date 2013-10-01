@@ -4,7 +4,7 @@
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-#include <vector>
+#include "Base.hpp"
 
 class BaseTest : public CppUnit::TestFixture  {
 public:
@@ -14,5 +14,14 @@ public:
 	void testaddCargo();
 	void testaddFactory();
 	void testdelCargo();
+	void testdelFactory();
+	void testgetFactories();
+	void testProcess();
+	void testgetCargo();
 	static CppUnit::Test* suite();
+private:
+	Base base;
+	Cargo cargo;
+	Factory factory1;
+	Factory factory2;
 };

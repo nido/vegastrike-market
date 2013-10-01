@@ -24,6 +24,11 @@ void Base::delFactory(Factory factory)
 	this->factories.erase(iter);
 }
 
+std::vector<Factory> Base::getFactories()
+{
+	return this->factories;
+}
+
 void Base::addCargo(Cargo cargo)
 {
 	this->cargoStore.addCargo(cargo);
@@ -34,3 +39,16 @@ void Base::delCargo(Cargo cargo)
 	this->cargoStore.delCargo(cargo);
 }
 
+Cargo* Base::getCargo(){
+	return &this->cargoStore;
+}
+
+void Base::Process()
+{
+	for (std::vector<Factory>::iterator iter = this->factories.begin();
+		iter != this->factories.end();
+		iter++
+	){
+		iter->Produce(&this->cargoStore);
+	}
+}

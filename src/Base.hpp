@@ -37,6 +37,9 @@ public:
 	/** delete cargo from the base */
 	void delCargo(Cargo cargo);
 
+	std::vector<Factory> getFactories();
+	Cargo* getCargo();
+	void Process();
 private:
 	std::vector<Factory> factories;
 	Cargo cargoStore;
