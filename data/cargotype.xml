@@ -1,2 +1,6 @@
-<CargoType name="input" mass="10" volume="10" />
-<CargoType name="output" mass="10" volume="10" />
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE vector_cargo SYSTEM "vector_cargo.dtd">
+<vector_cargo>
+	<CargoType name="input" mass="10" volume="10" price="pony" catagory="test" />
+	<CargoType name="output" mass="10" volume="10" catagory="test" price="10" />
+</vector_cargo>
