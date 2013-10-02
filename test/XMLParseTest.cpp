@@ -38,10 +38,11 @@ void XMLParseTest::testParseCargoType(){
 }
 
 
-static void endElement( void *userData, const XML_Char *name)
+/*static void endElement( void *userData, const XML_Char *name)
 {
+	(void)userData;
 	printf("Ending %s\n", name);
-}
+}*/
 
 CppUnit::Test* XMLParseTest::suite()
 {
