@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!DOCTYPE vector_cargo SYSTEM "vector_cargo.dtd">
 <vector_cargo>
   <CargoType catagory="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1"/>
   <CargoType catagory="Natural_Products/Food/Confed" mass="1.2" name="Standard_Mealpacks" price="100" volume="1"/>
