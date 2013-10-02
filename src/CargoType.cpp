@@ -23,10 +23,6 @@ std::string CargoType::getName()
 
 bool CargoType::operator==( const CargoType &that ) const
 {
-#ifndef NDEBUG
-	std::cout<<"Coparing CargoTypes: "<<this->name<<", "<<this->catagory<<
-		", "<<that.name<<", "<<that.catagory<<std::endl;
-#endif
 	return ((this->name.compare(that.name) == 0)
 		&& (this->catagory.compare(that.catagory) == 0));
 }
