@@ -35,7 +35,9 @@ void XMLParseTest::testParseCargoType(){
 	XML_SetUserData(this->parser, test);
 	XML_Parse(parser, this->inputcargostring.c_str(), inputcargostring.size(), 0);
 	CPPUNIT_ASSERT(*test == *(this->input));
-	delete test;
+}
+
+/** For use with xml read test
 	std::vector<CargoType> t = readCargoTypes("../data/CargoType.xml");
 	for (std::vector<CargoType>::iterator i = t.begin();
 		i != t.end();
@@ -43,8 +45,7 @@ void XMLParseTest::testParseCargoType(){
 	){
 		std::cout<<i->getName()<<std::endl;
 	}
-}
-
+*/
 
 /*static void endElement( void *userData, const XML_Char *name)
 {
