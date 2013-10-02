@@ -4,6 +4,7 @@
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
+#include <iostream>
 #include <map>
 #include <string>
 #include <expat.h>
@@ -35,6 +36,13 @@ void XMLParseTest::testParseCargoType(){
 	XML_Parse(parser, this->inputcargostring.c_str(), inputcargostring.size(), 0);
 	CPPUNIT_ASSERT(*test == *(this->input));
 	delete test;
+	std::vector<CargoType> t = readCargoTypes("../data/CargoType.xml");
+	for (std::vector<CargoType>::iterator i = t.begin();
+		i != t.end();
+		i++
+	){
+		std::cout<<i->getName()<<std::endl;
+	}
 }
 
 
