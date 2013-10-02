@@ -26,7 +26,14 @@ add_library(market
 	src/Factory
 	src/Base
 	src/XMLParse
+	src/Economy
 )
+
+add_executable(bigtest
+	test/bigtest.cpp
+)
+
+target_link_libraries(bigtest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
 add_executable(cppunittest
 	test/main
