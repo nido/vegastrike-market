@@ -14,6 +14,7 @@ find_package(EXPAT REQUIRED)
 #include_directories(${EXPAT_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${EXPAT_INCLUDE_DIRS})
+include_directories(${CPPUNIT_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra -fprofile-arcs -ftest-coverage")
 set(CMAKE_BUILD_TYPE "Debug")

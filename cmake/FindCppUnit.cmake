@@ -1,14 +1,18 @@
 INCLUDE(UsePkgConfig)
-PKGCONFIG(cppunit _CppUnitIncDir _CppUnitLinkDir _CppUnitLinkFlags _CppUnitCflags)
+##indPkgConfig(cppunit 
+#_CppUnitIncDir _CppUnitLinkDir _CppUnitLinkFlags _CppUnitCflags)
+find_package(PkgConfig)
+
+pkg_check_modules(CPPUNIT cppunit)
 
 FIND_PATH(CPPUNIT_INCLUDE_DIR cppunit/TestCase.h
-    ${_CppUnitIncDir}
+    ${CPPUNIT_INCLUDE_DIRS}
     /usr/local/include
     /usr/include
 )
 
 FIND_LIBRARY(CPPUNIT_LIBRARIES cppunit
-    ${_CppUnitLinkDir}
+    ${CPPUNIT_LIBRARY_DIRS}
     /usr/local/lib
     /usr/lib
 )
@@ -26,3 +30,4 @@ ELSE (CPPUNIT_FOUND)
 	MESSAGE(FATAL_ERROR "Could not find CppUnit")
     ENDIF (CppUnit_FIND_REQUIRED)
 ENDIF (CPPUNIT_FOUND)
+
