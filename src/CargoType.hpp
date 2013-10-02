@@ -39,6 +39,7 @@ public:
 
 	/** get base price */
 	float getBasePrice();
+	std::string getName();
 private:
 	/** Name of the cargo, for example "Iron Ore" */
 	std::string name;
