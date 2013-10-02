@@ -1,5 +1,8 @@
 
-<!ELEMENT vector_cargo (CargoType+)>
+<!ELEMENT vector (CargoType+)>
+<!ATTLIST vector
+	type CDATA #REQUIRED
+>
 <!ELEMENT CargoType EMPTY>
 <!ATTLIST CargoType
 	name CDATA #REQUIRED
