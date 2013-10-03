@@ -16,8 +16,8 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${EXPAT_INCLUDE_DIRS})
 include_directories(${CPPUNIT_INCLUDE_DIRS})
 
-set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra -fprofile-arcs -ftest-coverage")
-set(CMAKE_BUILD_TYPE "Debug")
+#set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra -fprofile-arcs -ftest-coverage")
+#set(CMAKE_BUILD_TYPE "Debug")
 
 add_library(market
 	src/CargoType
@@ -51,8 +51,11 @@ add_test(cppunittest cppunittest)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coverage.sh.in ${CMAKE_CURRENT_BINARY_DIR}/coverage.sh @ONLY)
 
+add_custom_target(clang-analyze /usr/lib64/clang-analyzer/scan-build/c++-analyzer -c -I ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[ch]pp ${CMAKE_CURRENT_SOURCE_DIR}/test/*.[ch]pp
+	COMMENT "Static analysis using clang-analyze"
+)
 
-add_custom_target(cppcheck cppcheck --enable=all --force src/ test/
+add_custom_target(cppcheck cppcheck --enable=all --force ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/test/
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	COMMENT "Static analysis using cppcheck"
 )
