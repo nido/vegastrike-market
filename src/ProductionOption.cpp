@@ -33,7 +33,7 @@ ProductionOption::ProductionOption()
 }
 
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
-ProductionOption::ProductionOption(Cargo consumes, Cargo produces)
+ProductionOption::ProductionOption(Cargo consumes, Cargo produces) :
 	consumes(consumes), produces(produces)
 {
 }

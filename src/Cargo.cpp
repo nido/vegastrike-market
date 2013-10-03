@@ -42,7 +42,7 @@ bool Cargo::contains(Cargo newCargo)
 	for (newStock = newCargo.begin();
 		newStock != newCargo.end();
 		++newStock
-	{
+	){
 		if (this->cargo[newStock->first] < newStock->second)
 		{
 			return false;
@@ -60,7 +60,7 @@ bool Cargo::delCargo(Cargo newCargo)
 	for (newStock = newCargo.begin();
 		newStock != newCargo.end();
 		++newStock
-	{
+	){
 		this->cargo[newStock->first] -= newStock->second;
 		if (this->cargo[newStock->first] == 0) {
 			this->cargo.erase(newStock->first);
