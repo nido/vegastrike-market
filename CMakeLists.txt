@@ -52,7 +52,7 @@ add_test(cppunittest cppunittest)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coverage.sh.in ${CMAKE_CURRENT_BINARY_DIR}/coverage.sh @ONLY)
 
 
-add_custom_target(cppcheck cppcheck --enable=all --force src/ test/ 2>&1
+add_custom_target(cppcheck cppcheck --enable=all --force src/ test/
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	COMMENT "Static analysis using cppcheck"
 )
