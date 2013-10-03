@@ -3,7 +3,7 @@ COMMAND=$1
 TESTNAME=$(basename $1)
 
 valgrind --tool=callgrind --callgrind-out-file=${TESTNAME}.callgrind ${COMMAND} 10
-gprof2dot -f callgrind -o ${TESTNAME}.dot ${TESTNAME}.callgrind
+gprof2dot -s -f callgrind -o ${TESTNAME}.dot ${TESTNAME}.callgrind
 dot -Tpdf -o${TESTNAME}.pdf ${TESTNAME}.dot
 dot -Tsvg -o${TESTNAME}.svg ${TESTNAME}.dot
 dot -Tpng -o${TESTNAME}.png ${TESTNAME}.dot
