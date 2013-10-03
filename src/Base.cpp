@@ -47,7 +47,7 @@ void Base::Process()
 {
 	for (std::vector<Factory>::iterator iter = this->factories.begin();
 		iter != this->factories.end();
-		iter++
+		++iter
 	){
 		iter->Produce(&this->cargoStore);
 	}

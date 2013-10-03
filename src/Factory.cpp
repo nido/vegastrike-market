@@ -14,10 +14,12 @@
 #include <math.h>
 
 
-Factory::Factory(){
+Factory::Factory()
+{
 }
 
-Factory::~Factory(){
+Factory::~Factory()
+{
 }
 
 /** Determines whether the factory is able to produce (at all). */
@@ -51,7 +53,7 @@ void Factory::setProductionOption(ProductionOption option)
 {
 	for (std::vector<ProductionOption>::iterator i = this->options.begin();
 		i != this->options.end();
-		i++)
+		++i)
 	{
 		if(*i == option)
 		{

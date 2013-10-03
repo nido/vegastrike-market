@@ -25,7 +25,7 @@ void Cargo::addCargo(Cargo newCargo)
 	Cargo::iterator newStock;
 	for (newStock = newCargo.begin();
 		newStock != newCargo.end();
-		newStock++)
+		++newStock)
 	{
 		this->addCargo(newStock->first, newStock->second);
 	}
@@ -41,7 +41,7 @@ bool Cargo::contains(Cargo newCargo)
 	Cargo::iterator newStock;
 	for (newStock = newCargo.begin();
 		newStock != newCargo.end();
-		newStock++)
+		++newStock
 	{
 		if (this->cargo[newStock->first] < newStock->second)
 		{
@@ -59,7 +59,7 @@ bool Cargo::delCargo(Cargo newCargo)
 	}
 	for (newStock = newCargo.begin();
 		newStock != newCargo.end();
-		newStock++)
+		++newStock
 	{
 		this->cargo[newStock->first] -= newStock->second;
 		if (this->cargo[newStock->first] == 0) {

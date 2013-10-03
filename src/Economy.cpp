@@ -31,7 +31,7 @@ void Economy::tick()
 {
 	for (std::vector<Base>::iterator iter = this->bases.begin();
 		iter != this->bases.end();
-		iter++
+		++iter
 	){
 		iter->Process();
 	}
