@@ -1,5 +1,6 @@
 #ifndef H_GOVERNOR
 #define H_GOVERNOR
+#include "Base.hpp"
 
 /** not yet something useful, but maybe a good entry point for ai or player owning a base interaction
  */
