@@ -2,9 +2,7 @@
  */
 
 #include <limits>
-
 #include <string>
-
 #include <vector>
 
 #include "Factory.hpp"
