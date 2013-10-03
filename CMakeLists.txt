@@ -51,6 +51,12 @@ add_test(cppunittest cppunittest)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/coverage.sh.in ${CMAKE_CURRENT_BINARY_DIR}/coverage.sh @ONLY)
 
+
+add_custom_target(cppcheck cppcheck --enable=all --force src/ test/
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	COMMENT "Static analysis using cppcheck"
+)
+
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
