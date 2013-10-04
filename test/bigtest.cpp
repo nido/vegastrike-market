@@ -38,7 +38,7 @@ int main(int argc, char* argv[]){
 	factory2.addProductionOption(po2);
 
 	base = Base();
-	base.addCargo(cargo);
+	base.addCargo(&cargo);
 	base.addFactory(factory1);
 	base.addFactory(factory2);
 	// there we have it; a base with two inputs.

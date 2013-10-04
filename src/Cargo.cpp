@@ -20,11 +20,11 @@ void Cargo::addCargo(CargoType::iterator type, unsigned int quantity)
 	this->cargo[type] = quantity;
 }
 
-void Cargo::addCargo(Cargo newCargo)
+void Cargo::addCargo(Cargo* newCargo)
 {
 	Cargo::iterator newStock;
-	for (newStock = newCargo.begin();
-		newStock != newCargo.end();
+	for (newStock = newCargo->begin();
+		newStock != newCargo->end();
 		++newStock)
 	{
 		this->addCargo(newStock->first, newStock->second);
@@ -36,11 +36,11 @@ unsigned int Cargo::getCount(CargoType::iterator type)
 	return this->cargo[type];
 }
 
-bool Cargo::contains(Cargo newCargo)
+bool Cargo::contains(Cargo* newCargo)
 {
 	Cargo::iterator newStock;
-	for (newStock = newCargo.begin();
-		newStock != newCargo.end();
+	for (newStock = newCargo->begin();
+		newStock != newCargo->end();
 		++newStock
 	){
 		if (this->cargo[newStock->first] < newStock->second)
@@ -51,14 +51,14 @@ bool Cargo::contains(Cargo newCargo)
 	return true;
 }
 
-bool Cargo::delCargo(Cargo newCargo)
+bool Cargo::delCargo(Cargo* newCargo)
 {
 	Cargo::iterator newStock;
 	if (this->contains(newCargo) == false){
 		return false;
 	}
-	for (newStock = newCargo.begin();
-		newStock != newCargo.end();
+	for (newStock = newCargo->begin();
+		newStock != newCargo->end();
 		++newStock
 	){
 		this->cargo[newStock->first] -= newStock->second;

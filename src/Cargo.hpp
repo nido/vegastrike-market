@@ -18,16 +18,16 @@ public:
 	void addCargo(CargoType::iterator type, unsigned int quantity);
 
 	/** Add newCargo to the cargohold */
-	void addCargo(Cargo newCargo);
+	void addCargo(Cargo* newCargo);
 
 	/** Removes cargo from this cargohold
 	 * returns a boolean saying whether the action succeded */
-	bool delCargo(Cargo newCargo);
+	bool delCargo(Cargo* newCargo);
 
 	unsigned int getCount(CargoType::iterator type);
 
 	/** check whether the content of newCargo is in the cargohold */
-	bool contains(Cargo newCargo);
+	bool contains(Cargo* newCargo);
 
 	bool operator==(const Cargo &that) const;
 

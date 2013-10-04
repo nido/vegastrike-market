@@ -39,7 +39,7 @@ void BaseTest::tearDown()
 
 void BaseTest::testaddCargo()
 {
-	this->base.addCargo(this->cargo);
+	this->base.addCargo(&this->cargo);
 	CPPUNIT_ASSERT(*(this->base.getCargo()) == this->cargo);
 }
 
@@ -54,8 +54,8 @@ void BaseTest::testaddFactory()
 
 void BaseTest::testdelCargo()
 {
-	this->base.addCargo(this->cargo);
-	this->base.delCargo(this->cargo);
+	this->base.addCargo(&this->cargo);
+	this->base.delCargo(&this->cargo);
 	//empty now
 	CPPUNIT_ASSERT(*(this->base.getCargo()) == Cargo());
 }
@@ -91,7 +91,7 @@ void BaseTest::testProcess()
 {
         CargoType::iterator intype1 = CargoType("in1", "test", 1,1,1).getIterator();
 	this->base.addFactory(factory1);
-	this->base.addCargo(cargo);
+	this->base.addCargo(&cargo);
 	Cargo* basecargo = this->base.getCargo();
 	CPPUNIT_ASSERT(basecargo->getCount(intype1) == 5);
 	this->base.Process();
@@ -103,7 +103,7 @@ void BaseTest::testProcess()
 
 void BaseTest::testgetCargo()
 {
-	this->base.addCargo(this->cargo);
+	this->base.addCargo(&this->cargo);
 	CPPUNIT_ASSERT(*(this->base.getCargo()) == this->cargo);
 }
 

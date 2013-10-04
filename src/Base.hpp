@@ -32,10 +32,10 @@ public:
 	void delFactory(Factory factory);
 
 	/** Add cargo to the base */
-	void addCargo(Cargo cargo);
+	void addCargo(Cargo* cargo);
 
 	/** delete cargo from the base */
-	void delCargo(Cargo cargo);
+	void delCargo(Cargo* cargo);
 
 	std::vector<Factory> getFactories();
 	Cargo* getCargo();
