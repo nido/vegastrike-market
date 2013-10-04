@@ -9,6 +9,10 @@
 #include "Economy.hpp"
 #include "Base.hpp"
 
+/** This is the test that is supposed to generate a number of turns in
+ * a vagestrike sized universe to measure performance to determine
+ * maximum economic turn size in seconds. 
+ */
 int main(int argc, char* argv[]){
 	int count = 10;
 	if (argc == 2){
@@ -28,8 +32,8 @@ int main(int argc, char* argv[]){
         input2.addCargo(intype2.getIterator(), 1);
         output.addCargo(outtype.getIterator(), 1);
         cargo.addCargo(intype2.getIterator(), 1);
-        cargo.addCargo(intype1.getIterator(), count );
-        cargo.addCargo(intype2.getIterator(), count );
+        cargo.addCargo(intype1.getIterator(), count * 10 );
+        cargo.addCargo(intype2.getIterator(), count * 10 );
         ProductionOption po1 = ProductionOption(input1, output);
         ProductionOption po2 = ProductionOption(input2, output);
 	factory1 = Factory();
@@ -40,6 +44,16 @@ int main(int argc, char* argv[]){
 	base = Base();
 	base.addCargo(&cargo);
 	base.addFactory(factory1);
+	base.addFactory(factory1);
+	base.addFactory(factory1);
+	base.addFactory(factory1);
+	base.addFactory(factory1);
+	base.addFactory(factory1);
+	base.addFactory(factory2);
+	base.addFactory(factory2);
+	base.addFactory(factory2);
+	base.addFactory(factory2);
+	base.addFactory(factory2);
 	base.addFactory(factory2);
 	// there we have it; a base with two inputs.
 	
