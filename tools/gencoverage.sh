@@ -38,16 +38,15 @@ do
         ./cppunittest ${TEST} 2>&1 | grep -v "^[[:space:]]*$"
         $LCOV -c -t ${TEST} --directory "." -o coverage${TEST}.info 2>&1 |
 			fgrep -v "geninfo: WARNING: no data found for [^ ]*usr[^ ]*include"
-#        $LCOV -e coverage${TEST}.info "../*" -o codecoverage${TEST}.info
+        $LCOV -r coverage${TEST}.info "/usr/*" -o codecoverage${TEST}.info
         cp coverage${TEST}.info codecoverage${TEST}.info
-
 done
 
 # combine the coverage data
 $LCOV -o codecoverage.info -a codecoverage`echo ${TESTCASES} | sed "s/ /.info -a codecoverage/g"`.info
 
 # remove stuff outside the sourcedir.
-$LCOV -e codecoverage.info "../src/*" -o coverage.info
+$LCOV -r codecoverage.info "/usr*/include/*" -o coverage.info
 
 # create html page
 $GENHTML --legend --show-details --title "Vegastrike Economy" codecoverage.info --output-directory "./coverage/"
