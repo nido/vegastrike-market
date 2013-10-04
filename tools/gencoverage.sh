@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/bin/bash -x
+test -f  CMakeCache.txt && rm CMakeCache.txt
 
 BUILDDIR=coveragebuild
+mkdir -p "${BUILDDIR}" 
+cd "${BUILDDIR}"
 
 # make alterations for older versions of lcov
 if `lcov -rc bla=bla 2>&1 | grep -q "lcov: Unknown option: rc"`
@@ -15,8 +18,6 @@ GENHTML=genhtml
 genhtml --demangle-cpp -v && GENHTML="${GENHTML} --demangle-cpp"
 genhtml --branch-coverage -v && GENHTML="${GENHTML} --branch-coverage"
 
-mkdir "${BUILDDIR}" 
-cd "${BUILDDIR}"
 
 cmake -D"CMAKE_CXX_FLAGS:string=-fprofile-arcs -ftest-coverage -DNDEBUG" ..
 
@@ -39,8 +40,8 @@ do
         ./cppunittest ${TEST} 2>&1 | grep -v "^[[:space:]]*$"
         $LCOV -c -t ${TEST} --directory "." -o coverage${TEST}.info 2>&1 |
 			grep -v "geninfo: WARNING: no data found for .*usr.*include.*"
-        #$LCOV -r coverage${TEST}.info "*usr*include*" -o codecoverage${TEST}.info
-        $LCOV -e coverage${TEST}.info "`realpath ..`" -o codecoverage${TEST}.info
+        $LCOV -r coverage${TEST}.info "*usr*include*" -o codecoverage${TEST}.info
+        #$LCOV -e coverage${TEST}.info "`realpath ..`" -o codecoverage${TEST}.info
         #cp coverage${TEST}.info codecoverage${TEST}.info
 done
 
