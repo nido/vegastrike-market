@@ -18,6 +18,11 @@ class CargoType;
 class CargoType
 {
 public:
+	/** A CargoType::iterator for pointing to CargoType */
+	typedef std::vector<CargoType>::iterator iterator;
+
+	void addToVector();
+
 	/** Create a debug cargotype */
 	CargoType();
 
@@ -39,7 +44,12 @@ public:
 
 	/** get base price */
 	float getBasePrice();
+	
+	/** get the cargo name */
 	std::string getName();
+
+	/** get iterator for this cargo type */
+	CargoType::iterator getIterator();
 private:
 	/** Name of the cargo, for example "Iron Ore" */
 	std::string name;
@@ -59,5 +69,9 @@ private:
 	float volume;
 	/* Base price */
 	float basePrice;
+	/** A static list of _all_ cargo from which to derive iterators */
+	static std::vector<CargoType> allCargoTypes;
+	/** its very own iterator */
+	CargoType::iterator i;
 };
 #endif // H_CARGOTYPE

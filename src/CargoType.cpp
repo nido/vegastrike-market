@@ -1,12 +1,26 @@
-#include <assert.h>
 #include <iostream>
+#include <algorithm>
+#include <vector>
 
 #include "CargoType.hpp"
+
+
+std::vector<CargoType> CargoType::allCargoTypes = std::vector<CargoType>();
+
+void CargoType::addToVector()
+{
+	this->i = std::find(this->allCargoTypes.begin(), this->allCargoTypes.end(), *this);
+	if (this->i ==  this->allCargoTypes.end()){
+		this->allCargoTypes.push_back(*this);
+		this->i = std::find(this->allCargoTypes.begin(), this->allCargoTypes.end(), *this);
+	}
+}
 
 CargoType::CargoType():
 	name("Debug"), catagory("Debug"), mass(1.0), volume(1.0),
 	basePrice(1.0)
 {
+	this->addToVector();
 }
 
 CargoType::CargoType( std::string name, std::string catagory,
@@ -14,6 +28,7 @@ CargoType::CargoType( std::string name, std::string catagory,
         name(name), catagory(catagory), mass(mass), volume(volume),
 	basePrice(price)
 {
+	this->addToVector();
 }
 
 std::string CargoType::getName()
@@ -37,4 +52,14 @@ bool CargoType::operator<( const CargoType &that ) const
 float CargoType::getBasePrice()
 {
 	return this->basePrice;
+}
+
+CargoType::iterator CargoType::getIterator()
+{
+	return this->i;
+}
+
+std::vector<CargoType> getCargoTypeVector()
+{
+	return std::vector<CargoType>();
 }
