@@ -24,12 +24,12 @@ int main(int argc, char* argv[]){
         Cargo input2 = Cargo();
         Cargo output = Cargo();
         Cargo cargo = Cargo();
-        input1.addCargo(intype1, 1);
-        input2.addCargo(intype2, 1);
-        output.addCargo(outtype, 1);
-        cargo.addCargo(intype2, 1);
-        cargo.addCargo(intype1, count );
-        cargo.addCargo(intype2, count );
+        input1.addCargo(intype1.getIterator(), 1);
+        input2.addCargo(intype2.getIterator(), 1);
+        output.addCargo(outtype.getIterator(), 1);
+        cargo.addCargo(intype2.getIterator(), 1);
+        cargo.addCargo(intype1.getIterator(), count );
+        cargo.addCargo(intype2.getIterator(), count );
         ProductionOption po1 = ProductionOption(input1, output);
         ProductionOption po2 = ProductionOption(input2, output);
 	factory1 = Factory();

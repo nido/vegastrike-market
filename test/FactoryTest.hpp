@@ -17,8 +17,8 @@ public:
 	void testsetProductionOption();
 	static CppUnit::Test* suite();
 private:
-        CargoType intype;
-        CargoType outtype;
+        CargoType::iterator intype;
+        CargoType::iterator outtype;
         Cargo input;
         Cargo output;
         Cargo cargo;

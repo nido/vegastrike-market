@@ -10,7 +10,7 @@ Cargo::Cargo()
 {
 }
 
-void Cargo::addCargo(CargoType type, unsigned int quantity)
+void Cargo::addCargo(CargoType::iterator type, unsigned int quantity)
 {
 	assert( quantity != 0);
 	Cargo::iterator current = this->cargo.find(type);
@@ -31,7 +31,7 @@ void Cargo::addCargo(Cargo newCargo)
 	}
 }
 
-unsigned int Cargo::getCount(CargoType type)
+unsigned int Cargo::getCount(CargoType::iterator type)
 {
 	return this->cargo[type];
 }

@@ -10,9 +10,9 @@
 
 void BaseTest::setUp()
 {
-        CargoType intype1 = CargoType("in1", "test", 1,1,1);
-        CargoType intype2 = CargoType("in2", "test", 1,1,1);
-        CargoType outtype = CargoType("out", "test", 1, 1,1);
+        CargoType::iterator intype1 = CargoType("in1", "test", 1,1,1).getIterator();
+        CargoType::iterator intype2 = CargoType("in2", "test", 1,1,1).getIterator();
+        CargoType::iterator outtype = CargoType("out", "test", 1, 1,1).getIterator();
 
 
         Cargo input1 = Cargo();
@@ -89,7 +89,7 @@ void BaseTest::testgetFactories()
 
 void BaseTest::testProcess()
 {
-        CargoType intype1 = CargoType("in1", "test", 1,1,1);
+        CargoType::iterator intype1 = CargoType("in1", "test", 1,1,1).getIterator();
 	this->base.addFactory(factory1);
 	this->base.addCargo(cargo);
 	Cargo* basecargo = this->base.getCargo();
