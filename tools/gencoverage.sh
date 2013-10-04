@@ -1,4 +1,8 @@
 #!/bin/bash -x
+test -f CMakeLists.txt || 
+	echo You wanna execute this from the directory containing CMakeLists.txt.
+test -f CMakeLists.txt || 
+	exit
 test -f  CMakeCache.txt && rm CMakeCache.txt
 
 BUILDDIR=coveragebuild
