@@ -19,7 +19,16 @@ Someone takes upon himself the task to integrate this with Vegastrike.
 
 *Dependencies*:
 * Outsiders can interact with the Economy
+* CargoType information comes from Vegastrikes raw cargo data
 
+CargoType information comes from Vegastrikes raw cargo data
+-----------------------------------------------------------
+*Rationale*:
+As part of vegastrike it makes sense to use the internal cargo data.
+This also gives us a list of cargotypes to work with during testing.
+
+*Fot Criterion*:
+CargoType information can be read from master_part_list.csv
 
 Outsiders can interact with the Economy
 ---------------------------------------
@@ -29,6 +38,10 @@ be useful for story purposes.
 
 *Fit Criterion*:
 A base can be accessed and traded with by an entity outside the Economy.
+
+*Dependencies*:
+* The Economy can trade Cargo.
+* Cargo travels by ship.
 
 The Economy can generate news.
 ------------------------------
@@ -40,6 +53,40 @@ traders, and can give a player a better immension into the game.
 The Economy can be generate reports of certain conditions with
 information about the location, Cargo in question and faction involved
 for the news generator to build a story from.
+
+*Dependencies*:
+* The Economy can identify shortages
+* The Economy can identify abundances
+* The Economy can report events
+
+The Economy can identify shortages
+----------------------------------
+*Rationale*:
+A shortage is an interesting piece of information both to traders and
+to general citizens.
+
+*Fit Criterion*:
+A function exists which assesses wether the a base suffers a shortage.
+
+The Economy can identify abundances
+-----------------------------------
+*Rationale*:
+A shortage is an interesting piece of information both to traders and
+to general citizens.
+
+*Fit Criterion*:
+A function exists which assesses wether the a base suffers a shortage.
+
+The Economy can report events
+-----------------------------
+*Rationale*:
+Whilst information about abundance and shortage of goods can be
+interesting inside the simulation itself, this information is mainly
+useful for outside sources.
+
+*Fit Criterion*:
+A function exist which can integrate with vegastrike to relay
+information about the economy.
 
 The Economy can generate Cargo.
 -------------------------------
@@ -59,7 +106,8 @@ Economy trading can be interupted.
 ----------------------------------
 *Rationale*:
 Not all Cargo arrives. That is the essential idea of blockades and why
-pirates are annoying. and it provides an interaction with the universe.
+pirates are annoying. It provides interaction with the universe and
+allows different strategies to work in the global domination subgame.
 
 *Fit Criterion*:
 It is possible for traded Cargo to not arrive.
