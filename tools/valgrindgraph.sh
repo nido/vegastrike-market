@@ -12,7 +12,7 @@ test -d valgrind || mkdir valgrind
 cd valgrind
 
 #cmake -D"CMAKE_CXX_FLAGS:string=-pg" ..
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 
 valgrind --tool=callgrind --callgrind-out-file=${TESTNAME}.callgrind ${COMMAND} 10

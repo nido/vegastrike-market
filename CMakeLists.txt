@@ -17,7 +17,7 @@ include_directories(${EXPAT_INCLUDE_DIRS})
 include_directories(${CPPUNIT_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra")
-set(CMAKE_BUILD_TYPE "Debug")
+#set(CMAKE_BUILD_TYPE "Debug")
 
 add_library(market
 	src/CargoType

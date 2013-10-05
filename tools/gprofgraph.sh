@@ -9,7 +9,7 @@ test -d gprof || mkdir gprof
 cd gprof
 
 #TODO: cmake with -pg
-cmake -D"CMAKE_CXX_FLAGS:string=-pg" ..
+cmake -DCMAKE_BUILD_TYPE=Release -D"CMAKE_CXX_FLAGS:string=-pg" ..
 make
 ./bigtest
 gprof bigtest gmon.out > bigtest.gprof
