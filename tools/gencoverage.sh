@@ -8,6 +8,8 @@ test -f  CMakeCache.txt && rm CMakeCache.txt
 BUILDDIR=coveragebuild
 mkdir -p "${BUILDDIR}" 
 cd "${BUILDDIR}"
+// clean up previous coverage files
+find . -type f -iname \*.gcno -exec rm -f {} \;
 
 # make alterations for older versions of lcov
 if `lcov -rc bla=bla 2>&1 | grep -q "lcov: Unknown option: rc"`
