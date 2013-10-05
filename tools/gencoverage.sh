@@ -23,7 +23,7 @@ genhtml --demangle-cpp -v && GENHTML="${GENHTML} --demangle-cpp"
 genhtml --branch-coverage -v && GENHTML="${GENHTML} --branch-coverage"
 
 
-cmake -D"CMAKE_CXX_FLAGS:string=-fprofile-arcs -ftest-coverage -DNDEBUG" ..
+cmake -D"CMAKE_CXX_FLAGS:string=-g -fprofile-arcs -ftest-coverage -DNDEBUG" ..
 
 # compile
 make
