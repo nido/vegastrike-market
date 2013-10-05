@@ -11,8 +11,9 @@ class XMLParseTest : public CppUnit::TestFixture  {
 public:
 	void setUp();
 	void tearDown();
-	static CppUnit::Test* suite();
+
 	void testParseCargoType();
+	static CppUnit::Test* suite();
 private:
 	std::string inputcargostring;
 	CargoType* input;
