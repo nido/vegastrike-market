@@ -12,10 +12,10 @@
 #include <math.h>
 
 
-Factory::Factory()
+Factory::Factory() :
+	options(std::vector<ProductionOption>()),
+	productionPlan(this->options.end())
 {
-	this->options = std::vector<ProductionOption>();
-	this->productionPlan = this->options.end();
 }
 
 Factory::~Factory()
