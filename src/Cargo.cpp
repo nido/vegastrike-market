@@ -6,7 +6,8 @@
 
 #include "Cargo.hpp"
 
-Cargo::Cargo()
+Cargo::Cargo():
+	cargo(std::map<CargoType::iterator, unsigned int>())
 {
 }
 
@@ -22,6 +23,9 @@ void Cargo::addCargo(CargoType::iterator type, unsigned int quantity)
 
 void Cargo::addCargo(Cargo* newCargo)
 {
+	assert(newCargo != NULL);
+	assert(newCargo->begin() != newCargo->end());
+
 	Cargo::iterator newStock;
 	for (newStock = newCargo->begin();
 		newStock != newCargo->end();
@@ -38,12 +42,22 @@ unsigned int Cargo::getCount(CargoType::iterator type)
 
 bool Cargo::contains(Cargo* newCargo)
 {
+	assert(newCargo != NULL);
+	if (newCargo->begin() == newCargo->end()){
+		return true;
+	}
+	if (this->cargo.size() == 0){
+		return false;
+	}
 	Cargo::iterator newStock;
 	for (newStock = newCargo->begin();
 		newStock != newCargo->end();
 		++newStock
 	){
-		if (this->cargo[newStock->first] < newStock->second)
+		if(this->cargo.find(newStock->first) == this->cargo.end()){
+			return false;
+		}
+		if (this->cargo.at(newStock->first) < newStock->second)
 		{
 			return false;
 		}

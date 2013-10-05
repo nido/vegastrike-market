@@ -1,6 +1,9 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <cstdlib>
+
+#include <assert.h>
 
 #include "CargoType.hpp"
 
@@ -14,6 +17,13 @@ void CargoType::addToVector()
 		this->allCargoTypes.push_back(*this);
 		this->i = std::find(this->allCargoTypes.begin(), this->allCargoTypes.end(), *this);
 	}
+}
+
+CargoType::iterator CargoType::getRandomCargoType(){
+	size_t number = CargoType::allCargoTypes.size();
+	assert(number != 0);
+	number = rand() % number;
+	return CargoType::allCargoTypes.begin() + number;
 }
 
 CargoType::CargoType():

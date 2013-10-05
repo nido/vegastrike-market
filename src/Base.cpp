@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <vector>
-
+#include <iostream>
 #include "Base.hpp"
 
 Base::Base() : 
@@ -45,10 +45,13 @@ Cargo* Base::getCargo(){
 
 void Base::Process()
 {
+//	std::cout<<"Processing base "<<this<<" ";
 	for (std::vector<Factory>::iterator iter = this->factories.begin();
 		iter != this->factories.end();
 		++iter
 	){
+//		std::cout<<".";
 		iter->Produce(&this->cargoStore);
 	}
+//	std::cout<<std::endl;
 }
