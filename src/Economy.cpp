@@ -19,7 +19,7 @@ void Economy::addBase(Base base)
 
 void Economy::delBase(Base base)
 {
-	//TODO
+	//TODO implement delBase
 }
 
 std::vector<Base> Economy::getFactories()
