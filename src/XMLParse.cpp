@@ -76,7 +76,7 @@ void XMLCargoTypeVectorBegin( void *userData, const XML_Char *name, const XML_Ch
 void XMLParseElement( void *userData, const XML_Char *name, const XML_Char **atts )
 {
 	if (strcmp(name, "CargoType") == 0){
-		ParseCargoType((CargoType*)userData, atts);
+		ParseCargoType(static_cast<CargoType*>(userData), atts);
 	} 
 }
 
