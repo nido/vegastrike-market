@@ -35,9 +35,10 @@ void MPLParseTest::testParseFile()
 
 void MPLParseTest::testParseLine()
 {
-	CargoType t = MPLParse::ParseLine("\"name\",\"catagory\", 1, 2.3, 4,\"many bla\"");
-	CPPUNIT_ASSERT(t.getBasePrice() == 1);
-	CPPUNIT_ASSERT(t.getName().compare("name")==0);
+	CargoType* t = MPLParse::ParseLine("\"name\",\"catagory\", 1, 2.3, 4,\"many bla\"");
+	CPPUNIT_ASSERT(t->getBasePrice() == 1);
+	CPPUNIT_ASSERT(t->getName().compare("name")==0);
+	delete t;
 }
 
 

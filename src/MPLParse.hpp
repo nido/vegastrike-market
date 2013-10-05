@@ -15,7 +15,7 @@ public:
 
 	std::vector<CargoType> Parse();
 
-	static CargoType ParseLine(std::string line);
+	static CargoType* ParseLine(std::string line);
 	static std::vector<CargoType> ParseFile(std::string fileName);
 private:
 	const char* filename;

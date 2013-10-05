@@ -33,7 +33,7 @@ MPLParse::~MPLParse()
 	this->file.close();
 }
 
-CargoType MPLParse::ParseLine(std::string line)
+CargoType* MPLParse::ParseLine(std::string line)
 {
 	std::string name;
 	std::string catagory;
@@ -49,18 +49,33 @@ CargoType MPLParse::ParseLine(std::string line)
 		if (fieldEnd == std::string::npos)
 		{
 			std::cout<<"warning: invalid line in MPL: "<<line<<std::endl;
-			break;
+			return NULL;
 		}
-		substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
+		try {
+			substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
+		} catch (std::out_of_range){
+			std::cout<<"warning: out_of_range in MPL: "<<line<<std::endl;
+			return NULL;
+		}
 		boost::algorithm::trim(substring);
 
 		switch(fieldNumber){
 		case 0:
+		try {
 			name = substring.substr(1, substring.size()-2);
+		} catch (std::out_of_range){
+			std::cout<<"warning: out_of_range in MPL: "<<line<<std::endl;
+			return NULL;
+		}
 			//std::cout<<"Name: "<<name<<std::endl;
 			break;
 		case 1:
+		try {
 			catagory = substring.substr(1, substring.size()-2);
+		} catch (std::out_of_range){
+			std::cout<<"warning: out_of_range in MPL: "<<line<<std::endl;
+			return NULL;
+		}
 			//std::cout<<"catagory: "<<catagory<<std::endl;
 			break;
 		case 2:
@@ -81,20 +96,23 @@ CargoType MPLParse::ParseLine(std::string line)
 		fieldNumber++;
 		fieldBegin = fieldEnd+1;
 	} while(fieldNumber < 5);
-	CargoType t = CargoType(name, catagory, mass, volume, price);
+	CargoType* t = new CargoType(name, catagory, mass, volume, price);
 	return t;
 }
 
 std::vector<CargoType> MPLParse::Parse()
 {
 	std::vector<CargoType> list = std::vector<CargoType>();
-	CargoType cargo;
+	CargoType* cargo;
 	std::string line;
 
 	while (std::getline(this->file, line) ){
 		cargo = ParseLine(line);
-		list.push_back(cargo);
+		if (cargo != NULL) {
+			list.push_back(*cargo);
+		}
 	}
+	return list;
 }
 
 std::vector<CargoType> MPLParse::ParseFile(std::string fileName)
