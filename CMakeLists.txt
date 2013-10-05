@@ -7,14 +7,16 @@ enable_testing()
 
 include(FindCppUnit)
 #find_package(CppUnit)
+include_directories(${CPPUNIT_INCLUDE_DIRS})
 
 include(FindEXPAT)
 find_package(EXPAT REQUIRED)
+include_directories(${EXPAT_INCLUDE_DIRS})
+
+
+
 #include_directories(${EXPAT_INCLUDE_DIRS})
 #include_directories(${EXPAT_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src)
-include_directories(${CMAKE_SOURCE_DIR}/src)
-include_directories(${EXPAT_INCLUDE_DIRS})
-include_directories(${CPPUNIT_INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra")
 #set(CMAKE_BUILD_TYPE "Debug")
@@ -26,8 +28,11 @@ add_library(market
 	src/Factory
 	src/Base
 	src/XMLParse
+	src/MPLParse
 	src/Economy
 )
+
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_executable(bigtest
 	test/bigtest.cpp
@@ -43,6 +48,7 @@ add_executable(cppunittest
 	test/FactoryTest
 	test/BaseTest
 	test/XMLParseTest
+	test/MPLParseTest
 	)
 
 target_link_libraries(cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
