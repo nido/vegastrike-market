@@ -6,7 +6,6 @@
  */
 
 #include <string>
-#include <vector>
 #include <stdbool.h>
 
 #include "ProductionOption.hpp"
@@ -38,6 +37,9 @@ public:
 	 */
 	void setProductionOption(ProductionOption option);
 
+	/** Compare factories to eachother. Factories are equal if the
+	 * have exactly the same ProductionOptions.
+	 */
 	bool operator==(const Factory &that) const;
 private:
 	std::vector<ProductionOption> options;

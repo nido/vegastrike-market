@@ -14,6 +14,8 @@
 
 Factory::Factory()
 {
+	this->options = std::vector<ProductionOption>();
+	this->productionPlan = this->options.end();
 }
 
 Factory::~Factory()

@@ -21,6 +21,9 @@ public:
 	/** A CargoType::iterator for pointing to CargoType */
 	typedef std::vector<CargoType>::iterator iterator;
 
+	/** Adds the current CargoType to the CargoType vector and
+	 * updates the pointer in this CargoType.
+	 */
 	void addToVector();
 
 	/** Create a debug cargotype */
