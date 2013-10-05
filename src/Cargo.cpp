@@ -53,6 +53,10 @@ bool Cargo::contains(Cargo* newCargo)
 
 bool Cargo::delCargo(Cargo* newCargo)
 {
+	if (this == newCargo) {
+		this->cargo.clear();
+		return true;
+	}
 	Cargo::iterator newStock;
 	if (this->contains(newCargo) == false){
 		return false;
