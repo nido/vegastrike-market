@@ -12,6 +12,7 @@
 #include "CargoTest.hpp"
 #include "CargoTypeTest.hpp"
 #include "FactoryTest.hpp"
+#include "MPLParseTest.hpp"
 #include "ProductionOptionTest.hpp"
 #include "XMLParseTest.hpp"
 
@@ -42,6 +43,12 @@ int main(int argc, char* argv[]){
 	}
 	if (argc == 1 || strcmp(argv[1], "FactoryTest") == 0){
 		 runner.addTest( FactoryTest::suite());
+	}
+	if (argc != 1 && strcmp(argv[1], "MPLParseTest") == 0 ){
+		std::cout<<argv[1]<<": ";
+	}
+	if (argc == 1 || strcmp(argv[1], "MPLParseTest") == 0){
+		 runner.addTest( MPLParseTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "ProductionOptionTest") == 0 ){
 		std::cout<<argv[1]<<": ";
