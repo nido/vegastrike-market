@@ -27,6 +27,7 @@ cat doc/unittest.template.main.cpp |
 else
 
 TESTS=$(cat "src/${NAME}.cpp" | 
+	grep -Go "${NAME}::[^(]\+(" |
 	grep -Go "${NAME}::[^(\ ]\+" | 
 	sed "s/${NAME}::${NAME}//g" |
 	sed "s/${NAME}::~${NAME}//g" |
@@ -35,6 +36,7 @@ TESTS=$(cat "src/${NAME}.cpp" |
 	sed "s/</LessThen/g" | 
 	sort | uniq)
 
+echo ${TESTS}
 
 TESTCODE=""
 SUITECODE=""
@@ -44,7 +46,9 @@ INCLUDECODE=""
 
 for TEST in ${TESTS}
 do
-	TESTCODE="${TESTCODE}\nvoid ${NAME}Test::${TEST}()\n{\n}\n"
+	TESTCODE="${TESTCODE}\nvoid ${NAME}Test::${TEST}()\n{"
+	TESTCODE="${TESTCODE}\t\/\/TODO: Implement test"
+	TESTCODE="${TESTCODE}\n}\n"
 
 	HEADERCODE="${HEADERCODE}\n\tvoid ${TEST}();"
 
