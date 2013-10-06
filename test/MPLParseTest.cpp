@@ -9,6 +9,7 @@
 #include "MPLParseTest.hpp"
 #include "MPLParse.hpp"
 
+#include "common/common.h"
 #include "MPLParse.hpp"
 #include "CargoType.hpp"
 void MPLParseTest::setUp()
@@ -22,15 +23,17 @@ void MPLParseTest::tearDown()
 
 void MPLParseTest::testParse()
 {
-	// default should get mpl
+	// default should get system mpl
 	MPLParse p = MPLParse();
-	p.Parse();
-	//TODO: proper testing
+	std::vector<CargoType> cargo = p.Parse();
+	CPPUNIT_ASSERT(! cargo.empty());
 }
 
 void MPLParseTest::testParseFile()
 {
-	//TODO: implement
+	std::string file = getdatadir() + "/master_part_list.csv";
+	std::vector<CargoType> cargo = MPLParse::ParseFile(file);
+	CPPUNIT_ASSERT(! cargo.empty());
 }
 
 void MPLParseTest::testParseLine()

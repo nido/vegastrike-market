@@ -31,7 +31,7 @@ MPLParse::MPLParse(std::string fileName)
 void MPLParse::initStream()
 {
 	this->file.open(this->filename);
-	std::cout<<"Opened file "<<this->filename<<std::endl;
+	assert(file.is_open());
 }
 
 MPLParse::~MPLParse()
