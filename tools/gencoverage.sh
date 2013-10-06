@@ -8,8 +8,6 @@ test -f  CMakeCache.txt && rm CMakeCache.txt
 BUILDDIR=coveragebuild
 mkdir -p "${BUILDDIR}" 
 cd "${BUILDDIR}"
-// clean up previous coverage files
-find . -type f -iname \*.gcno -exec rm -f {} \;
 
 # make alterations for older versions of lcov
 if `lcov -rc bla=bla 2>&1 | grep -q "lcov: Unknown option: rc"`
@@ -26,6 +24,10 @@ genhtml --branch-coverage -v && GENHTML="${GENHTML} --branch-coverage"
 
 
 cmake -D"CMAKE_CXX_FLAGS:string=-g -fprofile-arcs -ftest-coverage -DNDEBUG" ..
+
+# clean up previous coverage files
+find . -type f -iname \*.gcno -exec rm -f {} \;
+make clean
 
 # compile
 make
