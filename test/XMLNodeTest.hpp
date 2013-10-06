@@ -4,8 +4,6 @@
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-#include <vector>
-
 #include "XMLNode.hpp"
 
 class XMLNodeTest : public CppUnit::TestFixture  {

@@ -38,10 +38,10 @@ void XMLNodeTest::testParseElementEnd()
 
 void XMLNodeTest::testParseString()
 {	//TODO: Implement test
-	std::string inputstring = "<a><b /><c><b /></c><text>Hi</text>atext</a>";
+	std::string inputstring = "<a><b vega=\"strike\" /><c><b /></c><text hilight=\"true\">Hi</text>atext</a>";
     XMLNode* n = XMLNode::ParseString(inputstring);
-//	std::cout << inputstring << std::endl;
-//	std::cout << n->buildXMLString() << std::endl;
+	//std::cout << inputstring << std::endl;
+	//std::cout << n->buildXMLString() << std::endl;
 	CPPUNIT_ASSERT(inputstring.compare(n->buildXMLString())==0);
 }
 

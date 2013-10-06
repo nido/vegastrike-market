@@ -36,19 +36,19 @@ void XMLNode::ParseElementBegin(const XML_Char *name, const XML_Char **atts)
 		this->attributes[name] = value;
 	}
 	//TODO: Parse information gathered
-	std::cout<<"Begin "<<name<<std::endl;
-	for(std::map<std::string, std::string>::iterator i = attributes.begin();
+	//std::cout<<"Begin "<<name<<std::endl;
+	/*for(std::map<std::string, std::string>::iterator i = attributes.begin();
 		i != attributes.end();
 		i++
 	){
-		std::cout << "- " << i->first << " = " << i->second << std::endl;
-	}
+		//std::cout << "- " << i->first << " = " << i->second << std::endl;
+	}*/
 }
 
 void XMLNode::ParseElementEnd(const XML_Char *name)
 {
 	//TODO: create element it respresents
-	std::cout<<"End "<<name<<std::endl;
+	//std::cout<<"End "<<name<<std::endl;
 	
 }
 
@@ -110,7 +110,7 @@ void XMLNode::ParseXMLNodeEnd(void *xmlnode, const XML_Char *name)
 void XMLNode::ParseElementCharacterData(const XML_Char* name, int size)
 {
 	this->characterdata = std::string(name, size);
-	std::cout << "characterdata: " << this->characterdata << std::endl;
+	//std::cout << "characterdata: " << this->characterdata << std::endl;
 }
 
 void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char* name, int size)
@@ -129,7 +129,7 @@ std::string XMLNode::buildXMLString()
 
 	if(!this->attributes.empty()){
 		for(std::map<std::string, std::string>::iterator i = attributes.begin();
-			i != attributes.begin();
+			i != attributes.end();
 			i++
 		){
 			XML += " " + i->first + "=\"" + i->second + "\"";
