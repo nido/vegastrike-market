@@ -3,17 +3,16 @@
 #include <fstream>
 #include <cstdlib>
 
+#include "common/common.h"
+
 #include "MPLParse.hpp"
 #include "CargoType.hpp"
 
-#ifndef MASTER_PART_LIST
-#define MASTER_PART_LIST "../data/master_part_list.csv"
-#endif
 
 MPLParse::MPLParse()
 {
-	this->file.open(MASTER_PART_LIST);
-	this->filename = MASTER_PART_LIST;
+	this->file.open(getdatadir().c_str());
+	this->filename = getdatadir().c_str();
 }
 
 MPLParse::MPLParse(const MPLParse& that)
@@ -43,8 +42,8 @@ CargoType* MPLParse::ParseLine(std::string line)
 	float price;
 	int fieldNumber = 0;
 	size_t fieldBegin = 0;
-	size_t fieldEnd;
 	do {
+		size_t fieldEnd;
 		fieldEnd = line.find(",", fieldBegin);
 		if (fieldEnd == std::string::npos)
 		{
@@ -103,10 +102,14 @@ CargoType* MPLParse::ParseLine(std::string line)
 std::vector<CargoType> MPLParse::Parse()
 {
 	std::vector<CargoType> list = std::vector<CargoType>();
-	CargoType* cargo;
 	std::string line;
 
 	while (std::getline(this->file, line) ){
+		CargoType* cargo;
+		if (line.compare(",,,,,")==0){
+			// random placeholder line or something. do not add
+			continue;
+		}
 		cargo = ParseLine(line);
 		if (cargo != NULL) {
 			list.push_back(*cargo);
@@ -117,6 +120,8 @@ std::vector<CargoType> MPLParse::Parse()
 
 std::vector<CargoType> MPLParse::ParseFile(std::string fileName)
 {
+	MPLParse parser = MPLParse(fileName);
+	return parser.Parse();
 }
 
 //private:
