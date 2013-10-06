@@ -26,6 +26,7 @@ void Economy::delBase(Base base)
 	){
 		if(base == *iter){
 			this->bases.erase(iter);
+			break;
 		}
 	}
 }
