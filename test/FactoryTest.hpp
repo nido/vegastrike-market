@@ -17,12 +17,12 @@ public:
 	void testsetProductionOption();
 	static CppUnit::Test* suite();
 private:
-        CargoType::iterator intype;
-        CargoType::iterator outtype;
-        Cargo input;
-        Cargo output;
-        Cargo cargo;
-        ProductionOption po;
-        ProductionOption bigpo;
-	Factory factory;
+    CargoType::iterator intype;
+    CargoType::iterator outtype;
+    Cargo input;
+    Cargo output;
+    Cargo cargo;
+    ProductionOption po;
+    ProductionOption bigpo;
+    Factory factory;
 };
