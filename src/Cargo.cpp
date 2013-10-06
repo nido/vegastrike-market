@@ -46,7 +46,7 @@ bool Cargo::contains(Cargo* newCargo)
 	if (newCargo->begin() == newCargo->end()){
 		return true;
 	}
-	if (this->cargo.size() == 0){
+	if (this->cargo.empty()){
 		return false;
 	}
 	Cargo::iterator newStock;

@@ -24,7 +24,7 @@ Factory::~Factory()
 
 /** Determines whether the factory is able to produce (at all). */
 bool Factory::canProduce(Cargo* cargoStore){
-	if (this->options.size() == 0){
+	if (this->options.empty()){
 		return false;
 	}
 	if (this->productionPlan->canProduce(cargoStore)){
