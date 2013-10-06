@@ -14,6 +14,7 @@
 #include "FactoryTest.hpp"
 #include "MPLParseTest.hpp"
 #include "ProductionOptionTest.hpp"
+#include "XMLNodeTest.hpp"
 #include "XMLParseTest.hpp"
 
 int main(int argc, char* argv[]){
@@ -55,6 +56,12 @@ int main(int argc, char* argv[]){
 	}
 	if (argc == 1 || strcmp(argv[1], "ProductionOptionTest") == 0){
 		 runner.addTest( ProductionOptionTest::suite());
+	}
+	if (argc != 1 && strcmp(argv[1], "XMLNodeTest") == 0 ){
+		std::cout<<argv[1]<<": ";
+	}
+	if (argc == 1 || strcmp(argv[1], "XMLNodeTest") == 0){
+		 runner.addTest( XMLNodeTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "XMLParseTest") == 0 ){
 		std::cout<<argv[1]<<": ";
