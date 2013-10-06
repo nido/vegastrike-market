@@ -43,6 +43,12 @@ Cargo* Base::getCargo(){
 	return &this->cargoStore;
 }
 
+bool Base::operator==(const Base &that) const
+{
+	return(this->factories == that.factories &&
+		this->cargoStore == that.cargoStore);
+}
+
 void Base::Process()
 {
 //	std::cout<<"Processing base "<<this<<" ";

@@ -40,6 +40,7 @@ public:
 	std::vector<Factory> getFactories();
 	Cargo* getCargo();
 	void Process();
+	bool operator==(const Base &that) const;
 private:
 	std::vector<Factory> factories;
 	Cargo cargoStore;
