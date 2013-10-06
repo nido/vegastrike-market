@@ -20,6 +20,14 @@ void Economy::addBase(Base base)
 void Economy::delBase(Base base)
 {
 	//TODO implement delBase
+	for (std::vector<Base>::iterator iter = this->bases.begin();
+		iter != this->bases.end();
+		++iter
+	){
+		if(base == *iter){
+			this->bases.erase(iter);
+		}
+	}
 }
 
 std::vector<Base> Economy::getFactories()
