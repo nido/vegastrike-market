@@ -21,6 +21,19 @@ Someone takes upon himself the task to integrate this with Vegastrike.
 * Outsiders can interact with the Economy
 * CargoType information comes from Vegastrikes raw cargo data
 
+The state of the Economy can be saved
+--------------------------------------
+*rationale*:
+If the universe cannot be saved, it will suffer the same fate as the
+current universe and be obliterated each time vegastrike quits. Also,
+saving the economy allows for it to continue on networked systems after
+upgrades of the system (assuming the save/load interface stays
+constant).
+
+*Fit Criterion*:
+An Economy can be saved, loaded, and be exactly the same as the original
+economy.
+
 CargoType information comes from Vegastrikes raw cargo data
 -----------------------------------------------------------
 *Rationale*:
