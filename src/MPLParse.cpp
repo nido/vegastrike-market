@@ -11,20 +11,27 @@
 
 MPLParse::MPLParse()
 {
-	this->file.open(getdatadir().c_str());
-	this->filename = getdatadir().c_str();
+	std::string name = getdatadir() + "/master_part_list.csv";
+	this->filename = name.c_str();
+	this->initStream();
 }
 
 MPLParse::MPLParse(const MPLParse& that)
 {
 	this->filename = that.filename;
-	this->file.open(this->filename);
+	this->initStream();
 }
 
 MPLParse::MPLParse(std::string fileName)
 {
-	this->file.open(fileName.c_str());
 	this->filename = fileName.c_str();
+	this->initStream();
+}
+
+void MPLParse::initStream()
+{
+	this->file.open(this->filename);
+	std::cout<<"Opened file "<<this->filename<<std::endl;
 }
 
 MPLParse::~MPLParse()

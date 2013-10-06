@@ -18,6 +18,7 @@ public:
 	static CargoType* ParseLine(std::string line);
 	static std::vector<CargoType> ParseFile(std::string fileName);
 private:
+	void initStream();
 	const char* filename;
 	std::ifstream file;
 };
