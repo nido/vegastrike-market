@@ -61,5 +61,5 @@ $LCOV -r codecoverage.info "/usr*/include/*" -o coverage.info
 $GENHTML --legend --show-details --title "Vegastrike Economy" codecoverage.info --output-directory "./coverage/"
 
 # report a summary
-lcov --summary coverage.info 2>&1 | grep lines | grep -Go "[0-9]\+\.[0-9]%"
+lcov --summary codecoverage.info 2>&1 | grep lines | grep -Go "[0-9]\+\.[0-9]%"
 
