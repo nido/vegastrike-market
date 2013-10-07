@@ -14,6 +14,11 @@
 *   (at your option) any later version.                                   *
 *                                                                         *
 ***************************************************************************/
+// for buildbot, mostly
+#ifndef DATA_DIR
+#define DATA_DIR "/usr/share/vegastrike/"
+#endif
+
 #include <string>
 #include <stdio.h>
 
@@ -25,6 +30,7 @@ using std::string;
 #include "common.h"
 
 #ifndef _WIN32
+#define DATA_DIR "/usr/share/vegastrike/"
 
 //Directories to look for data
 const char *datadirs[] = {
