@@ -39,7 +39,7 @@ void XMLNode::ParseElementBegin(const XML_Char *name, const XML_Char **atts)
 	//std::cout<<"Begin "<<name<<std::endl;
 	/*for(std::map<std::string, std::string>::iterator i = attributes.begin();
 		i != attributes.end();
-		i++
+		++i
 	){
 		//std::cout << "- " << i->first << " = " << i->second << std::endl;
 	}*/
@@ -130,7 +130,7 @@ std::string XMLNode::buildXMLString()
 	if(!this->attributes.empty()){
 		for(std::map<std::string, std::string>::iterator i = attributes.begin();
 			i != attributes.end();
-			i++
+			++i
 		){
 			XML += " " + i->first + "=\"" + i->second + "\"";
 		}
@@ -142,7 +142,7 @@ std::string XMLNode::buildXMLString()
 	}
 	for(std::vector<XMLNode*>::iterator child = this->children.begin();
 		child != this->children.end();
-		child++
+		++child
 	){
 		XML += (*child)->buildXMLString();
 	}

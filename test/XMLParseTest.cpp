@@ -42,7 +42,7 @@ void XMLParseTest::testParseCargoType(){
 	std::vector<CargoType> t = readCargoTypes("../data/CargoType.xml");
 	for (std::vector<CargoType>::iterator i = t.begin();
 		i != t.end();
-		i++
+		++i
 	){
 		std::cout<<i->getName()<<std::endl;
 	}
