@@ -16,6 +16,7 @@ public:
 	void testParseString();
 	void testParseXMLNodeBegin();
 	void testParseXMLNodeEnd();
+	void testgetCargoType();
 	static CppUnit::Test* suite();
 
 private:

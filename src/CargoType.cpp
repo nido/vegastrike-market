@@ -1,8 +1,10 @@
 #include <iostream>
+#include <sstream>
 #include <algorithm>
 #include <vector>
 #include <cstdlib>
-
+#include <string>
+	
 #include <assert.h>
 
 #include "CargoType.hpp"
@@ -72,4 +74,15 @@ CargoType::iterator CargoType::getIterator()
 std::vector<CargoType> getCargoTypeVector()
 {
 	return std::vector<CargoType>();
+}
+
+std::string CargoType::getXML()
+{
+	std::stringstream xmlstream;
+	xmlstream << "<CargoType name=\"" << this->name << "\" catagory=\""
+		<< this->catagory << "\" mass=\"" << this->mass <<
+		"\" volume=\"" << this->volume << "\" price=\"" <<
+		this->basePrice << "\">";
+	
+	return xmlstream.str();
 }

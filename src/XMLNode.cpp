@@ -155,16 +155,17 @@ std::string XMLNode::buildXMLString()
 	return XML;
 }
 
+CargoType* XMLNode::getCargoType()
+{
+	if(this->name.compare("CargoType") != 0){
+		return NULL;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+	std::string cargoName = this->attributes["name"];
+	std::string cargoDescription = this->attributes["catagory"];
+	float cargoMass = strtof(this->attributes["mass"].c_str(),NULL);
+	float cargoVolume = strtof(this->attributes["volume"].c_str(), NULL);
+	float cargoPrice = strtof(this->attributes["price"].c_str(), NULL);
+	CargoType* cargo = new CargoType(cargoName, cargoDescription, cargoMass, cargoVolume, cargoPrice);
+	return cargo;
+}

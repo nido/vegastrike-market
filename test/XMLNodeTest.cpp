@@ -54,6 +54,19 @@ void XMLNodeTest::testParseXMLNodeEnd()
 }
 
 
+void XMLNodeTest::testgetCargoType()
+{
+	XMLNode* n = XMLNode::ParseString("<CargoType name=\"cargo\" catagory=\"catagory\" mass=\"1\" volume=\"2\" price=\"3\" />");
+	CargoType* test = n->getCargoType();
+
+	CargoType reference = CargoType("cargo", "catagory", 1, 2, 3);
+
+	//std::cout<<"test: " << test->getXML() << std::endl;
+	//std::cout<<"ref : " << reference.getXML() << std::endl;
+	CPPUNIT_ASSERT(test != NULL);
+	CPPUNIT_ASSERT(reference == *test);
+}
+
 CppUnit::Test* XMLNodeTest::suite()
 {
 	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "XMLNodeTest" );
@@ -76,6 +89,9 @@ CppUnit::Test* XMLNodeTest::suite()
 
 	suiteOfTests->addTest( new CppUnit::TestCaller<XMLNodeTest>(
 			"testParseXMLNodeEnd", &XMLNodeTest::testParseXMLNodeEnd));
+
+	suiteOfTests->addTest( new CppUnit::TestCaller<XMLNodeTest>(
+			"testgetCargoType", &XMLNodeTest::testgetCargoType));
 
 	return suiteOfTests;
 }

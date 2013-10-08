@@ -54,6 +54,9 @@ public:
 	/** get the cargo name */
 	std::string getName();
 
+	/** gives an XML representation of the CargoType */
+	std::string getXML();
+
 	/** get iterator for this cargo type */
 	CargoType::iterator getIterator();
 private:
