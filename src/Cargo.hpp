@@ -22,12 +22,12 @@ public:
 
 	/** Removes cargo from this cargohold
 	 * returns a boolean saying whether the action succeded */
-	bool delCargo(Cargo* newCargo);
+	bool delCargo(const Cargo* newCargo);
 
 	unsigned int getCount(CargoType::iterator type);
 
 	/** check whether the content of newCargo is in the cargohold */
-	bool contains(Cargo* newCargo);
+	bool contains(const Cargo* newCargo);
 
 	bool operator==(const Cargo &that) const;
 

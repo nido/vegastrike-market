@@ -40,7 +40,7 @@ unsigned int Cargo::getCount(CargoType::iterator type)
 	return this->cargo[type];
 }
 
-bool Cargo::contains(Cargo* newCargo)
+bool Cargo::contains(const Cargo* newCargo)
 {
 	assert(newCargo != NULL);
 	if (newCargo->begin() == newCargo->end()){
@@ -49,7 +49,7 @@ bool Cargo::contains(Cargo* newCargo)
 	if (this->cargo.empty()){
 		return false;
 	}
-	Cargo::iterator newStock;
+	Cargo::const_iterator newStock;
 	for (newStock = newCargo->begin();
 		newStock != newCargo->end();
 		++newStock
@@ -65,13 +65,13 @@ bool Cargo::contains(Cargo* newCargo)
 	return true;
 }
 
-bool Cargo::delCargo(Cargo* newCargo)
+bool Cargo::delCargo(const Cargo* newCargo)
 {
 	if (this == newCargo) {
 		this->cargo.clear();
 		return true;
 	}
-	Cargo::iterator newStock;
+	Cargo::const_iterator newStock;
 	if (this->contains(newCargo) == false){
 		return false;
 	}
