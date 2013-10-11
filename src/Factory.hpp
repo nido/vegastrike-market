@@ -30,7 +30,7 @@ public:
 	bool canProduce(const Cargo* cargoStore) const;
 
 	/** Add another production option */
-	void addProductionOption(ProductionOption option);
+	void addProductionOption(ProductionOption *option);
 
 	/** Set the active production option.
 	 * Note this one needs to be part of the Factory's own ProductionOptions

@@ -20,10 +20,16 @@ class ProductionOption {
 
 public:
 	ProductionOption();
-	ProductionOption(Cargo consumes, Cargo produces);
+	/** Create a new ProductionOption which turns consumes Cargo into
+	 * produces Cargo. consumes and produces becomes owned by the
+	 * ProductionOption. */
+	ProductionOption(Cargo* consumes, Cargo* produces);
+
+	/** Delete the ProductionOption and its consumes and produces.
+	 */
 	~ProductionOption();
 
-	/** (if possible) Do producuce */
+	/** (if possible) Do produce */
 	void Produce(Cargo *cargoStore);
 
 	/** determine whether production is possible */
@@ -32,9 +38,9 @@ public:
 	bool operator==( const ProductionOption &that ) const;
 private:
 	/** Cargo consumed by production. */
-	Cargo consumes;
+	Cargo* consumes;
 
 	/** Cargo produced by production. */
-	Cargo produces;
+	Cargo* produces;
 };
 #endif // H_PRODUCTIONOPTION

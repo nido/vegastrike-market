@@ -28,17 +28,25 @@
 #include <assert.h>
 
 /** Empty constructor for cpptest */
-ProductionOption::ProductionOption()
+ProductionOption::ProductionOption() :
+	consumes(NULL), produces(NULL)
 {
 }
 
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
-ProductionOption::ProductionOption(Cargo consumes, Cargo produces) :
+ProductionOption::ProductionOption(Cargo* consumes, Cargo* produces) :
 	consumes(consumes), produces(produces)
 {
 }
 
-ProductionOption::~ProductionOption(){
+ProductionOption::~ProductionOption()
+{
+	if (this->consumes != NULL){
+		delete this->consumes;
+	}
+	if (this->produces!= NULL){
+		delete this->produces;
+	}
 }
 
 /** Determines whether the factory is able to produce (at all).
@@ -47,7 +55,7 @@ ProductionOption::~ProductionOption(){
  * the Cargo defined in the 'consumes' vector.
  */
 bool ProductionOption::canProduce(const Cargo *cargoStore) const{
-	return cargoStore->contains(&this->consumes);
+	return cargoStore->contains(this->consumes);
 }
 
 void ProductionOption::Produce(Cargo *cargoStore){
@@ -57,18 +65,18 @@ void ProductionOption::Produce(Cargo *cargoStore){
 #ifndef NDEBUG
 	bool result =
 #endif //NDEBUG so it won't bother about unused variables when assertions are off
-	cargoStore->delCargo(&consumes);
+	cargoStore->delCargo(consumes);
 	// make sure this actually happened
 	assert(result != false);
 
-	cargoStore->addCargo(&produces);
+	cargoStore->addCargo(produces);
 }
 
 bool ProductionOption::operator==( const ProductionOption &that ) const
 {
-	if ((this->consumes == that.consumes) &&
-		(this->produces == that.produces))
-	{
+	if ((*(this->consumes) == *(that.consumes)) &&
+		(*(this->produces) == *(that.produces))
+	){
 		return true;
 	}
 	return false;

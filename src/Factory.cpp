@@ -40,12 +40,12 @@ void Factory::Produce(Cargo* cargoStore){
 	this->productionPlan->Produce(cargoStore);
 }
 
-void Factory::addProductionOption(ProductionOption option)
+void Factory::addProductionOption(ProductionOption* option)
 {
-	this->options.push_back(option);
+	this->options.push_back(*option);
 	// set the first production option available as default
 	if (this->options.size() == 1){
-		this->setProductionOption(option);
+		this->setProductionOption(*option);
 	}
 }
 

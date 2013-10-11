@@ -24,12 +24,22 @@ void BaseTest::setUp()
         output.addCargo(outtype, 1);
         this->cargo.addCargo(intype2, 1);
         this->cargo.addCargo(intype1, 5);
-        ProductionOption po1 = ProductionOption(input1, output);
-        ProductionOption po2 = ProductionOption(input2, output);
+	Cargo* in1 = new Cargo();
+	Cargo* in2 = new Cargo();
+	Cargo* out1 = new Cargo();
+	Cargo* out2 = new Cargo();
+
+	in1->addCargo(intype1, 1);
+	out1->addCargo(outtype, 1);
+	in2->addCargo(intype2, 1);
+	out2->addCargo(outtype, 1);
+
+	ProductionOption po1 = ProductionOption(in1, out1);
+	ProductionOption po2 = ProductionOption(in2, out2);
 	this->factory1 = Factory();
-	this->factory1.addProductionOption(po1);
+	this->factory1.addProductionOption(&po1);
 	this->factory2 = Factory();
-	this->factory2.addProductionOption(po2);
+	this->factory2.addProductionOption(&po2);
 	this->base = Base();
 }
 
@@ -39,7 +49,7 @@ void BaseTest::tearDown()
 
 void BaseTest::testaddCargo()
 {
-	this->base.addCargo(&this->cargo);
+	this->base.addCargo(&(this->cargo));
 	CPPUNIT_ASSERT(*(this->base.getCargo()) == this->cargo);
 }
 

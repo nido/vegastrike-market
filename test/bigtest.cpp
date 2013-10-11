@@ -29,12 +29,12 @@ Cargo* prepareRandomCargo(){
 }
 
 ProductionOption* prepareRandomProductionOption(){
-	return new ProductionOption(*prepareRandomCargo(), *prepareRandomCargo());
+	return new ProductionOption(prepareRandomCargo(), prepareRandomCargo());
 }
 
 Factory* prepareRandomFactory(){
 	Factory* factory = new Factory();
-	factory->addProductionOption(*prepareRandomProductionOption());
+	factory->addProductionOption(prepareRandomProductionOption());
 	return factory;
 }
 

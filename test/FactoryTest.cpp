@@ -18,10 +18,18 @@ void FactoryTest::setUp()
         this->input.addCargo(intype, 1);
         this->output.addCargo(outtype, 1);
         this->cargo.addCargo(intype, 2);
+	Cargo* in1 = new Cargo();
+	Cargo* in2 = new Cargo();
+	Cargo* out1 = new Cargo();
+	Cargo* out2 = new Cargo();
 
-        this->po = ProductionOption(input, output);
-        this->bigpo = ProductionOption(cargo, output);
+	in1->addCargo(intype, 1);
+	out1->addCargo(outtype, 1);
+	in2->addCargo(intype, 2);
+	out2->addCargo(outtype, 1);
 
+	this->po = ProductionOption(in1, out1);
+	this->bigpo = ProductionOption(in2, out2);
 	this->factory = Factory();
 }
 
@@ -35,13 +43,13 @@ void FactoryTest::testcanProduce()
 	// empty factory cannot produce
 	CPPUNIT_ASSERT(this->factory.canProduce(&cargo) == false);
 
-	this->factory.addProductionOption(bigpo);
+	this->factory.addProductionOption(&bigpo);
 	// cannot produce with not enough goods
 	CPPUNIT_ASSERT(this->factory.canProduce(&input) == false);
 	// cannot produce without the right goods
 	CPPUNIT_ASSERT(this->factory.canProduce(&output) == false);
 
-	this->factory.addProductionOption(po);
+	this->factory.addProductionOption(&po);
 	this->factory.setProductionOption(po);
 	// can produce with just enough input goods
 	CPPUNIT_ASSERT(this->factory.canProduce(&input) == true);
@@ -53,7 +61,7 @@ void FactoryTest::testProduce()
 {
 	// test is shitty because produce definition is shitty
 
-	this->factory.addProductionOption(po);
+	this->factory.addProductionOption(&po);
 	// produce with enough goods
 	this->factory.Produce(&cargo);
 	CPPUNIT_ASSERT(cargo.getCount(intype) == 1);
@@ -70,8 +78,8 @@ void FactoryTest::testProduce()
 
 void FactoryTest::testsetProductionOption()
 {
-	this->factory.addProductionOption(po);
-	this->factory.addProductionOption(bigpo);
+	this->factory.addProductionOption(&po);
+	this->factory.addProductionOption(&bigpo);
 	this->factory.setProductionOption(po);
 	// production is possible
 	this->factory.Produce(&(this->cargo));
