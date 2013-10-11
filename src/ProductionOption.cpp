@@ -28,25 +28,20 @@
 #include <assert.h>
 
 /** Empty constructor for cpptest */
-ProductionOption::ProductionOption() :
-	consumes(NULL), produces(NULL)
-{
-}
+ProductionOption::ProductionOption() : consumes(NULL), produces(NULL) {}
 
-/** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted  */
-ProductionOption::ProductionOption(Cargo* consumes, Cargo* produces) :
-	consumes(consumes), produces(produces)
-{
-}
+/** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted
+ */
+ProductionOption::ProductionOption(Cargo *consumes, Cargo *produces)
+    : consumes(consumes), produces(produces) {}
 
-ProductionOption::~ProductionOption()
-{
-	if (this->consumes != NULL){
-		delete this->consumes;
-	}
-	if (this->produces!= NULL){
-		delete this->produces;
-	}
+ProductionOption::~ProductionOption() {
+  if (this->consumes != NULL) {
+    delete this->consumes;
+  }
+  if (this->produces != NULL) {
+    delete this->produces;
+  }
 }
 
 /** Determines whether the factory is able to produce (at all).
@@ -54,31 +49,29 @@ ProductionOption::~ProductionOption()
  * Production can commence when the cargoStore provided has at least
  * the Cargo defined in the 'consumes' vector.
  */
-bool ProductionOption::canProduce(const Cargo *cargoStore) const{
-	return cargoStore->contains(this->consumes);
+bool ProductionOption::canProduce(const Cargo *cargoStore) const {
+  return cargoStore->contains(this->consumes);
 }
 
-void ProductionOption::Produce(Cargo *cargoStore){
-	if (this->canProduce(cargoStore) == false){
-		return;
-	}
+void ProductionOption::Produce(Cargo *cargoStore) {
+  if (this->canProduce(cargoStore) == false) {
+    return;
+  }
 #ifndef NDEBUG
-	bool result =
-#endif //NDEBUG so it won't bother about unused variables when assertions are off
-	cargoStore->delCargo(consumes);
-	// make sure this actually happened
-	assert(result != false);
+  bool result =
+#endif //NDEBUG so it won't bother about unused variables when assertions are  \
+       //off
+      cargoStore->delCargo(consumes);
+  // make sure this actually happened
+  assert(result != false);
 
-	cargoStore->addCargo(produces);
+  cargoStore->addCargo(produces);
 }
 
-bool ProductionOption::operator==( const ProductionOption &that ) const
-{
-	if ((*(this->consumes) == *(that.consumes)) &&
-		(*(this->produces) == *(that.produces))
-	){
-		return true;
-	}
-	return false;
+bool ProductionOption::operator==(const ProductionOption &that) const {
+  if ((*(this->consumes) == *(that.consumes)) &&
+      (*(this->produces) == *(that.produces))) {
+    return true;
+  }
+  return false;
 }
-

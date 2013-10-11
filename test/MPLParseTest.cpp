@@ -13,56 +13,45 @@
 #include "MPLParse.hpp"
 #include "CargoType.hpp"
 
+void MPLParseTest::setUp() {}
 
-void MPLParseTest::setUp()
-{
+void MPLParseTest::tearDown() {}
+
+void MPLParseTest::testParse() {
+  // default should get system mpl
+  MPLParse p = MPLParse();
+  std::vector<CargoType> cargo = p.Parse();
+  CPPUNIT_ASSERT(!cargo.empty());
 }
 
-void MPLParseTest::tearDown()
-{
+void MPLParseTest::testParseFile() {
+  std::string file = getdatadir() + "/master_part_list.csv";
+  std::vector<CargoType> cargo = MPLParse::ParseFile(file);
+  CPPUNIT_ASSERT(!cargo.empty());
 }
 
-
-void MPLParseTest::testParse()
-{
-	// default should get system mpl
-	MPLParse p = MPLParse();
-	std::vector<CargoType> cargo = p.Parse();
-	CPPUNIT_ASSERT(! cargo.empty());
+void MPLParseTest::testParseLine() {
+  CargoType *t =
+      MPLParse::ParseLine("\"name\",\"catagory\", 1, 2.3, 4,\"many bla\"");
+  CPPUNIT_ASSERT(t->getBasePrice() == 1);
+  CPPUNIT_ASSERT(t->getName().compare("name") == 0);
+  delete t;
 }
 
-void MPLParseTest::testParseFile()
-{
-	std::string file = getdatadir() + "/master_part_list.csv";
-	std::vector<CargoType> cargo = MPLParse::ParseFile(file);
-	CPPUNIT_ASSERT(! cargo.empty());
-}
+CppUnit::Test *MPLParseTest::suite() {
+  CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("MPLParseTest");
+  //	suiteOfTests->addTest( new CppUnit::TestCaller<MPLParseTest>(
+  //			"testFunction",
+  //			&MPLParseTest::testFunction));
 
-void MPLParseTest::testParseLine()
-{
-	CargoType* t = MPLParse::ParseLine("\"name\",\"catagory\", 1, 2.3, 4,\"many bla\"");
-	CPPUNIT_ASSERT(t->getBasePrice() == 1);
-	CPPUNIT_ASSERT(t->getName().compare("name")==0);
-	delete t;
-}
+  suiteOfTests->addTest(new CppUnit::TestCaller<MPLParseTest>(
+      "testParse", &MPLParseTest::testParse));
 
+  suiteOfTests->addTest(new CppUnit::TestCaller<MPLParseTest>(
+      "testParseFile", &MPLParseTest::testParseFile));
 
-CppUnit::Test* MPLParseTest::suite()
-{
-	CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "MPLParseTest" );
-//	suiteOfTests->addTest( new CppUnit::TestCaller<MPLParseTest>(
-//			"testFunction",
-//			&MPLParseTest::testFunction));
+  suiteOfTests->addTest(new CppUnit::TestCaller<MPLParseTest>(
+      "testParseLine", &MPLParseTest::testParseLine));
 
-	
-	suiteOfTests->addTest( new CppUnit::TestCaller<MPLParseTest>(
-			"testParse", &MPLParseTest::testParse));
-
-	suiteOfTests->addTest( new CppUnit::TestCaller<MPLParseTest>(
-			"testParseFile", &MPLParseTest::testParseFile));
-
-	suiteOfTests->addTest( new CppUnit::TestCaller<MPLParseTest>(
-			"testParseLine", &MPLParseTest::testParseLine));
-
-	return suiteOfTests;
+  return suiteOfTests;
 }

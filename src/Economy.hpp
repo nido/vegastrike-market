@@ -13,22 +13,23 @@ class Economy;
 /** A single factory with its own cargo reserve and (several) ProductionOptions
  *
  */
-class Economy{
+class Economy {
 public:
-	/** Create an empty Economy */
-	Economy();
+  /** Create an empty Economy */
+  Economy();
 
-	/** delete a factory */
-	~Economy();
+  /** delete a factory */
+  ~Economy();
 
-	/** add a factory for production to the base */
-	void addBase(Base factory);
-	void delBase(Base factory);
+  /** add a factory for production to the base */
+  void addBase(Base factory);
+  void delBase(Base factory);
 
-	std::vector<Base> getFactories();
-	void tick();
+  std::vector<Base> getFactories();
+  void tick();
+
 private:
-	std::vector<Base> bases;
+  std::vector<Base> bases;
 };
 
 #endif //H_ECONOMY

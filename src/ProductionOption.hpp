@@ -14,33 +14,34 @@ class ProductionOption;
 /** One of the possibilities for a factory to produce.
  *
  * Factories are sometimes able to make different quantities of products
- * depending on available inputs. A ProductionOption 
+ * depending on available inputs. A ProductionOption
  */
 class ProductionOption {
 
 public:
-	ProductionOption();
-	/** Create a new ProductionOption which turns consumes Cargo into
-	 * produces Cargo. consumes and produces becomes owned by the
-	 * ProductionOption. */
-	ProductionOption(Cargo* consumes, Cargo* produces);
+  ProductionOption();
+  /** Create a new ProductionOption which turns consumes Cargo into
+ 	 * produces Cargo. consumes and produces becomes owned by the
+ 	 * ProductionOption. */
+  ProductionOption(Cargo *consumes, Cargo *produces);
 
-	/** Delete the ProductionOption and its consumes and produces.
-	 */
-	~ProductionOption();
+  /** Delete the ProductionOption and its consumes and produces.
+ 	 */
+  ~ProductionOption();
 
-	/** (if possible) Do produce */
-	void Produce(Cargo *cargoStore);
+  /** (if possible) Do produce */
+  void Produce(Cargo *cargoStore);
 
-	/** determine whether production is possible */
-	bool canProduce(const Cargo *cargoStore) const;
-	/** check equality of two ProductionOptions */
-	bool operator==( const ProductionOption &that ) const;
+  /** determine whether production is possible */
+  bool canProduce(const Cargo *cargoStore) const;
+  /** check equality of two ProductionOptions */
+  bool operator==(const ProductionOption &that) const;
+
 private:
-	/** Cargo consumed by production. */
-	Cargo* consumes;
+  /** Cargo consumed by production. */
+  Cargo *consumes;
 
-	/** Cargo produced by production. */
-	Cargo* produces;
+  /** Cargo produced by production. */
+  Cargo *produces;
 };
 #endif // H_PRODUCTIONOPTION

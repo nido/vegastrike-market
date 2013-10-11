@@ -6,21 +6,22 @@
 
 #include "CargoType.hpp"
 
-class MPLParse{
+class MPLParse {
 public:
-	MPLParse();
-	MPLParse(const MPLParse&);
-	MPLParse(std::string fileName);
-	~MPLParse();
+  MPLParse();
+  MPLParse(const MPLParse &);
+  MPLParse(std::string fileName);
+  ~MPLParse();
 
-	std::vector<CargoType> Parse();
+  std::vector<CargoType> Parse();
 
-	static CargoType* ParseLine(std::string line);
-	static std::vector<CargoType> ParseFile(std::string fileName);
+  static CargoType *ParseLine(std::string line);
+  static std::vector<CargoType> ParseFile(std::string fileName);
+
 private:
-	void initStream();
-	const char* filename;
-	std::ifstream file;
+  void initStream();
+  const char *filename;
+  std::ifstream file;
 };
 
 #endif //H_MPLPARSE

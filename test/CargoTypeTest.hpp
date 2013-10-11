@@ -6,17 +6,18 @@
 
 #include "CargoType.hpp"
 
-class CargoTypeTest : public CppUnit::TestFixture  {
+class CargoTypeTest : public CppUnit::TestFixture {
 public:
-	void setUp();
-	void tearDown();
+  void setUp();
+  void tearDown();
 
-	void testoperatorEquals();
-	void testoperatorLessThen();
-	void testgetBasePrice();
-	static CppUnit::Test* suite();
+  void testoperatorEquals();
+  void testoperatorLessThen();
+  void testgetBasePrice();
+  static CppUnit::Test *suite();
+
 private:
-	CargoType one;
-	CargoType two;
-	CargoType three;
+  CargoType one;
+  CargoType two;
+  CargoType three;
 };

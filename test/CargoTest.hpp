@@ -7,21 +7,22 @@
 #include "CargoType.hpp"
 #include "Cargo.hpp"
 
-class CargoTest : public CppUnit::TestFixture  {
+class CargoTest : public CppUnit::TestFixture {
 public:
-	void setUp();
-	void tearDown();
+  void setUp();
+  void tearDown();
 
-	void testaddCargo();
-	void testcontains();
-	void testdelCargo();
-	void testoperatorEquals();
-	static CppUnit::Test* suite();
+  void testaddCargo();
+  void testcontains();
+  void testdelCargo();
+  void testoperatorEquals();
+  static CppUnit::Test *suite();
+
 private:
-	CargoType::iterator type1;
-	CargoType::iterator type2;
-	CargoType::iterator type3;
-	Cargo pile1;
-	Cargo pile2;
-	Cargo pile3;
+  CargoType::iterator type1;
+  CargoType::iterator type2;
+  CargoType::iterator type3;
+  Cargo pile1;
+  Cargo pile2;
+  Cargo pile3;
 };

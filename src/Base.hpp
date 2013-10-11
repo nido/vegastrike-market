@@ -13,35 +13,36 @@ class Base;
 /** A single factory with its own cargo reserve and (several) ProductionOptions
  *
  */
-class Base{
+class Base {
 public:
-	/** Create an empty Base */
-	Base();
+  /** Create an empty Base */
+  Base();
 
-	/** delete a factory */
-	~Base();
+  /** delete a factory */
+  ~Base();
 
-	/** iterator access */
-	typedef std::vector<Factory>::iterator iterator;
-	typedef std::vector<Factory>::const_iterator const_iterator;
+  /** iterator access */
+  typedef std::vector<Factory>::iterator iterator;
+  typedef std::vector<Factory>::const_iterator const_iterator;
 
-	/** add a factory for production to the base */
-	void addFactory(Factory factory);
-	void delFactory(Factory factory);
+  /** add a factory for production to the base */
+  void addFactory(Factory factory);
+  void delFactory(Factory factory);
 
-	/** Add cargo to the base */
-	void addCargo(const Cargo* cargo);
+  /** Add cargo to the base */
+  void addCargo(const Cargo *cargo);
 
-	/** delete cargo from the base */
-	void delCargo(const Cargo* cargo);
+  /** delete cargo from the base */
+  void delCargo(const Cargo *cargo);
 
-	std::vector<Factory> getFactories();
-	Cargo* getCargo();
-	void Process();
-	bool operator==(const Base &that) const;
+  std::vector<Factory> getFactories();
+  Cargo *getCargo();
+  void Process();
+  bool operator==(const Base &that) const;
+
 private:
-	std::vector<Factory> factories;
-	Cargo cargoStore;
+  std::vector<Factory> factories;
+  Cargo cargoStore;
 };
 
 #endif //H_BASE

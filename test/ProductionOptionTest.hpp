@@ -6,21 +6,22 @@
 
 #include "ProductionOption.hpp"
 
-class ProductionOptionTest : public CppUnit::TestFixture  {
+class ProductionOptionTest : public CppUnit::TestFixture {
 public:
-	void setUp();
-	void tearDown();
+  void setUp();
+  void tearDown();
 
-	void testCanProduce();
-	void testProduce();
-	void testoperatorEquals();
-	static CppUnit::Test* suite();
+  void testCanProduce();
+  void testProduce();
+  void testoperatorEquals();
+  static CppUnit::Test *suite();
+
 private:
-	CargoType::iterator intype;
-	CargoType::iterator outtype;
-	Cargo input;
-	Cargo output;
-	Cargo cargo;
-	ProductionOption po;
-	ProductionOption bigpo;
+  CargoType::iterator intype;
+  CargoType::iterator outtype;
+  Cargo input;
+  Cargo output;
+  Cargo cargo;
+  ProductionOption po;
+  ProductionOption bigpo;
 };

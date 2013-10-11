@@ -13,88 +13,81 @@
 #include "MPLParse.hpp"
 #include "Base.hpp"
 
-
-Cargo* prepareRandomLottaCargo(){
-	Cargo* cargo = new Cargo();
-	for(int i = 0; i<500; i++){
-		cargo->addCargo(CargoType::getRandomCargoType(), (rand()%10000) + 100 );
-	}
-	return cargo;
+Cargo *prepareRandomLottaCargo() {
+  Cargo *cargo = new Cargo();
+  for (int i = 0; i < 500; i++) {
+    cargo->addCargo(CargoType::getRandomCargoType(), (rand() % 10000) + 100);
+  }
+  return cargo;
 }
-Cargo* prepareRandomCargo(){
-	Cargo* cargo = new Cargo();
-	cargo->addCargo(CargoType::getRandomCargoType(), (rand()%10) + 1 );
-	assert((*cargo == Cargo()) == false);
-	return cargo;
-}
-
-ProductionOption* prepareRandomProductionOption(){
-	return new ProductionOption(prepareRandomCargo(), prepareRandomCargo());
+Cargo *prepareRandomCargo() {
+  Cargo *cargo = new Cargo();
+  cargo->addCargo(CargoType::getRandomCargoType(), (rand() % 10) + 1);
+  assert((*cargo == Cargo()) == false);
+  return cargo;
 }
 
-Factory* prepareRandomFactory(){
-	Factory* factory = new Factory();
-	factory->addProductionOption(prepareRandomProductionOption());
-	return factory;
+ProductionOption *prepareRandomProductionOption() {
+  return new ProductionOption(prepareRandomCargo(), prepareRandomCargo());
 }
 
-Base* prepareRandomBase(int basesize){
-	Base* base = new Base();
-	for(int i = 0; i < (rand() % basesize) + 1; i++){
-		base->addFactory(*prepareRandomFactory());
-	}
-	base->addCargo(prepareRandomLottaCargo());
-	return base;
+Factory *prepareRandomFactory() {
+  Factory *factory = new Factory();
+  factory->addProductionOption(prepareRandomProductionOption());
+  return factory;
+}
+
+Base *prepareRandomBase(int basesize) {
+  Base *base = new Base();
+  for (int i = 0; i < (rand() % basesize) + 1; i++) {
+    base->addFactory(*prepareRandomFactory());
+  }
+  base->addCargo(prepareRandomLottaCargo());
+  return base;
 }
 
 /** This is the test that is supposed to generate a number of turns in
  * a vagestrike sized universe to measure performance to determine
- * maximum economic turn size in seconds. 
+ * maximum economic turn size in seconds.
  */
-int main(int argc, char* argv[]){
-	int count = 10;
-	int basesize = 10;
-	int economysize = 10;
-	if (argc > 1){
-		count = atoi(argv[1]);
-		std::cout<<"Doing "<<count<<" rounds."<<std::endl;
-	}
-	if (argc > 2){
-		basesize = atoi(argv[2]);
-		std::cout<<"Doing "<<basesize<<" sized bases."<<std::endl;
-	}
-	if (argc > 3){
-		economysize = atoi(argv[3]);
-		std::cout<<"Doing "<<economysize<<" bases."<<std::endl;
-	}
+int main(int argc, char *argv[]) {
+  int count = 10;
+  int basesize = 10;
+  int economysize = 10;
+  if (argc > 1) {
+    count = atoi(argv[1]);
+    std::cout << "Doing " << count << " rounds." << std::endl;
+  }
+  if (argc > 2) {
+    basesize = atoi(argv[2]);
+    std::cout << "Doing " << basesize << " sized bases." << std::endl;
+  }
+  if (argc > 3) {
+    economysize = atoi(argv[3]);
+    std::cout << "Doing " << economysize << " bases." << std::endl;
+  }
 
-	std::vector<CargoType> cargo;
+  std::vector<CargoType> cargo;
 
-	// initialise regular vegastrike cargo
-	MPLParse p = MPLParse();
-	cargo = p.Parse();
-	int cargosize = cargo.size();
-	std::cerr<<cargosize<<" CargoTypes known"<<std::endl;
-	
-	std::cout<<"building Economy"<<std::endl;
-	
-	// build an economy with 10k bases
-	Economy economy = Economy();
-	for(int i = 0;
-		i < economysize;
-		i++
-	){
-		std::cout<<".";
-		economy.addBase(*prepareRandomBase(basesize));
-	}
-	std::cout<<std::endl;
-	std::cout<<"Running Economy"<<std::endl;
-	// now let us try it count times
-	for(int i = 0;
-		i < count;
-		i++
-	){
-		economy.tick();
-		std::cout<<"tick"<<std::endl;
-	}
+  // initialise regular vegastrike cargo
+  MPLParse p = MPLParse();
+  cargo = p.Parse();
+  int cargosize = cargo.size();
+  std::cerr << cargosize << " CargoTypes known" << std::endl;
+
+  std::cout << "building Economy" << std::endl;
+
+  // build an economy with 10k bases
+  Economy economy = Economy();
+  for (int i = 0; i < economysize; i++) {
+    std::cout << ".";
+    economy.addBase(*prepareRandomBase(basesize));
+  }
+  std::cout << std::endl;
+  std::cout << "Running Economy" << std::endl;
+  // now let us try it count times
+  for (int i = 0; i < count; i++) {
+    economy.tick();
+    std::cout << "tick" << std::endl;
+  }
 }
