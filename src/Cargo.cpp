@@ -11,7 +11,7 @@ Cargo::Cargo():
 {
 }
 
-void Cargo::addCargo(CargoType::iterator type, unsigned int quantity)
+void Cargo::addCargo(const CargoType::iterator type, unsigned int quantity)
 {
 	assert( quantity != 0);
 	Cargo::iterator current = this->cargo.find(type);
@@ -21,12 +21,12 @@ void Cargo::addCargo(CargoType::iterator type, unsigned int quantity)
 	this->cargo[type] = quantity;
 }
 
-void Cargo::addCargo(Cargo* newCargo)
+void Cargo::addCargo(const Cargo* newCargo)
 {
 	assert(newCargo != NULL);
 	assert(newCargo->begin() != newCargo->end());
 
-	Cargo::iterator newStock;
+	Cargo::const_iterator newStock;
 	for (newStock = newCargo->begin();
 		newStock != newCargo->end();
 		++newStock)
@@ -92,13 +92,22 @@ bool Cargo::operator==(const Cargo &that) const
 	return this->cargo == that.cargo;
 }
 
-Cargo::iterator Cargo::begin()
+Cargo::const_iterator Cargo::begin() const
 {
 	return this->cargo.begin();
 }
 
-Cargo::iterator Cargo::end(){
+Cargo::iterator Cargo::begin() 
+{
+	return this->cargo.begin();
+}
+
+Cargo::const_iterator Cargo::end() const
+{
 	return this->cargo.end();
 }
 
-
+Cargo::iterator Cargo::end()
+{
+	return this->cargo.end();
+}

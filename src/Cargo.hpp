@@ -15,10 +15,10 @@ public:
 	Cargo();
 
 	/**  Add quantity cargo of type to the cargohold */
-	void addCargo(CargoType::iterator type, unsigned int quantity);
+	void addCargo(const CargoType::iterator type, const unsigned int quantity);
 
 	/** Add newCargo to the cargohold */
-	void addCargo(Cargo* newCargo);
+	void addCargo(const Cargo* newCargo);
 
 	/** Removes cargo from this cargohold
 	 * returns a boolean saying whether the action succeded */
@@ -35,8 +35,10 @@ private:
 	/** iterator access */
 	typedef std::map<CargoType::iterator, unsigned int>::iterator iterator;
 	typedef std::map<CargoType::iterator, unsigned int>::const_iterator const_iterator;
-        iterator begin();
-        iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
+    iterator begin();
+    iterator end();
 
 	/** The actual cargo(s) itself. */
 	std::map<CargoType::iterator, unsigned int> cargo;
