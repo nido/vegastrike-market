@@ -29,12 +29,12 @@ std::vector<Factory> Base::getFactories()
 	return this->factories;
 }
 
-void Base::addCargo(Cargo* cargo)
+void Base::addCargo(const Cargo* cargo)
 {
 	this->cargoStore.addCargo(cargo);
 }
 
-void Base::delCargo(Cargo* cargo)
+void Base::delCargo(const Cargo* cargo)
 {
 	this->cargoStore.delCargo(cargo);
 }

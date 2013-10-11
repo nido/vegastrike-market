@@ -27,7 +27,7 @@ public:
 	void Produce(Cargo* cargoStore);
 
 	/** Check if production is possible */
-	bool canProduce(Cargo* cargoStore);
+	bool canProduce(const Cargo* cargoStore) const;
 
 	/** Add another production option */
 	void addProductionOption(ProductionOption option);
@@ -35,7 +35,7 @@ public:
 	/** Set the active production option.
 	 * Note this one needs to be part of the Factory's own ProductionOptions
 	 */
-	void setProductionOption(ProductionOption option);
+	void setProductionOption(const ProductionOption option);
 
 	/** Compare factories to eachother. Factories are equal if the
 	 * have exactly the same ProductionOptions.

@@ -46,7 +46,7 @@ ProductionOption::~ProductionOption(){
  * Production can commence when the cargoStore provided has at least
  * the Cargo defined in the 'consumes' vector.
  */
-bool ProductionOption::canProduce(Cargo *cargoStore){
+bool ProductionOption::canProduce(const Cargo *cargoStore) const{
 	return cargoStore->contains(&this->consumes);
 }
 

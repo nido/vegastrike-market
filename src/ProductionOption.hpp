@@ -27,7 +27,7 @@ public:
 	void Produce(Cargo *cargoStore);
 
 	/** determine whether production is possible */
-	bool canProduce(Cargo *cargoStore);
+	bool canProduce(const Cargo *cargoStore) const;
 	/** check equality of two ProductionOptions */
 	bool operator==( const ProductionOption &that ) const;
 private:

@@ -23,7 +23,7 @@ Factory::~Factory()
 }
 
 /** Determines whether the factory is able to produce (at all). */
-bool Factory::canProduce(Cargo* cargoStore){
+bool Factory::canProduce(const Cargo* cargoStore) const {
 	if (this->options.empty()){
 		return false;
 	}
@@ -49,7 +49,7 @@ void Factory::addProductionOption(ProductionOption option)
 	}
 }
 
-void Factory::setProductionOption(ProductionOption option)
+void Factory::setProductionOption(const ProductionOption option)
 {
 	for (std::vector<ProductionOption>::iterator i = this->options.begin();
 		i != this->options.end();

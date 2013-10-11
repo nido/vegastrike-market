@@ -27,7 +27,7 @@ public:
 	unsigned int getCount(CargoType::iterator type);
 
 	/** check whether the content of newCargo is in the cargohold */
-	bool contains(const Cargo* newCargo);
+	bool contains(const Cargo* newCargo) const;
 
 	bool operator==(const Cargo &that) const;
 

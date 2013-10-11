@@ -40,7 +40,7 @@ unsigned int Cargo::getCount(CargoType::iterator type)
 	return this->cargo[type];
 }
 
-bool Cargo::contains(const Cargo* newCargo)
+bool Cargo::contains(const Cargo* newCargo) const
 {
 	assert(newCargo != NULL);
 	if (newCargo->begin() == newCargo->end()){
