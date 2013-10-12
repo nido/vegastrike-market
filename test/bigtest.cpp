@@ -20,6 +20,7 @@ Cargo *prepareRandomLottaCargo() {
   }
   return cargo;
 }
+
 Cargo *prepareRandomCargo() {
   Cargo *cargo = new Cargo();
   cargo->addCargo(CargoType::getRandomCargoType(), (rand() % 10) + 1);
@@ -39,8 +40,8 @@ Factory *prepareRandomFactory() {
 
 Base *prepareRandomBase(int basesize) {
   Base *base = new Base();
-  for (int i = 0; i < (rand() % basesize) + 1; i++) {
-    base->addFactory(*prepareRandomFactory());
+  for (int i = 0; i < basesize; i++) {
+    base->addFactory(prepareRandomFactory());
   }
   base->addCargo(prepareRandomLottaCargo());
   return base;

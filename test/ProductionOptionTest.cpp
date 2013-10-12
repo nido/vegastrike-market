@@ -7,8 +7,8 @@
 #include "ProductionOptionTest.hpp"
 
 void ProductionOptionTest::setUp() {
-  this->intype = CargoType("in", "test", 1, 1, 1).getIterator();
-  this->outtype = CargoType("out", "test", 1, 1, 1).getIterator();
+  this->intype = CargoType("in", "test", 1, 1, 1);
+  this->outtype = CargoType("out", "test", 1, 1, 1);
 
   this->input = Cargo();
   this->output = Cargo();

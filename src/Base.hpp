@@ -26,8 +26,8 @@ public:
   typedef std::vector<Factory>::const_iterator const_iterator;
 
   /** add a factory for production to the base */
-  void addFactory(Factory factory);
-  void delFactory(Factory factory);
+  void addFactory(Factory* factory);
+  void delFactory(Factory* factory);
 
   /** Add cargo to the base */
   void addCargo(const Cargo *cargo);
@@ -36,8 +36,10 @@ public:
   void delCargo(const Cargo *cargo);
 
   std::vector<Factory> getFactories();
-  Cargo *getCargo();
+  const Cargo *getCargo() const;
+
   void Process();
+
   bool operator==(const Base &that) const;
 
 private:

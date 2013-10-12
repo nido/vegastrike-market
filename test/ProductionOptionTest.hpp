@@ -17,8 +17,8 @@ public:
   static CppUnit::Test *suite();
 
 private:
-  CargoType::iterator intype;
-  CargoType::iterator outtype;
+  CargoType intype;
+  CargoType outtype;
   Cargo input;
   Cargo output;
   Cargo cargo;

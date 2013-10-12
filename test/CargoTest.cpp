@@ -3,13 +3,15 @@
 #include <cppunit/TestResult.h>
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
-
+#include <assert.h>
+#include <string>
+#include <stdexcept>
 #include "CargoTest.hpp"
 
 void CargoTest::setUp() {
-  type1 = CargoType("1", "test", 1, 1, 1).getIterator();
-  type2 = CargoType("2", "test", 2, 2, 2).getIterator();
-  type3 = CargoType("3", "test", 3, 3, 3).getIterator();
+  type1 = CargoType("1", "test", 1, 1, 1);
+  type2 = CargoType("2", "test", 2, 2, 2);
+  type3 = CargoType("3", "test", 3, 3, 3);
   pile1 = Cargo();
   pile2 = Cargo();
   pile3 = Cargo();

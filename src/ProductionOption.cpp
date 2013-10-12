@@ -36,12 +36,6 @@ ProductionOption::ProductionOption(Cargo *consumes, Cargo *produces)
     : consumes(consumes), produces(produces) {}
 
 ProductionOption::~ProductionOption() {
-  if (this->consumes != NULL) {
-    delete this->consumes;
-  }
-  if (this->produces != NULL) {
-    delete this->produces;
-  }
 }
 
 /** Determines whether the factory is able to produce (at all).

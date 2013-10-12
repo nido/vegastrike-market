@@ -21,7 +21,7 @@ public:
   typedef std::vector<CargoType>::iterator iterator;
 
   /** returns a random cargo type */
-  static CargoType::iterator getRandomCargoType();
+  static CargoType getRandomCargoType();
 
   /** Adds the current CargoType to the CargoType vector and
  	 * updates the pointer in this CargoType.

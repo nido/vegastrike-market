@@ -43,7 +43,7 @@ void Factory::addProductionOption(ProductionOption *option) {
   }
 }
 
-void Factory::setProductionOption(const ProductionOption option) {
+void Factory::setProductionOption(const ProductionOption &option) {
   for (std::vector<ProductionOption>::iterator i = this->options.begin();
        i != this->options.end(); ++i) {
     if (*i == option) {

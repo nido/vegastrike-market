@@ -19,9 +19,9 @@ public:
   static CppUnit::Test *suite();
 
 private:
-  CargoType::iterator type1;
-  CargoType::iterator type2;
-  CargoType::iterator type3;
+  CargoType type1;
+  CargoType type2;
+  CargoType type3;
   Cargo pile1;
   Cargo pile2;
   Cargo pile3;

@@ -35,7 +35,7 @@ public:
   /** Set the active production option.
  	 * Note this one needs to be part of the Factory's own ProductionOptions
  	 */
-  void setProductionOption(const ProductionOption option);
+  void setProductionOption(const ProductionOption &option);
 
   /** Compare factories to eachother. Factories are equal if the
  	 * have exactly the same ProductionOptions.

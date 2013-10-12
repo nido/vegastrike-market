@@ -23,6 +23,6 @@ public:
 private:
   Base base;
   Cargo cargo;
-  Factory factory1;
-  Factory factory2;
+  Factory *factory1;
+  Factory *factory2;
 };

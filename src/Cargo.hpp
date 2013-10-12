@@ -12,9 +12,10 @@ class Cargo {
 public:
   /** empty one */
   Cargo();
+  ~Cargo();
 
   /**  Add quantity cargo of type to the cargohold */
-  void addCargo(const CargoType::iterator type, const unsigned int quantity);
+  void addCargo(const CargoType type, const unsigned int quantity);
 
   /** Add newCargo to the cargohold */
   void addCargo(const Cargo *newCargo);
@@ -23,7 +24,7 @@ public:
  	 * returns a boolean saying whether the action succeded */
   bool delCargo(const Cargo *newCargo);
 
-  unsigned int getCount(CargoType::iterator type);
+  unsigned int getCount(CargoType type) const;
 
   /** check whether the content of newCargo is in the cargohold */
   bool contains(const Cargo *newCargo) const;
@@ -32,8 +33,8 @@ public:
 
 private:
   /** iterator access */
-  typedef std::map<CargoType::iterator, unsigned int>::iterator iterator;
-  typedef std::map<CargoType::iterator, unsigned int>::const_iterator
+  typedef std::map<CargoType, unsigned int>::iterator iterator;
+  typedef std::map<CargoType, unsigned int>::const_iterator
       const_iterator;
   const_iterator begin() const;
   const_iterator end() const;
@@ -41,7 +42,7 @@ private:
   iterator end();
 
   /** The actual cargo(s) itself. */
-  std::map<CargoType::iterator, unsigned int> cargo;
+  std::map<CargoType, unsigned int> cargo;
 };
 
 #endif //H_CARGO

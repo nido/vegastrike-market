@@ -21,11 +21,11 @@ void CargoType::addToVector() {
   }
 }
 
-CargoType::iterator CargoType::getRandomCargoType() {
+CargoType CargoType::getRandomCargoType() {
   size_t number = CargoType::allCargoTypes.size();
   assert(number != 0);
   number = rand() % number;
-  return CargoType::allCargoTypes.begin() + number;
+  return *((CargoType::allCargoTypes.begin() + number));
 }
 
 CargoType::CargoType()
