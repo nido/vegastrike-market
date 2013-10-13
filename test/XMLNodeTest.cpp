@@ -59,7 +59,9 @@ void XMLNodeTest::testgetCargoType() {
   //std::cout<<"test: " << test->getXML() << std::endl;
   //std::cout<<"ref : " << reference.getXML() << std::endl;
   CPPUNIT_ASSERT(test != NULL);
-  CPPUNIT_ASSERT(reference == *test);
+  if (test != NULL) {
+    CPPUNIT_ASSERT(reference == *test);
+  }
 }
 
 CppUnit::Test *XMLNodeTest::suite() {

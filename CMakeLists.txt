@@ -34,6 +34,8 @@ add_library(market
 	src/common/common
 )
 
+target_link_libraries(market stdc++)
+
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_executable(bigtest

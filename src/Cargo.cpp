@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
 
 #include <assert.h>
 #include <stdbool.h>
@@ -32,7 +33,12 @@ void Cargo::addCargo(const Cargo *newCargo) {
 }
 
 unsigned int Cargo::getCount(CargoType type) const {
-  return this->cargo.at(type);
+  unsigned int result = 0;
+  std::map<CargoType, unsigned int>::const_iterator thing =  this->cargo.find(type);
+  if (thing != this->cargo.end()){
+    result = thing->second;
+  }
+  return result;
 }
 
 bool Cargo::contains(const Cargo *newCargo) const {
