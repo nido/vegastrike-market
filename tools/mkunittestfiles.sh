@@ -10,10 +10,12 @@ FILES=$(ls test/*Test.hpp | sed "s/test\/\([a-zA-Z]*\).hpp/\1/g")
 
 for FILE in ${FILES}
 do
-	UNITTESTCODE="${UNITTESTCODE}\n\tif (argc != 1 \&\& strcmp(argv[1], \"${FILE}\") == 0 ){"
+	FUNC="`echo "${FILE}" | sed "s/Test$//g"`"
+
+	UNITTESTCODE="${UNITTESTCODE}\n\tif (argc != 1 \&\& strcmp(argv[1], \"${FUNC}\") == 0 ){"
 	UNITTESTCODE="${UNITTESTCODE}\n\t\tstd::cout<<argv[1]<<\": \";"
 	UNITTESTCODE="${UNITTESTCODE}\n\t}"
-	UNITTESTCODE="${UNITTESTCODE}\n\tif (argc == 1 || strcmp(argv[1], \"${FILE}\") == 0){"
+	UNITTESTCODE="${UNITTESTCODE}\n\tif (argc == 1 || strcmp(argv[1], \"${FUNC}\") == 0){"
 	UNITTESTCODE="${UNITTESTCODE}\n\t\t runner.addTest( ${FILE}::suite());"
 	UNITTESTCODE="${UNITTESTCODE}\n\t}"
 
@@ -47,7 +49,8 @@ INCLUDECODE=""
 for TEST in ${TESTS}
 do
 	TESTCODE="${TESTCODE}\nvoid ${NAME}Test::${TEST}()\n{"
-	TESTCODE="${TESTCODE}\t\/\/TODO: Implement test"
+	TESTCODE="${TESTCODE}\n\t\/\/TODO: Implement test"
+	TESTCODE="${TESTCODE}\n\tCPPUNIT_ASSERT(false);"
 	TESTCODE="${TESTCODE}\n}\n"
 
 	HEADERCODE="${HEADERCODE}\n\tvoid ${TEST}();"
