@@ -12,7 +12,7 @@
 #include "CargoType.hpp"
 #include "XMLParse.hpp"
 
-#define MAXSTRLEN 100
+#define MAXSTRLEN 500
 
 std::vector<CargoType> readCargoTypes(std::string filename) {
   FILE *file;

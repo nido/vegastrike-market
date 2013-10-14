@@ -9,9 +9,14 @@
 
 Cargo::Cargo() : cargo(std::map<CargoType, unsigned int>()) {}
 
+Cargo::Cargo(const Cargo& that) : cargo(that.cargo)
+{
+}
+
 Cargo::~Cargo()
 {
 }
+
 
 void Cargo::addCargo(const CargoType type, unsigned int quantity) {
   assert(quantity != 0);

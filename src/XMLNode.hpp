@@ -14,6 +14,9 @@ public:
   /** Create an empty XMLNode to be used as root. */
   XMLNode();
 
+  XMLNode(const XMLNode& that);
+  XMLNode& operator=(const XMLNode&);
+
   /** Create an XMLNode with a parent node. */
   XMLNode(XMLNode *parent);
 

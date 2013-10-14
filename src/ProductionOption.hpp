@@ -24,6 +24,8 @@ public:
  	 * produces Cargo. consumes and produces becomes owned by the
  	 * ProductionOption. */
   ProductionOption(Cargo *consumes, Cargo *produces);
+  /** Copy constructor */
+  ProductionOption(const ProductionOption&);
 
   /** Delete the ProductionOption and its consumes and produces.
  	 */
@@ -36,6 +38,8 @@ public:
   bool canProduce(const Cargo *cargoStore) const;
   /** check equality of two ProductionOptions */
   bool operator==(const ProductionOption &that) const;
+
+  ProductionOption& operator=(const ProductionOption&);
 
 private:
   /** Cargo consumed by production. */

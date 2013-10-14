@@ -2,30 +2,45 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <cstring>
 
 #include "common/common.h"
 
 #include "MPLParse.hpp"
 #include "CargoType.hpp"
 
-MPLParse::MPLParse() {
-  std::string name = getdatadir() + "/master_part_list.csv";
-  this->filename = name.c_str();
-  this->initStream();
+MPLParse::MPLParse():
+filename((getdatadir() + "/master_part_list.csv")),
+file(this->filename.c_str())
+{
+  std::cout<<"MPLParse: "<<this->filename<<std::endl;
+  assert(file.is_open());
 }
 
-MPLParse::MPLParse(const MPLParse &that) {
+MPLParse::MPLParse(const MPLParse &that) :
+filename((getdatadir() + "/master_part_list.csv")),
+file(this->filename.c_str())
+{
+  std::cout<<"MPLParse &that: "<<this->filename<<std::endl;
+  assert(file.is_open());
+}
+
+MPLParse& MPLParse::operator=(const MPLParse &that)
+{
   this->filename = that.filename;
   this->initStream();
+  return *this;
 }
 
-MPLParse::MPLParse(std::string fileName) {
-  this->filename = fileName.c_str();
+MPLParse::MPLParse(std::string fileName) : filename(fileName),
+file(this->filename.c_str())
+{
+  std::cout<<"MPLParse std::string: "<<this->filename<<std::endl;
   this->initStream();
 }
 
 void MPLParse::initStream() {
-  this->file.open(this->filename);
+  this->file.open(this->filename.c_str());
   assert(file.is_open());
 }
 
@@ -100,8 +115,10 @@ CargoType *MPLParse::ParseLine(std::string line) {
 }
 
 std::vector<CargoType> MPLParse::Parse() {
-  std::vector<CargoType> list = std::vector<CargoType>();
+  std::vector<CargoType>* list = new std::vector<CargoType>();
   std::string line;
+
+  assert(this->file.is_open());
 
   while (std::getline(this->file, line)) {
     CargoType *cargo;
@@ -110,16 +127,18 @@ std::vector<CargoType> MPLParse::Parse() {
       continue;
     }
     cargo = ParseLine(line);
+	std::cout<<"parsed cargo: "<<cargo->getXML()<<std::endl;
     if (cargo != NULL) {
       list.push_back(*cargo);
     }
   }
-  return list;
+  return *list;
 }
 
 std::vector<CargoType> MPLParse::ParseFile(std::string fileName) {
   MPLParse parser = MPLParse(fileName);
-  return parser.Parse();
+  std::vector<CargoType> v = parser.Parse();
+  return v;
 }
 
 //private:

@@ -9,35 +9,28 @@
 
 #include "CargoType.hpp"
 
-std::vector<CargoType> CargoType::allCargoTypes = std::vector<CargoType>();
-
-void CargoType::addToVector() {
-  this->i =
-      std::find(this->allCargoTypes.begin(), this->allCargoTypes.end(), *this);
-  if (this->i == this->allCargoTypes.end()) {
-    this->allCargoTypes.push_back(*this);
-    this->i = std::find(this->allCargoTypes.begin(), this->allCargoTypes.end(),
-                        *this);
-  }
-}
 
 CargoType CargoType::getRandomCargoType() {
-  size_t number = CargoType::allCargoTypes.size();
-  assert(number != 0);
-  number = rand() % number;
-  return *((CargoType::allCargoTypes.begin() + number));
+	return CargoType();
 }
 
 CargoType::CargoType()
-    : name("Debug"), catagory("Debug"), mass(1.0), volume(1.0), basePrice(1.0) {
-  this->addToVector();
+    : name("Debug"), catagory("Debug"), description(""), mass(1.0), volume(1.0), basePrice(1.0) {
+//TODO: fix description
+std::cout<<"Constructor CargoType(): "<<this->name<<std::endl;
 }
 
 CargoType::CargoType(std::string name, std::string catagory, float mass,
-                     float volume, float price)
-    : name(name), catagory(catagory), mass(mass), volume(volume),
-      basePrice(price) {
-  this->addToVector();
+                     float volume, float price) :
+	name(name),
+	catagory(catagory),
+	description(""),
+	mass(mass),
+	volume(volume),
+	basePrice(price)
+{
+//TODO: fix description
+std::cout<<"Constructor CargoType(name, catagory, mass, volume, price): "<<this->name<<std::endl;
 }
 
 std::string CargoType::getName() { return this->name; }
@@ -53,10 +46,6 @@ bool CargoType::operator<(const CargoType &that) const {
 }
 
 float CargoType::getBasePrice() { return this->basePrice; }
-
-CargoType::iterator CargoType::getIterator() { return this->i; }
-
-std::vector<CargoType> getCargoTypeVector() { return std::vector<CargoType>(); }
 
 std::string CargoType::getXML() {
   std::stringstream xmlstream;

@@ -14,13 +14,15 @@ public:
   ~MPLParse();
 
   std::vector<CargoType> Parse();
+  MPLParse& operator=(const MPLParse &that);
+
 
   static CargoType *ParseLine(std::string line);
   static std::vector<CargoType> ParseFile(std::string fileName);
 
 private:
   void initStream();
-  const char *filename;
+  std::string filename;
   std::ifstream file;
 };
 

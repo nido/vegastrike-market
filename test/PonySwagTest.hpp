@@ -6,16 +6,10 @@
 
 #include <vector>
 
-class CargoTypeTest : public CppUnit::TestFixture  {
+class PonySwagTest : public CppUnit::TestFixture  {
 public:
 	void setUp();
 	void tearDown();
 
-	void testgetBasePrice();
-	void testgetName();
-	void testgetRandomCargoType();
-	void testgetXML();
-	void testoperatorEquals();
-	void testoperatorLessThen();
 	static CppUnit::Test* suite();
 };

@@ -12,6 +12,7 @@ class Cargo {
 public:
   /** empty one */
   Cargo();
+  Cargo(const Cargo& that);
   ~Cargo();
 
   /**  Add quantity cargo of type to the cargohold */
@@ -36,6 +37,7 @@ private:
   typedef std::map<CargoType, unsigned int>::iterator iterator;
   typedef std::map<CargoType, unsigned int>::const_iterator
       const_iterator;
+
   const_iterator begin() const;
   const_iterator end() const;
   iterator begin();

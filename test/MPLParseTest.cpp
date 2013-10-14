@@ -27,6 +27,7 @@ void MPLParseTest::testParse() {
 void MPLParseTest::testParseFile() {
   std::string file = getdatadir() + "/master_part_list.csv";
   std::vector<CargoType> cargo = MPLParse::ParseFile(file);
+  std::cout<<"testMarseFile"<<std::endl;
   CPPUNIT_ASSERT(!cargo.empty());
 }
 

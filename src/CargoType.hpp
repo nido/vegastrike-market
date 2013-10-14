@@ -17,16 +17,8 @@ class CargoType;
  */
 class CargoType {
 public:
-  /** A CargoType::iterator for pointing to CargoType */
-  typedef std::vector<CargoType>::iterator iterator;
-
   /** returns a random cargo type */
   static CargoType getRandomCargoType();
-
-  /** Adds the current CargoType to the CargoType vector and
- 	 * updates the pointer in this CargoType.
- 	 */
-  void addToVector();
 
   /** Create a debug cargotype */
   CargoType();
@@ -57,9 +49,6 @@ public:
   /** gives an XML representation of the CargoType */
   std::string getXML();
 
-  /** get iterator for this cargo type */
-  CargoType::iterator getIterator();
-
 private:
   /** Name of the cargo, for example "Iron Ore" */
   std::string name;
@@ -79,9 +68,5 @@ private:
   float volume;
   /* Base price */
   float basePrice;
-  /** A static list of _all_ cargo from which to derive iterators */
-  static std::vector<CargoType> allCargoTypes;
-  /** its very own iterator */
-  CargoType::iterator i;
 };
 #endif // H_CARGOTYPE

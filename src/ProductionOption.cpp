@@ -28,7 +28,14 @@
 #include <assert.h>
 
 /** Empty constructor for cpptest */
-ProductionOption::ProductionOption() : consumes(NULL), produces(NULL) {}
+ProductionOption::ProductionOption() : consumes(new Cargo()), produces(new Cargo()) {}
+
+ProductionOption::ProductionOption(const ProductionOption& that) :
+	consumes(new Cargo(*that.consumes)),
+	produces(new Cargo(*that.produces))
+{
+}
+
 
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted
  */
@@ -53,8 +60,7 @@ void ProductionOption::Produce(Cargo *cargoStore) {
   }
 #ifndef NDEBUG
   bool result =
-#endif //NDEBUG so it won't bother about unused variables when assertions are  \
-       //off
+#endif //NDEBUG result is only used when NDEBUG is defined
       cargoStore->delCargo(consumes);
   // make sure this actually happened
   assert(result != false);
@@ -68,4 +74,11 @@ bool ProductionOption::operator==(const ProductionOption &that) const {
     return true;
   }
   return false;
+}
+
+ProductionOption& ProductionOption::operator=(const ProductionOption& that)
+{
+	this->consumes = that.consumes;
+	this->produces = that.produces;
+	return *this;
 }

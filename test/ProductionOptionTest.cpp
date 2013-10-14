@@ -23,16 +23,17 @@ void ProductionOptionTest::setUp() {
   Cargo *out1 = new Cargo();
   Cargo *out2 = new Cargo();
 
-  in1->addCargo(intype, 1);
-  out1->addCargo(outtype, 1);
-  in2->addCargo(intype, 2);
-  out2->addCargo(outtype, 1);
+  in1->addCargo(CargoType(intype), 1);
+  out1->addCargo(CargoType(outtype), 1);
+  in2->addCargo(CargoType(intype), 2);
+  out2->addCargo(CargoType(outtype), 1);
 
   this->po = ProductionOption(in1, out1);
   this->bigpo = ProductionOption(in2, out2);
 }
 
-void ProductionOptionTest::tearDown() {}
+void ProductionOptionTest::tearDown() {
+}
 
 void ProductionOptionTest::testCanProduce() {
   CPPUNIT_ASSERT(po.canProduce(&cargo) == true);

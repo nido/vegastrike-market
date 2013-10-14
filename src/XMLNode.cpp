@@ -10,6 +10,19 @@ XMLNode::XMLNode()
     : parent(NULL), children(std::vector<XMLNode *>()),
       attributes(std::map<std::string, std::string>()) {}
 
+XMLNode::XMLNode(const XMLNode& that) :
+  parent(that.parent),
+  children(std::vector<XMLNode*>()),
+  attributes(std::map<std::string, std::string>(that.attributes))
+{
+	for(std::vector<XMLNode*>::const_iterator i = that.children.begin();
+		i < that.children.end();
+		i++
+	){
+		this->children.push_back(new XMLNode(*i));
+	}
+}
+
 XMLNode::XMLNode(XMLNode *parent)
     : parent(parent), children(std::vector<XMLNode *>()),
       attributes(std::map<std::string, std::string>()) {}
