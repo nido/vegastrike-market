@@ -4,18 +4,20 @@
 #include <cppunit/TestSuite.h>
 #include <cppunit/ui/text/TestRunner.h>
 
-#include <vector>
+#include "CargoType.hpp"
 
-class CargoTypeTest : public CppUnit::TestFixture  {
+class CargoTypeTest : public CppUnit::TestFixture {
 public:
-	void setUp();
-	void tearDown();
+  void setUp();
+  void tearDown();
 
-	void testgetBasePrice();
-	void testgetName();
-	void testgetRandomCargoType();
-	void testgetXML();
-	void testoperatorEquals();
-	void testoperatorLessThen();
-	static CppUnit::Test* suite();
+  void testoperatorEquals();
+  void testoperatorLessThen();
+  void testgetBasePrice();
+  static CppUnit::Test *suite();
+
+private:
+  CargoType one;
+  CargoType two;
+  CargoType three;
 };
