@@ -35,6 +35,7 @@ TESTS=$(cat "src/${NAME}.cpp" |
 	sed "s/${NAME}::~${NAME}//g" |
 	sed "s/${NAME}::/test/g" |
 	sed "s/==/Equals/g" |
+	sed "s/=/Assign/g" |
 	sed "s/</LessThen/g" | 
 	sort | uniq)
 

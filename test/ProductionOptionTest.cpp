@@ -14,9 +14,9 @@ void ProductionOptionTest::setUp() {
   this->output = Cargo();
   this->cargo = Cargo();
 
-  this->input.addCargo(intype, 1);
-  this->output.addCargo(outtype, 1);
-  this->cargo.addCargo(intype, 2);
+  this->input.addCargo(CargoType(intype), 1);
+  this->output.addCargo(CargoType(outtype), 1);
+  this->cargo.addCargo(CargoType(intype), 2);
 
   Cargo *in1 = new Cargo();
   Cargo *in2 = new Cargo();

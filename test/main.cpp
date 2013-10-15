@@ -11,9 +11,9 @@
 #include "BaseTest.hpp"
 #include "CargoTest.hpp"
 #include "CargoTypeTest.hpp"
+#include "EconomyTest.hpp"
 #include "FactoryTest.hpp"
 #include "MPLParseTest.hpp"
-#include "PonySwagTest.hpp"
 #include "ProductionOptionTest.hpp"
 #include "XMLNodeTest.hpp"
 #include "XMLParseTest.hpp"
@@ -40,6 +40,12 @@ int main(int argc, char* argv[]){
 	if (argc == 1 || strcmp(argv[1], "CargoType") == 0){
 		 runner.addTest( CargoTypeTest::suite());
 	}
+	if (argc != 1 && strcmp(argv[1], "Economy") == 0 ){
+		std::cout<<argv[1]<<": ";
+	}
+	if (argc == 1 || strcmp(argv[1], "Economy") == 0){
+		 runner.addTest( EconomyTest::suite());
+	}
 	if (argc != 1 && strcmp(argv[1], "Factory") == 0 ){
 		std::cout<<argv[1]<<": ";
 	}
@@ -51,12 +57,6 @@ int main(int argc, char* argv[]){
 	}
 	if (argc == 1 || strcmp(argv[1], "MPLParse") == 0){
 		 runner.addTest( MPLParseTest::suite());
-	}
-	if (argc != 1 && strcmp(argv[1], "PonySwag") == 0 ){
-		std::cout<<argv[1]<<": ";
-	}
-	if (argc == 1 || strcmp(argv[1], "PonySwag") == 0){
-		 runner.addTest( PonySwagTest::suite());
 	}
 	if (argc != 1 && strcmp(argv[1], "ProductionOption") == 0 ){
 		std::cout<<argv[1]<<": ";
