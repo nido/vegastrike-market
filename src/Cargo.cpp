@@ -18,7 +18,7 @@ Cargo::~Cargo()
 }
 
 
-void Cargo::addCargo(const CargoType type, unsigned int quantity) {
+void Cargo::addCargo(const CargoType& type, unsigned int quantity) {
   assert(quantity != 0);
   Cargo::iterator current = this->cargo.find(type);
   if (current != this->end()) {

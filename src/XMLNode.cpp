@@ -17,7 +17,7 @@ XMLNode::XMLNode(const XMLNode& that) :
 {
 	for(std::vector<XMLNode*>::const_iterator i = that.children.begin();
 		i < that.children.end();
-		i++
+		++i
 	){
 		this->children.push_back(new XMLNode(*i));
 	}

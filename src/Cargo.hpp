@@ -16,7 +16,7 @@ public:
   ~Cargo();
 
   /**  Add quantity cargo of type to the cargohold */
-  void addCargo(const CargoType type, const unsigned int quantity);
+  void addCargo(const CargoType& type, const unsigned int quantity);
 
   /** Add newCargo to the cargohold */
   void addCargo(const Cargo *newCargo);
