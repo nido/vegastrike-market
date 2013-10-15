@@ -17,7 +17,7 @@ CargoType CargoType::getRandomCargoType() {
 CargoType::CargoType()
     : name("Debug"), catagory("Debug"), description(""), mass(1.0), volume(1.0), basePrice(1.0) {
 //TODO: fix description
-std::cout<<"Constructor CargoType(): "<<this->name<<std::endl;
+std::cerr<<"Constructor CargoType(): "<<this->name<<std::endl;
 }
 
 CargoType::CargoType(std::string name, std::string catagory, float mass,
@@ -30,7 +30,7 @@ CargoType::CargoType(std::string name, std::string catagory, float mass,
 	basePrice(price)
 {
 //TODO: fix description
-std::cout<<"Constructor CargoType(name, catagory, mass, volume, price): "<<this->name<<std::endl;
+std::cerr<<"Constructor CargoType(name, catagory, mass, volume, price): "<<this->name<<std::endl;
 }
 
 std::string CargoType::getName() { return this->name; }
