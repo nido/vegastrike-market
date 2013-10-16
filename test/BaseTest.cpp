@@ -49,7 +49,7 @@ void BaseTest::testaddCargo() {
 }
 
 void BaseTest::testaddFactory() {
-  this->base.addFactory(factory1);
+  this->base.addFactory(*factory1);
   std::vector<Factory> list = this->base.getFactories();
   std::vector<Factory>::iterator iter =
       std::find(list.begin(), list.end(), *factory1);
@@ -65,8 +65,8 @@ void BaseTest::testdelCargo() {
 }
 
 void BaseTest::testdelFactory() {
-  this->base.addFactory(factory1);
-  this->base.delFactory(factory1);
+  this->base.addFactory(*factory1);
+  this->base.delFactory(*factory1);
   std::vector<Factory> list = this->base.getFactories();
   std::vector<Factory>::iterator iter =
       std::find(list.begin(), list.end(), *factory1);
@@ -78,13 +78,13 @@ void BaseTest::testgetFactories() {
   std::vector<Factory> list = this->base.getFactories();
   // empty
   CPPUNIT_ASSERT(list == std::vector<Factory>());
-  this->base.addFactory(factory1);
+  this->base.addFactory(*factory1);
   list = this->base.getFactories();
   CPPUNIT_ASSERT(list.size() == 1);
-  this->base.addFactory(factory1);
+  this->base.addFactory(*factory1);
   list = this->base.getFactories();
   CPPUNIT_ASSERT(list.size() == 2);
-  this->base.addFactory(factory2);
+  this->base.addFactory(*factory2);
   list = this->base.getFactories();
   CPPUNIT_ASSERT(list.size() == 3);
 
@@ -92,13 +92,15 @@ void BaseTest::testgetFactories() {
 
 void BaseTest::testProcess() {
   CargoType intype1 = CargoType("in1", "test", 1, 1, 1);
-  this->base.addFactory(factory1);
+  this->base.addFactory(*factory1);
   this->base.addCargo(&cargo);
   const Cargo *basecargo = this->base.getCargo();
   CPPUNIT_ASSERT(basecargo->getCount(intype1) == 5);
+
   this->base.Process();
   CPPUNIT_ASSERT(basecargo->getCount(intype1) == 4);
-  this->base.addFactory(factory1);
+
+  this->base.addFactory(*factory1);
   this->base.Process();
   CPPUNIT_ASSERT(basecargo->getCount(intype1) == 2);
 }

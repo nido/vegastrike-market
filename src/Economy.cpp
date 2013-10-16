@@ -10,7 +10,6 @@ Economy::~Economy() {}
 void Economy::addBase(Base base) { this->bases.push_back(base); }
 
 void Economy::delBase(Base base) {
-  //TODO implement delBase
   for (std::vector<Base>::iterator iter = this->bases.begin();
        iter != this->bases.end(); ++iter) {
     if (base == *iter) {

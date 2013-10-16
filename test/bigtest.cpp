@@ -38,7 +38,9 @@ ProductionOption *prepareRandomProductionOption() {
 
 Factory *prepareRandomFactory() {
   Factory *factory = new Factory();
-  factory->addProductionOption(prepareRandomProductionOption());
+  ProductionOption* o = prepareRandomProductionOption();
+  factory->addProductionOption(o);
+  delete o;
   return factory;
 }
 
@@ -47,12 +49,13 @@ Base *prepareRandomBase(int basesize) {
 
   for (int i = 0; i < basesize; i++) {
 	Factory* f = prepareRandomFactory();
-    base->addFactory(f);
+    base->addFactory(*f);
+    //delete f;
   }
 
   Cargo* c = prepareRandomLottaCargo();
   base->addCargo(c);
-  //delete c;
+  delete c;
   return base;
 }
 
@@ -94,6 +97,7 @@ int main(int argc, char *argv[]) {
     std::cout << ".";
 	Base* b = prepareRandomBase(basesize);
     economy.addBase(*b);
+    delete b;
   }
   std::cout << std::endl;
   std::cout << "Running Economy" << std::endl;
