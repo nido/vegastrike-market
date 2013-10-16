@@ -115,7 +115,7 @@ CargoType *MPLParse::ParseLine(std::string line) {
 }
 
 std::vector<CargoType> MPLParse::Parse() {
-  std::vector<CargoType>* list = new std::vector<CargoType>();
+  std::vector<CargoType> list = std::vector<CargoType>();
   std::string line;
 
   assert(this->file.is_open());
@@ -130,11 +130,12 @@ std::vector<CargoType> MPLParse::Parse() {
     cargo = ParseLine(line);
 	std::cerr<<"parsed cargo: "<<cargo->getXML()<<std::endl;
     if (cargo != NULL) {
-      list->push_back(*cargo);
+      list.push_back(*cargo);
     }
+    delete cargo;
   }
-  std::cout<<"list size: "<<list->size()<<std::endl;
-  return *list;
+  std::cout<<"list size: "<<list.size()<<std::endl;
+  return list;
 }
 
 std::vector<CargoType> MPLParse::ParseFile(std::string fileName) {

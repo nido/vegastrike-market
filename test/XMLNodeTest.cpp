@@ -36,10 +36,12 @@ void XMLNodeTest::testParseElementEnd() { //TODO: Implement test
 void XMLNodeTest::testParseString() { //TODO: Implement test
   std::string inputstring = "<a><b vega=\"strike\" /><c><b /></c><text "
                             "hilight=\"true\">Hi</text>atext</a>";
-  XMLNode *n = XMLNode::ParseString(inputstring);
+  XMLNode* n = XMLNode::ParseString(inputstring);
   //std::cout << inputstring << std::endl;
   //std::cout << n->buildXMLString() << std::endl;
   CPPUNIT_ASSERT(inputstring.compare(n->buildXMLString()) == 0);
+  std::cout<<n->buildXMLString()<<std::endl;
+  delete n;
 }
 
 void XMLNodeTest::testParseXMLNodeBegin() { //TODO: Implement test
@@ -62,6 +64,8 @@ void XMLNodeTest::testgetCargoType() {
   if (test != NULL) {
     CPPUNIT_ASSERT(reference == *test);
   }
+  delete n;
+  delete test;
 }
 
 CppUnit::Test *XMLNodeTest::suite() {

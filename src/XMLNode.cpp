@@ -27,7 +27,15 @@ XMLNode::XMLNode(XMLNode *parent)
     : parent(parent), children(std::vector<XMLNode *>()),
       attributes(std::map<std::string, std::string>()) {}
 
-XMLNode::~XMLNode() {}
+XMLNode::~XMLNode() {
+	std::cout<<"Deleting XMLNode \""<<this->name<<"\""<<std::endl;
+	for(std::vector<XMLNode*>::const_iterator i = this->children.begin();
+		i < this->children.end();
+		++i
+	){
+		delete *i;
+	}
+}
 
 void XMLNode::ParseElementBegin(const XML_Char *name, const XML_Char **atts) {
   this->name = std::string(name);

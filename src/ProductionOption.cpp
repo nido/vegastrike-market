@@ -80,6 +80,8 @@ bool ProductionOption::operator==(const ProductionOption &that) const {
 
 ProductionOption& ProductionOption::operator=(const ProductionOption& that)
 {
+	delete this->consumes;
+	delete this->produces;
 	this->consumes = new Cargo(*that.consumes);
 	this->produces = new Cargo(*that.produces);
 	return *this;

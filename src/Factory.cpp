@@ -4,6 +4,7 @@
 #include <limits>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "Factory.hpp"
 #include "Cargo.hpp"
@@ -15,7 +16,8 @@ Factory::Factory()
     : options(std::vector<ProductionOption>()),
       productionPlan(this->options.end()) {}
 
-Factory::~Factory() {}
+Factory::~Factory() {
+}
 
 /** Determines whether the factory is able to produce (at all). */
 bool Factory::canProduce(const Cargo *cargoStore) const {
