@@ -48,7 +48,6 @@ Base *prepareRandomBase(int basesize) {
   for (int i = 0; i < basesize; i++) {
 	Factory* f = prepareRandomFactory();
     base->addFactory(f);
-	delete f;
   }
 
   Cargo* c = prepareRandomLottaCargo();
@@ -95,8 +94,6 @@ int main(int argc, char *argv[]) {
     std::cout << ".";
 	Base* b = prepareRandomBase(basesize);
     economy.addBase(*b);
-	delete b;
-
   }
   std::cout << std::endl;
   std::cout << "Running Economy" << std::endl;
