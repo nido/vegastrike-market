@@ -43,6 +43,8 @@ ProductionOption::ProductionOption(Cargo *consumes, Cargo *produces)
     : consumes(consumes), produces(produces) {}
 
 ProductionOption::~ProductionOption() {
+  delete this->consumes;
+  delete this->produces;
 }
 
 /** Determines whether the factory is able to produce (at all).
@@ -78,7 +80,7 @@ bool ProductionOption::operator==(const ProductionOption &that) const {
 
 ProductionOption& ProductionOption::operator=(const ProductionOption& that)
 {
-	this->consumes = that.consumes;
-	this->produces = that.produces;
+	this->consumes = new Cargo(*that.consumes);
+	this->produces = new Cargo(*that.produces);
 	return *this;
 }
