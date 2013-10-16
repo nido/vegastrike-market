@@ -33,7 +33,7 @@ make clean
 make
 
 # Get all unit tests
-TESTCASES=$(ls "../test/" | grep -Go ".*Test" | sort | uniq)
+TESTCASES=$(ls "../test/" | grep -Go ".*Test" |sed "s/Test//g" | sort | uniq)
 
 # override with command line argument test when given
 if test -n "$1"
