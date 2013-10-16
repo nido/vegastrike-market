@@ -18,7 +18,7 @@ file(this->filename.c_str())
 }
 
 MPLParse::MPLParse(const MPLParse &that) :
-filename((getdatadir() + "/master_part_list.csv")),
+filename(that.filename),
 file(this->filename.c_str())
 {
   std::cerr<<"MPLParse &that: "<<this->filename<<std::endl;

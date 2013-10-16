@@ -49,7 +49,7 @@ void XMLNode::ParseElementBegin(const XML_Char *name, const XML_Char **atts) {
 void XMLNode::ParseElementEnd(const XML_Char *name) {
   //TODO: create element it respresents
   //std::cout<<"End "<<name<<std::endl;
-
+  (void)name;
 }
 
 XMLNode *XMLNode::ParseString(std::string string) {
