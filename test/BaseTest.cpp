@@ -119,7 +119,6 @@ CppUnit::Test *BaseTest::suite() {
   suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
       "testaddCargo", &BaseTest::testaddCargo));
 
-/*
   suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
       "testaddFactory", &BaseTest::testaddFactory));
 
@@ -137,6 +136,5 @@ CppUnit::Test *BaseTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
       "testgetCargo", &BaseTest::testgetCargo));
-*/
   return suiteOfTests;
 }
