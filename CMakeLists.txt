@@ -27,7 +27,6 @@ add_library(market
 	src/ProductionOption
 	src/Factory
 	src/Base
-	src/XMLParse
 	src/XMLNode
 	src/MPLParse
 	src/Economy
@@ -51,7 +50,6 @@ add_executable(cppunittest
 	test/ProductionOptionTest
 	test/FactoryTest
 	test/BaseTest
-	test/XMLParseTest
 	test/XMLNodeTest
 	test/MPLParseTest
 	test/EconomyTest
