@@ -37,10 +37,7 @@ void XMLNodeTest::testParseString() { //TODO: Implement test
   std::string inputstring = "<a><b vega=\"strike\" /><c><b /></c><text "
                             "hilight=\"true\">Hi</text>atext</a>";
   XMLNode* n = XMLNode::ParseString(inputstring);
-  //std::cout << inputstring << std::endl;
-  //std::cout << n->buildXMLString() << std::endl;
   CPPUNIT_ASSERT(inputstring.compare(n->buildXMLString()) == 0);
-  std::cout<<n->buildXMLString()<<std::endl;
   delete n;
 }
 
@@ -58,8 +55,6 @@ void XMLNodeTest::testgetCargoType() {
 
   CargoType reference = CargoType("cargo", "catagory", 1, 2, 3);
 
-  //std::cout<<"test: " << test->getXML() << std::endl;
-  //std::cout<<"ref : " << reference.getXML() << std::endl;
   CPPUNIT_ASSERT(test != NULL);
   if (test != NULL) {
     CPPUNIT_ASSERT(reference == *test);

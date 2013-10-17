@@ -94,12 +94,10 @@ int main(int argc, char *argv[]) {
   // build an economy with 10k bases
   Economy economy = Economy();
   for (int i = 0; i < economysize; i++) {
-    std::cout << ".";
 	Base* b = prepareRandomBase(basesize);
     economy.addBase(*b);
     delete b;
   }
-  std::cout << std::endl;
   std::cout << "Running Economy" << std::endl;
   // now let us try it count times
   for (int i = 0; i < count; i++) {

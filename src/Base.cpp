@@ -29,11 +29,8 @@ bool Base::operator==(const Base &that) const {
 }
 
 void Base::Process() {
-  //	std::cout<<"Processing base "<<this<<" ";
   for (std::vector<Factory>::iterator iter = this->factories.begin();
        iter != this->factories.end(); ++iter) {
-    //		std::cout<<".";
     iter->Produce(&this->cargoStore);
   }
-  //	std::cout<<std::endl;
 }

@@ -134,14 +134,12 @@ std::vector<CargoType> MPLParse::Parse() {
     }
     delete cargo;
   }
-  std::cout<<"list size: "<<list.size()<<std::endl;
   return list;
 }
 
 std::vector<CargoType> MPLParse::ParseFile(std::string fileName) {
   MPLParse parser = MPLParse(fileName);
   std::vector<CargoType> v = parser.Parse();
-  std::cout<<"v size: "<<v.size()<<std::endl;
   return v;
 }
 
