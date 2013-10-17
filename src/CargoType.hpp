@@ -7,7 +7,7 @@
 
 class CargoType;
 
-/** Types of Cargo available.
+/** The properties of a piece of cargo.
  * It doesn't matter whether a piece of cargo is on the players ship,
  * his target he just fired a missle at, some random planet, or in the
  * middle of a transaction, like name, mass and volume are constant.
@@ -17,19 +17,17 @@ class CargoType;
  */
 class CargoType {
 public:
-  /** returns a random cargo type */
-  static CargoType getRandomCargoType();
-
-  /** Create a debug cargotype */
+  /** Create a default cargotype */
   CargoType();
 
   /** Create a new CargoType
-  	 */
-  CargoType(std::string name, std::string catagory, float mass, float volume,
+    * @param name name of the cargo
+  	*/
+  CargoType(std::string name, std::string category, float mass, float volume,
             float price);
 
   /** Compare cargotypes.
- 	 * Returns true when both the name and catagory of the cargo are
+ 	 * Returns true when both the name and category of the cargo are
  	 * the same. Note you can have two different CargoType's and still
  	 * have it be the same CargoType in an equastion, though,
  	 * preferably, one would have all Cargo of the same type point to
@@ -52,14 +50,14 @@ public:
 private:
   /** Name of the cargo, for example "Iron Ore" */
   std::string name;
-  /** Cargo catagory.
+  /** Cargo category.
  	 * Part of vegastrike's core thoug it is packed in a different
  	 * sort of string container.  The difference between "Raw
  	 * Materials" and "Ores" is done with a separator like "Raw
  	 * Materials/Ores" and is a problem already solved in the
  	 * vegastrike player trade interface.
  	 */
-  std::string catagory;
+  std::string category;
   /** Long description of the cargo. */
   std::string description;
   /** Mass of one cargo. Weight, more or less. */

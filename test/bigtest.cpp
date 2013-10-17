@@ -16,14 +16,14 @@
 Cargo *prepareRandomLottaCargo() {
   Cargo *cargo = new Cargo();
   for (int i = 0; i < 500; i++) {
-    cargo->addCargo(CargoType::getRandomCargoType(), (rand() % 10000) + 100);
+    cargo->addCargo(CargoType(), (rand() % 10000) + 100);
   }
   return cargo;
 }
 
 Cargo *prepareRandomCargo() {
   Cargo *cargo = new Cargo();
-  cargo->addCargo(CargoType::getRandomCargoType(), (rand() % 10) + 1);
+  cargo->addCargo(CargoType(), (rand() % 10) + 1);
   assert((*cargo == Cargo()) == false);
   return cargo;
 }

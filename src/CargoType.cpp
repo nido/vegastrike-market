@@ -10,47 +10,43 @@
 #include "CargoType.hpp"
 
 
-CargoType CargoType::getRandomCargoType() {
-	return CargoType();
-}
-
 CargoType::CargoType()
-    : name("Debug"), catagory("Debug"), description(""), mass(1.0), volume(1.0), basePrice(1.0) {
+    : name("Debug"), category("Debug"), description(""), mass(1.0), volume(1.0), basePrice(1.0) {
 //TODO: fix description
 std::cerr<<"Constructor CargoType(): "<<this->name<<std::endl;
 }
 
-CargoType::CargoType(std::string name, std::string catagory, float mass,
+CargoType::CargoType(std::string name, std::string category, float mass,
                      float volume, float price) :
 	name(name),
-	catagory(catagory),
+	category(category),
 	description(""),
 	mass(mass),
 	volume(volume),
 	basePrice(price)
 {
 //TODO: fix description
-std::cerr<<"Constructor CargoType(name, catagory, mass, volume, price): "<<this->name<<std::endl;
+std::cerr<<"Constructor CargoType(name, category, mass, volume, price): "<<this->name<<std::endl;
 }
 
 std::string CargoType::getName() { return this->name; }
 
 bool CargoType::operator==(const CargoType &that) const {
   return ((this->name.compare(that.name) == 0) &&
-          (this->catagory.compare(that.catagory) == 0));
+          (this->category.compare(that.category) == 0));
 }
 
 bool CargoType::operator<(const CargoType &that) const {
-  return ((this->catagory == that.catagory) ? (this->name < that.name)
-                                            : (this->catagory < that.catagory));
+  return ((this->category == that.category) ? (this->name < that.name)
+                                            : (this->category < that.category));
 }
 
 float CargoType::getBasePrice() { return this->basePrice; }
 
 std::string CargoType::getXML() {
   std::stringstream xmlstream;
-  xmlstream << "<CargoType name=\"" << this->name << "\" catagory=\""
-            << this->catagory << "\" mass=\"" << this->mass << "\" volume=\""
+  xmlstream << "<CargoType name=\"" << this->name << "\" category=\""
+            << this->category << "\" mass=\"" << this->mass << "\" volume=\""
             << this->volume << "\" price=\"" << this->basePrice << "\">";
 
   return xmlstream.str();

@@ -48,7 +48,7 @@ MPLParse::~MPLParse() { this->file.close(); }
 
 CargoType *MPLParse::ParseLine(std::string line) {
   std::string name;
-  std::string catagory;
+  std::string category;
   std::string substring;
   float mass;
   float volume;
@@ -84,13 +84,13 @@ CargoType *MPLParse::ParseLine(std::string line) {
       break;
     case 1:
       try {
-        catagory = substring.substr(1, substring.size() - 2);
+        category = substring.substr(1, substring.size() - 2);
       }
       catch (std::out_of_range) {
         std::cerr << "warning: out_of_range in MPL: " << line << std::endl;
         return NULL;
       }
-      //std::cerr<<"catagory: "<<catagory<<std::endl;
+      //std::cerr<<"category: "<<category<<std::endl;
       break;
     case 2:
       price = atof(substring.c_str());
@@ -110,7 +110,7 @@ CargoType *MPLParse::ParseLine(std::string line) {
     fieldNumber++;
     fieldBegin = fieldEnd + 1;
   } while (fieldNumber < 5);
-  CargoType *t = new CargoType(name, catagory, mass, volume, price);
+  CargoType *t = new CargoType(name, category, mass, volume, price);
   return t;
 }
 
