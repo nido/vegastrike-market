@@ -131,8 +131,8 @@ CppUnit::Test *BaseTest::suite() {
   suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
       "testgetFactories", &BaseTest::testgetFactories));
 
-  suiteOfTests->addTest(
-      new CppUnit::TestCaller<BaseTest>("testProcess", &BaseTest::testProcess));
+  suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
+      "testProcess", &BaseTest::testProcess));
 
   suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
       "testgetCargo", &BaseTest::testgetCargo));
