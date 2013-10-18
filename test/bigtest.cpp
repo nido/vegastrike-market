@@ -26,6 +26,8 @@ ProductionOption *prepareRandomProductionOption() {
   Cargo* c1 = prepareRandomCargo();
   Cargo* c2 = prepareRandomCargo();
   o = new ProductionOption(*c1, *c2);
+  delete c1;
+  delete c2;
   return o;
 }
 
