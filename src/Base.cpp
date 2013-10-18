@@ -30,6 +30,6 @@ bool Base::operator==(const Base &that) const {
 void Base::Process() {
   for (std::vector<Factory>::iterator iter = this->factories.begin();
        iter != this->factories.end(); ++iter) {
-    iter->Produce(&this->cargoStore);
+    iter->Produce(this->cargoStore);
   }
 }

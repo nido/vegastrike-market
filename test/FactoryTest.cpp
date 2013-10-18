@@ -33,50 +33,50 @@ void FactoryTest::tearDown() {}
 
 void FactoryTest::testcanProduce() {
   // empty factory cannot produce
-  CPPUNIT_ASSERT(this->factory.canProduce(&cargo) == false);
+  CPPUNIT_ASSERT(this->factory.canProduce(cargo) == false);
 
-  this->factory.addProductionOption(&bigpo);
+  this->factory.addProductionOption(bigpo);
   // cannot produce with not enough goods
-  CPPUNIT_ASSERT(this->factory.canProduce(&input) == false);
+  CPPUNIT_ASSERT(this->factory.canProduce(input) == false);
   // cannot produce without the right goods
-  CPPUNIT_ASSERT(this->factory.canProduce(&output) == false);
+  CPPUNIT_ASSERT(this->factory.canProduce(output) == false);
 
-  this->factory.addProductionOption(&po);
+  this->factory.addProductionOption(po);
   this->factory.setProductionOption(po);
   // can produce with just enough input goods
-  CPPUNIT_ASSERT(this->factory.canProduce(&input) == true);
+  CPPUNIT_ASSERT(this->factory.canProduce(input) == true);
   // can produce with enough input goods
-  CPPUNIT_ASSERT(this->factory.canProduce(&cargo) == true);
+  CPPUNIT_ASSERT(this->factory.canProduce(cargo) == true);
 }
 
 void FactoryTest::testProduce() {
   // test is shitty because produce definition is shitty
 
-  this->factory.addProductionOption(&po);
+  this->factory.addProductionOption(po);
   // produce with enough goods
-  this->factory.Produce(&cargo);
+  this->factory.Produce(cargo);
   CPPUNIT_ASSERT(cargo.getCount(intype) == 1);
   CPPUNIT_ASSERT(cargo.getCount(outtype) == 1);
   // produce with just enough goods
-  this->factory.Produce(&cargo);
+  this->factory.Produce(cargo);
   CPPUNIT_ASSERT(cargo.getCount(intype) == 0);
   CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
   // Production does nothing when impossible
-  this->factory.Produce(&cargo);
+  this->factory.Produce(cargo);
   CPPUNIT_ASSERT(cargo.getCount(intype) == 0);
   CPPUNIT_ASSERT(cargo.getCount(outtype) == 2);
 }
 
 void FactoryTest::testsetProductionOption() {
-  this->factory.addProductionOption(&po);
-  this->factory.addProductionOption(&bigpo);
+  this->factory.addProductionOption(po);
+  this->factory.addProductionOption(bigpo);
   this->factory.setProductionOption(po);
   // production is possible
-  this->factory.Produce(&(this->cargo));
+  this->factory.Produce(this->cargo);
   CPPUNIT_ASSERT(this->cargo.getCount(intype) == 1);
   // production is inpossible
   this->factory.setProductionOption(bigpo);
-  this->factory.Produce(&(this->cargo));
+  this->factory.Produce(this->cargo);
   CPPUNIT_ASSERT(this->cargo.getCount(intype) == 1);
 }
 

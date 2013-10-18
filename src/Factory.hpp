@@ -1,16 +1,11 @@
 #ifndef H_FACTORY
 #define H_FACTORY
-/*
- * ProductionOption for producing goods, v 0.0.4
- * @author peter.schaefer@gmail.com
- */
 
 #include "ProductionOption.hpp"
 
 class Factory;
 
 /** A single factory with its own cargo reserve and (several) ProductionOptions
- *
  */
 class Factory {
 public:
@@ -21,18 +16,18 @@ public:
   ~Factory();
 
   /** (if possible) Do producuce */
-  void Produce(Cargo *cargoStore);
+  void Produce(Cargo& cargoStore) const;
 
   /** Check if production is possible */
-  bool canProduce(const Cargo *cargoStore) const;
+  bool canProduce(const Cargo& cargoStore) const;
 
   /** Add another production option */
-  void addProductionOption(ProductionOption *option);
+  void addProductionOption(const ProductionOption& option);
 
   /** Set the active production option.
  	 * Note this one needs to be part of the Factory's own ProductionOptions
  	 */
-  void setProductionOption(const ProductionOption &option);
+  void setProductionOption(const ProductionOption& option);
 
   /** Compare factories to eachother. Factories are equal if the
  	 * have exactly the same ProductionOptions.

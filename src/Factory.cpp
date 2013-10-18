@@ -10,32 +10,32 @@ Factory::~Factory() {
 }
 
 /** Determines whether the factory is able to produce (at all). */
-bool Factory::canProduce(const Cargo *cargoStore) const {
+bool Factory::canProduce(const Cargo& cargoStore) const {
   if (this->options.empty()) {
     return false;
   }
-  if (this->productionPlan->canProduce(*cargoStore)) {
+  if (this->productionPlan->canProduce(cargoStore)) {
     return true;
   }
   return false;
 }
 
-void Factory::Produce(Cargo *cargoStore) {
+void Factory::Produce(Cargo& cargoStore) const {
   if (!this->canProduce(cargoStore)) {
     return;
   }
-  this->productionPlan->Produce(*cargoStore);
+  this->productionPlan->Produce(cargoStore);
 }
 
-void Factory::addProductionOption(ProductionOption *option) {
-  this->options.push_back(*option);
+void Factory::addProductionOption(const ProductionOption& option) {
+  this->options.push_back(option);
   // set the first production option available as default
   if (this->options.size() == 1) {
-    this->setProductionOption(*option);
+    this->setProductionOption(option);
   }
 }
 
-void Factory::setProductionOption(const ProductionOption &option) {
+void Factory::setProductionOption(const ProductionOption& option) {
   for (std::vector<ProductionOption>::iterator i = this->options.begin();
        i != this->options.end(); ++i) {
     if (*i == option) {
@@ -44,6 +44,6 @@ void Factory::setProductionOption(const ProductionOption &option) {
   }
 }
 
-bool Factory::operator==(const Factory &that) const {
+bool Factory::operator==(const Factory& that) const {
   return this->options == that.options;
 }

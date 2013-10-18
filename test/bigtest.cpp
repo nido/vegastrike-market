@@ -6,51 +6,47 @@
 #include "Economy.hpp"
 #include "MPLParse.hpp"
 
-Cargo *prepareRandomLottaCargo() {
-  Cargo *cargo = new Cargo();
+Cargo prepareRandomLottaCargo() {
+  Cargo cargo = Cargo();
   for (int i = 0; i < 500; i++) {
-    cargo->addCargo(CargoType(), (rand() % 10000) + 100);
+    cargo.addCargo(CargoType(), (rand() % 10000) + 100);
   }
   return cargo;
 }
 
-Cargo *prepareRandomCargo() {
-  Cargo *cargo = new Cargo();
-  cargo->addCargo(CargoType(), (rand() % 10) + 1);
-  assert((*cargo == Cargo()) == false);
+Cargo prepareRandomCargo() {
+  Cargo cargo = Cargo();
+  cargo.addCargo(CargoType(), (rand() % 10) + 1);
+  assert((cargo == Cargo()) == false);
   return cargo;
 }
 
-ProductionOption *prepareRandomProductionOption() {
-  ProductionOption* o;
-  Cargo* c1 = prepareRandomCargo();
-  Cargo* c2 = prepareRandomCargo();
-  o = new ProductionOption(*c1, *c2);
-  delete c1;
-  delete c2;
+ProductionOption prepareRandomProductionOption() {
+  ProductionOption o;
+  Cargo c1 = prepareRandomCargo();
+  Cargo c2 = prepareRandomCargo();
+  o = ProductionOption(c1, c2);
   return o;
 }
 
-Factory *prepareRandomFactory() {
-  Factory *factory = new Factory();
-  ProductionOption* o = prepareRandomProductionOption();
-  factory->addProductionOption(o);
-  delete o;
+Factory prepareRandomFactory() {
+  Factory factory = Factory();
+  ProductionOption o = prepareRandomProductionOption();
+  factory.addProductionOption(o);
   return factory;
 }
 
-Base *prepareRandomBase(int basesize) {
-  Base *base = new Base();
+Base prepareRandomBase(int basesize) {
+  Base base = Base();
 
   for (int i = 0; i < basesize; i++) {
-	Factory* f = prepareRandomFactory();
-    base->addFactory(*f);
-    //delete f;
+	Factory f = prepareRandomFactory();
+    base.addFactory(f);
+    // not 'deleting' this factory worked.
   }
 
-  Cargo* c = prepareRandomLottaCargo();
-  base->addCargo(c);
-  delete c;
+  Cargo c = prepareRandomLottaCargo();
+  base.addCargo(&c);
   return base;
 }
 
@@ -88,9 +84,8 @@ int main(int argc, char *argv[]) {
   // build an economy with 10k bases
   Economy economy = Economy();
   for (int i = 0; i < economysize; i++) {
-	Base* b = prepareRandomBase(basesize);
-    economy.addBase(*b);
-    delete b;
+	Base b = prepareRandomBase(basesize);
+    economy.addBase(b);
   }
   std::cout << "Running Economy" << std::endl;
   // now let us try it count times
