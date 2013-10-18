@@ -23,56 +23,51 @@
 #include "ProductionOption.hpp"
 
 /** Empty constructor for cpptest */
-ProductionOption::ProductionOption() : consumes(new Cargo()), produces(new Cargo()) {}
+ProductionOption::ProductionOption() : consumes(Cargo()), produces(Cargo()) {}
 
-ProductionOption::ProductionOption(const ProductionOption& that) :
+/*ProductionOption::ProductionOption(const ProductionOption& that) :
 	consumes(new Cargo(*that.consumes)),
 	produces(new Cargo(*that.produces))
 {
-}
+}*/
 
 
 /** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted
  */
-ProductionOption::ProductionOption(Cargo *consumes, Cargo *produces)
-    : consumes(consumes), produces(produces) {}
+ProductionOption::ProductionOption(const Cargo& consumes, const Cargo& produces)
+    : consumes(Cargo(consumes)), produces(Cargo(produces)) {}
 
 ProductionOption::~ProductionOption() {
-  delete this->consumes;
-  delete this->produces;
+ // delete this->consumes;
+  //delete this->produces;
 }
 
-/** Determines whether the factory is able to produce (at all).
- *
- * Production can commence when the cargoStore provided has at least
- * the Cargo defined in the 'consumes' vector.
- */
-bool ProductionOption::canProduce(const Cargo *cargoStore) const {
-  return cargoStore->contains(*this->consumes);
+bool ProductionOption::canProduce(const Cargo& cargoStore) const {
+  return cargoStore.contains(this->consumes);
 }
 
-void ProductionOption::Produce(Cargo *cargoStore) {
+void ProductionOption::Produce(Cargo& cargoStore) const {
   if (this->canProduce(cargoStore) == false) {
     return;
   }
 #ifndef NDEBUG
   bool result =
 #endif //NDEBUG result is only used when NDEBUG is defined
-      cargoStore->delCargo(*consumes);
+      cargoStore.delCargo(consumes);
   // make sure this actually happened
   assert(result != false);
 
-  cargoStore->addCargo(*produces);
+  cargoStore.addCargo(produces);
 }
 
 bool ProductionOption::operator==(const ProductionOption &that) const {
-  if ((*(this->consumes) == *(that.consumes)) &&
-      (*(this->produces) == *(that.produces))) {
+  if ((this->consumes == that.consumes) &&
+      (this->produces == that.produces)) {
     return true;
   }
   return false;
 }
-
+/*
 ProductionOption& ProductionOption::operator=(const ProductionOption& that)
 {
 	if(this == &that){
@@ -80,7 +75,7 @@ ProductionOption& ProductionOption::operator=(const ProductionOption& that)
 	}
 	delete this->consumes;
 	delete this->produces;
-	this->consumes = new Cargo(*that.consumes);
-	this->produces = new Cargo(*that.produces);
+	this->consumes = new Cargo(that.consumes);
+	this->produces = new Cargo(that.produces);
 	return *this;
-}
+}*/

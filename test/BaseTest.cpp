@@ -21,8 +21,8 @@ void BaseTest::setUp() {
 
 
 
-  ProductionOption* po1 = new ProductionOption(in1, out1);
-  ProductionOption* po2 = new ProductionOption(in2, out2);
+  ProductionOption* po1 = new ProductionOption(*in1, *out1);
+  ProductionOption* po2 = new ProductionOption(*in2, *out2);
   this->factory1 = new Factory();
   this->factory1->addProductionOption(po1);
   this->factory2 = new Factory();

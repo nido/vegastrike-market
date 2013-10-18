@@ -1,9 +1,5 @@
 #ifndef H_PRODUCTIONOPTION
 #define H_PRODUCTIONOPTION
-/*
- * ProductionOption for producing goods, v 0.0.4
- * @author peter.schaefer@gmail.com
- */
 
 #include "Cargo.hpp"
 
@@ -21,29 +17,29 @@ public:
   /** Create a new ProductionOption which turns consumes Cargo into
  	 * produces Cargo. consumes and produces becomes owned by the
  	 * ProductionOption. */
-  ProductionOption(Cargo *consumes, Cargo *produces);
+  ProductionOption(const Cargo& consumes, const Cargo& produces);
   /** Copy constructor */
-  ProductionOption(const ProductionOption&);
+  //ProductionOption(const ProductionOption&);
 
   /** Delete the ProductionOption and its consumes and produces.
  	 */
   ~ProductionOption();
 
   /** (if possible) Do produce */
-  void Produce(Cargo *cargoStore);
+  void Produce(Cargo& cargoStore) const;
 
   /** determine whether production is possible */
-  bool canProduce(const Cargo *cargoStore) const;
+  bool canProduce(const Cargo& cargoStore) const;
   /** check equality of two ProductionOptions */
-  bool operator==(const ProductionOption &that) const;
+  bool operator==(const ProductionOption& that) const;
 
-  ProductionOption& operator=(const ProductionOption&);
+//  ProductionOption& operator=(const ProductionOption&);
 
 private:
   /** Cargo consumed by production. */
-  Cargo *consumes;
+  Cargo consumes;
 
   /** Cargo produced by production. */
-  Cargo *produces;
+  Cargo produces;
 };
 #endif // H_PRODUCTIONOPTION

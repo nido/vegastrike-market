@@ -24,8 +24,8 @@ void FactoryTest::setUp() {
   in2->addCargo(intype, 2);
   out2->addCargo(outtype, 1);
 
-  this->po = ProductionOption(in1, out1);
-  this->bigpo = ProductionOption(in2, out2);
+  this->po = ProductionOption(*in1, *out1);
+  this->bigpo = ProductionOption(*in2, *out2);
   this->factory = Factory();
 }
 

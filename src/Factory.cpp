@@ -14,7 +14,7 @@ bool Factory::canProduce(const Cargo *cargoStore) const {
   if (this->options.empty()) {
     return false;
   }
-  if (this->productionPlan->canProduce(cargoStore)) {
+  if (this->productionPlan->canProduce(*cargoStore)) {
     return true;
   }
   return false;
@@ -24,7 +24,7 @@ void Factory::Produce(Cargo *cargoStore) {
   if (!this->canProduce(cargoStore)) {
     return;
   }
-  this->productionPlan->Produce(cargoStore);
+  this->productionPlan->Produce(*cargoStore);
 }
 
 void Factory::addProductionOption(ProductionOption *option) {
