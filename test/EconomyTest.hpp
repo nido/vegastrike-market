@@ -6,6 +6,8 @@
 
 #include <vector>
 
+#include "Economy.hpp"
+
 class EconomyTest : public CppUnit::TestFixture  {
 public:
 	void setUp();
@@ -16,4 +18,7 @@ public:
 	void testgetFactories();
 	void testtick();
 	static CppUnit::Test* suite();
+private:
+	Economy* e;
+	Base* b;
 };
