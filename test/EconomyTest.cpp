@@ -8,16 +8,20 @@
 
 void EconomyTest::setUp()
 {
+	this->e = new Economy();
+	this->b = new Base();
 }
 
 void EconomyTest::tearDown()
 {
+	delete this->e;
+	delete this->b;
 }
 
 
 void EconomyTest::testaddBase()
 {
-	//TODO: Implement test
+	this->e->addBase(*this->b);
 	CPPUNIT_ASSERT(false);
 }
 
