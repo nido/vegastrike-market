@@ -24,7 +24,7 @@ void CargoTest::testaddCargo() {
   // pile1 now has 1 type1 cargo
   CPPUNIT_ASSERT(pile1.getCount(type1) == 1);
 
-  pile2.addCargo(&pile1);
+  pile2.addCargo(pile1);
   // pile2 now has 1 type1 cargo
   CPPUNIT_ASSERT(pile2.getCount(type1) == 1);
 
@@ -38,33 +38,33 @@ void CargoTest::testcontains() {
   pile2.addCargo(type2, 1);
   pile3.addCargo(type1, 3);
 
-  CPPUNIT_ASSERT(pile1.contains(&pile2) == false);
-  CPPUNIT_ASSERT(pile1.contains(&pile3) == false);
+  CPPUNIT_ASSERT(pile1.contains(pile2) == false);
+  CPPUNIT_ASSERT(pile1.contains(pile3) == false);
 
-  CPPUNIT_ASSERT(pile2.contains(&pile1) == false);
-  CPPUNIT_ASSERT(pile2.contains(&pile3) == false);
+  CPPUNIT_ASSERT(pile2.contains(pile1) == false);
+  CPPUNIT_ASSERT(pile2.contains(pile3) == false);
 
-  CPPUNIT_ASSERT(pile3.contains(&pile1) == true);
-  CPPUNIT_ASSERT(pile3.contains(&pile2) == false);
+  CPPUNIT_ASSERT(pile3.contains(pile1) == true);
+  CPPUNIT_ASSERT(pile3.contains(pile2) == false);
 }
 
 void CargoTest::testdelCargo() {
   pile1.addCargo(type1, 100);
   pile2.addCargo(type1, 50);
 
-  CPPUNIT_ASSERT(pile3.delCargo(&pile1) == false);
+  CPPUNIT_ASSERT(pile3.delCargo(pile1) == false);
   CPPUNIT_ASSERT(pile1.getCount(type1) == 100);
   CPPUNIT_ASSERT(pile3.getCount(type1) == 0);
 
-  CPPUNIT_ASSERT(pile2.delCargo(&pile1) == false);
+  CPPUNIT_ASSERT(pile2.delCargo(pile1) == false);
   CPPUNIT_ASSERT(pile1.getCount(type1) == 100);
   CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
 
-  CPPUNIT_ASSERT(pile1.delCargo(&pile2) == true);
+  CPPUNIT_ASSERT(pile1.delCargo(pile2) == true);
   CPPUNIT_ASSERT(pile1.getCount(type1) == 50);
   CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
 
-  CPPUNIT_ASSERT(pile1.delCargo(&pile1) == true);
+  CPPUNIT_ASSERT(pile1.delCargo(pile1) == true);
   CPPUNIT_ASSERT(pile1.getCount(type1) == 0);
   CPPUNIT_ASSERT(pile2.getCount(type1) == 50);
 }

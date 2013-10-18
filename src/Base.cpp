@@ -17,9 +17,9 @@ void Base::delFactory(Factory& factory) {
 
 std::vector<Factory> Base::getFactories() { return this->factories; }
 
-void Base::addCargo(const Cargo *cargo) { this->cargoStore.addCargo(cargo); }
+void Base::addCargo(const Cargo *cargo) { this->cargoStore.addCargo(*cargo); }
 
-void Base::delCargo(const Cargo *cargo) { this->cargoStore.delCargo(cargo); }
+void Base::delCargo(const Cargo *cargo) { this->cargoStore.delCargo(*cargo); }
 
 const Cargo *Base::getCargo() const { return &this->cargoStore; }
 

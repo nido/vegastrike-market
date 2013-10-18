@@ -53,7 +53,7 @@ ProductionOption::~ProductionOption() {
  * the Cargo defined in the 'consumes' vector.
  */
 bool ProductionOption::canProduce(const Cargo *cargoStore) const {
-  return cargoStore->contains(this->consumes);
+  return cargoStore->contains(*this->consumes);
 }
 
 void ProductionOption::Produce(Cargo *cargoStore) {
@@ -63,11 +63,11 @@ void ProductionOption::Produce(Cargo *cargoStore) {
 #ifndef NDEBUG
   bool result =
 #endif //NDEBUG result is only used when NDEBUG is defined
-      cargoStore->delCargo(consumes);
+      cargoStore->delCargo(*consumes);
   // make sure this actually happened
   assert(result != false);
 
-  cargoStore->addCargo(produces);
+  cargoStore->addCargo(*produces);
 }
 
 bool ProductionOption::operator==(const ProductionOption &that) const {

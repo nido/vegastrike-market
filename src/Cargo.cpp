@@ -27,17 +27,34 @@ void Cargo::addCargo(const CargoType& type, unsigned int quantity) {
   this->cargo[type] = quantity;
 }
 
-void Cargo::addCargo(const Cargo *newCargo) {
-  assert(newCargo != NULL);
-  assert(newCargo->begin() != newCargo->end());
-
+void Cargo::addCargo(const Cargo& newCargo) {
   Cargo::const_iterator newStock;
-  for (newStock = newCargo->begin(); newStock != newCargo->end(); ++newStock) {
+  for (newStock = newCargo.begin(); newStock != newCargo.end(); ++newStock) {
     this->addCargo(newStock->first, newStock->second);
   }
 }
 
-unsigned int Cargo::getCount(CargoType type) const {
+bool Cargo::delCargo(const Cargo& newCargo) {
+  if (this == &newCargo) {
+    this->cargo.clear();
+    return true;
+  }
+
+  if (this->contains(newCargo) == false) {
+    return false;
+  }
+
+  for (Cargo::const_iterator newStock = newCargo.begin(); newStock != newCargo.end(); ++newStock) {
+    this->cargo[newStock->first] -= newStock->second;
+    if (this->cargo[newStock->first] == 0) {
+      this->cargo.erase(newStock->first);
+    }
+  }
+  return true;
+}
+
+
+unsigned int Cargo::getCount(const CargoType& type) const {
   unsigned int result = 0;
   std::map<CargoType, unsigned int>::const_iterator thing =  this->cargo.find(type);
   if (thing != this->cargo.end()){
@@ -46,39 +63,20 @@ unsigned int Cargo::getCount(CargoType type) const {
   return result;
 }
 
-bool Cargo::contains(const Cargo *newCargo) const {
-  assert(newCargo != NULL);
-  if (newCargo->begin() == newCargo->end()) {
+bool Cargo::contains(const Cargo& newCargo) const {
+  if (newCargo.begin() == newCargo.end()) {
     return true;
   }
   if (this->cargo.empty()) {
     return false;
   }
   Cargo::const_iterator newStock;
-  for (newStock = newCargo->begin(); newStock != newCargo->end(); ++newStock) {
+  for (newStock = newCargo.begin(); newStock != newCargo.end(); ++newStock) {
     if (this->cargo.find(newStock->first) == this->cargo.end()) {
       return false;
     }
     if (this->cargo.at(newStock->first) < newStock->second) {
       return false;
-    }
-  }
-  return true;
-}
-
-bool Cargo::delCargo(const Cargo *newCargo) {
-  if (this == newCargo) {
-    this->cargo.clear();
-    return true;
-  }
-  Cargo::const_iterator newStock;
-  if (this->contains(newCargo) == false) {
-    return false;
-  }
-  for (newStock = newCargo->begin(); newStock != newCargo->end(); ++newStock) {
-    this->cargo[newStock->first] -= newStock->second;
-    if (this->cargo[newStock->first] == 0) {
-      this->cargo.erase(newStock->first);
     }
   }
   return true;
