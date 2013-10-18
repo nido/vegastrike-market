@@ -1,4 +1,5 @@
 #include <vector>
+#include <cassert>
 
 #include "Factory.hpp"
 
@@ -14,6 +15,7 @@ bool Factory::canProduce(const Cargo& cargoStore) const {
   if (this->options.empty()) {
     return false;
   }
+  assert((this->productionPlan == this->options.end()) == false);
   if (this->productionPlan->canProduce(cargoStore)) {
     return true;
   }

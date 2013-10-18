@@ -17,10 +17,10 @@ public:
   ~Economy();
 
   /** add a factory for production to the base */
-  void addBase(Base factory);
-  void delBase(Base factory);
+  void addBase(const Base& factory);
+  void delBase(const Base& factory);
 
-  std::vector<Base> getFactories();
+  const std::vector<Base>& getFactories();
   void tick();
 
 private:

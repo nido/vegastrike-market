@@ -23,16 +23,14 @@ void BaseTest::setUp() {
 
   ProductionOption po1 = ProductionOption(*in1, *out1);
   ProductionOption po2 = ProductionOption(*in2, *out2);
-  this->factory1 = new Factory();
-  this->factory1->addProductionOption(po1);
-  this->factory2 = new Factory();
-  this->factory2->addProductionOption(po2);
+  this->factory1 = Factory();
+  this->factory1.addProductionOption(po1);
+  this->factory2 = Factory();
+  this->factory2.addProductionOption(po2);
   this->base = Base();
 }
 
 void BaseTest::tearDown() {
-  delete this->factory1;
-  delete this->factory2;
 }
 
 void BaseTest::testaddCargo() {
@@ -43,27 +41,27 @@ void BaseTest::testaddCargo() {
 }
 
 void BaseTest::testaddFactory() {
-  this->base.addFactory(*factory1);
+  this->base.addFactory(factory1);
   std::vector<Factory> list = this->base.getFactories();
   std::vector<Factory>::iterator iter =
-      std::find(list.begin(), list.end(), *factory1);
+      std::find(list.begin(), list.end(), factory1);
   CPPUNIT_ASSERT(iter != list.end());
-  CPPUNIT_ASSERT(*iter == *factory1);
+  CPPUNIT_ASSERT(*iter == factory1);
 }
 
 void BaseTest::testdelCargo() {
-  this->base.addCargo(&this->cargo);
-  this->base.delCargo(&this->cargo);
+  this->base.addCargo(this->cargo);
+  this->base.delCargo(this->cargo);
   //empty now
-  CPPUNIT_ASSERT(*(this->base.getCargo()) == Cargo());
+  CPPUNIT_ASSERT((this->base.getCargo()) == Cargo());
 }
 
 void BaseTest::testdelFactory() {
-  this->base.addFactory(*factory1);
-  this->base.delFactory(*factory1);
+  this->base.addFactory(factory1);
+  this->base.delFactory(factory1);
   std::vector<Factory> list = this->base.getFactories();
   std::vector<Factory>::iterator iter =
-      std::find(list.begin(), list.end(), *factory1);
+      std::find(list.begin(), list.end(), factory1);
   // factory cannot be found
   CPPUNIT_ASSERT(iter == list.end());
 }
@@ -72,13 +70,13 @@ void BaseTest::testgetFactories() {
   std::vector<Factory> list = this->base.getFactories();
   // empty
   CPPUNIT_ASSERT(list == std::vector<Factory>());
-  this->base.addFactory(*factory1);
+  this->base.addFactory(factory1);
   list = this->base.getFactories();
   CPPUNIT_ASSERT(list.size() == 1);
-  this->base.addFactory(*factory1);
+  this->base.addFactory(factory1);
   list = this->base.getFactories();
   CPPUNIT_ASSERT(list.size() == 2);
-  this->base.addFactory(*factory2);
+  this->base.addFactory(factory2);
   list = this->base.getFactories();
   CPPUNIT_ASSERT(list.size() == 3);
 
@@ -86,29 +84,28 @@ void BaseTest::testgetFactories() {
 
 void BaseTest::testProcess() {
   CargoType intype1 = CargoType("in1", "test", 1, 1, 1);
-  this->base.addFactory(*factory1);
-  this->base.addCargo(&cargo);
-  const Cargo *basecargo = this->base.getCargo();
-  CPPUNIT_ASSERT(basecargo->getCount(intype1) == 5);
+  this->base.addFactory(factory1);
+  this->base.addCargo(cargo);
+  Cargo basecargo = this->base.getCargo();
+  CPPUNIT_ASSERT(basecargo.getCount(intype1) == 5);
 
   this->base.Process();
-  CPPUNIT_ASSERT(basecargo->getCount(intype1) == 4);
+  basecargo = this->base.getCargo();
+  CPPUNIT_ASSERT(basecargo.getCount(intype1) == 4);
 
-  this->base.addFactory(*factory1);
+  this->base.addFactory(factory1);
   this->base.Process();
-  CPPUNIT_ASSERT(basecargo->getCount(intype1) == 2);
+  basecargo = this->base.getCargo();
+  CPPUNIT_ASSERT(basecargo.getCount(intype1) == 2);
 }
 
 void BaseTest::testgetCargo() {
-  this->base.addCargo(&this->cargo);
-  CPPUNIT_ASSERT(*(this->base.getCargo()) == this->cargo);
+  this->base.addCargo(this->cargo);
+  CPPUNIT_ASSERT((this->base.getCargo()) == this->cargo);
 }
 
 CppUnit::Test *BaseTest::suite() {
   CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("BaseTest");
-  //	suiteOfTests->addTest( new CppUnit::TestCaller<BaseTest>(
-  //			"testFunction",
-  //			&BaseTest::testFunction));
 
   suiteOfTests->addTest(new CppUnit::TestCaller<BaseTest>(
       "testaddCargo", &BaseTest::testaddCargo));

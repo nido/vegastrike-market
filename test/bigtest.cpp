@@ -38,15 +38,14 @@ Factory prepareRandomFactory() {
 
 Base prepareRandomBase(int basesize) {
   Base base = Base();
-
+  Factory f;
   for (int i = 0; i < basesize; i++) {
-	Factory f = prepareRandomFactory();
+	f = prepareRandomFactory();
     base.addFactory(f);
-    // not 'deleting' this factory worked.
   }
 
   Cargo c = prepareRandomLottaCargo();
-  base.addCargo(&c);
+  base.addCargo(c);
   return base;
 }
 

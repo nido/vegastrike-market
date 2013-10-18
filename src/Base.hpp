@@ -23,21 +23,22 @@ public:
   typedef std::vector<Factory>::const_iterator const_iterator;
 
   /** add a factory for production to the base */
-  void addFactory(Factory& factory);
-  void delFactory(Factory& factory);
+  void addFactory(const Factory& factory);
+  void delFactory(const Factory& factory);
 
   /** Add cargo to the base */
-  void addCargo(const Cargo *cargo);
+  void addCargo(const Cargo& cargo);
 
   /** delete cargo from the base */
-  void delCargo(const Cargo *cargo);
+  void delCargo(const Cargo& cargo);
 
   std::vector<Factory> getFactories();
-  const Cargo *getCargo() const;
+
+  const Cargo& getCargo() const;
 
   void Process();
 
-  bool operator==(const Base &that) const;
+  bool operator==(const Base& that) const;
 
 private:
   std::vector<Factory> factories;

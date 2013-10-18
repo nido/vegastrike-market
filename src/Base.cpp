@@ -6,21 +6,31 @@ Base::Base() : factories(std::vector<Factory>()), cargoStore(Cargo()) {}
 
 Base::~Base() {}
 
-void Base::addFactory(Factory& factory) { this->factories.push_back(Factory(factory)); }
+void Base::addFactory(const Factory& factory) {
+	this->factories.push_back(factory);
+}
 
-void Base::delFactory(Factory& factory) {
+void Base::delFactory(const Factory& factory) {
   std::vector<Factory>::iterator iter =
       std::find(this->factories.begin(), this->factories.end(), factory);
   this->factories.erase(iter);
 }
 
-std::vector<Factory> Base::getFactories() { return this->factories; }
+std::vector<Factory> Base::getFactories() {
+  return this->factories;
+}
 
-void Base::addCargo(const Cargo *cargo) { this->cargoStore.addCargo(*cargo); }
+void Base::addCargo(const Cargo& cargo) {
+  this->cargoStore.addCargo(cargo);
+}
 
-void Base::delCargo(const Cargo *cargo) { this->cargoStore.delCargo(*cargo); }
+void Base::delCargo(const Cargo& cargo) {
+  this->cargoStore.delCargo(cargo);
+}
 
-const Cargo *Base::getCargo() const { return &this->cargoStore; }
+const Cargo& Base::getCargo() const {
+  return this->cargoStore;
+}
 
 bool Base::operator==(const Base &that) const {
   return (this->factories == that.factories &&

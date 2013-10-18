@@ -30,7 +30,7 @@ ProductionOption::ProductionOption() : consumes(Cargo()), produces(Cargo()) {}
  * @param produces what is produces out of consumes
  */
 ProductionOption::ProductionOption(const Cargo& consumes, const Cargo& produces)
-    : consumes(Cargo(consumes)), produces(Cargo(produces)) {}
+    : consumes(consumes), produces(produces) {}
 
 ProductionOption::~ProductionOption() {
  // delete this->consumes;
