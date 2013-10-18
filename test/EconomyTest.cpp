@@ -28,6 +28,8 @@ void EconomyTest::testaddBase()
 void EconomyTest::testdelBase()
 {
 	//TODO: Implement test
+	this->e->addBase(*this->b);
+	this->e->delBase(*this->b);
 	CPPUNIT_ASSERT(false);
 }
 
