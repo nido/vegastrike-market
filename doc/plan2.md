@@ -1,10 +1,6 @@
 Vegastrike Economy Simplified Algorithm {#mainpage}
 =======================================
 
-[Coverage](../coverage/index.html)
-
-[Unit Test Callgraph](../unittest-callgrind.svg)
-
 This is an implemenatation proposal for getting an economy running
 within vegastrike. This proposal is based on RedAdders code and text
 and contributions by others at 

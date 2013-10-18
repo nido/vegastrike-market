@@ -7,7 +7,7 @@ PROJECT_BRIEF          = Economy replacement for VegaStrike
 # included in the documentation. The maximum height of the logo should not
 # exceed 55 pixels and the maximum width should not exceed 200 pixels.
 # Doxygen will copy the logo to the output directory.
-PROJECT_LOGO           =
+PROJECT_LOGO           = @CMAKE_CURRENT_SOURCE_DIR@/data/vslogo.png
 OUTPUT_DIRECTORY       =
 CREATE_SUBDIRS         = NO
 # Afrikaans, Arabic, Brazilian, Catalan, Chinese, Chinese-Traditional,
