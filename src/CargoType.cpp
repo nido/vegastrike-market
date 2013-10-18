@@ -13,7 +13,6 @@
 CargoType::CargoType()
     : name("Debug"), category("Debug"), description(""), mass(1.0), volume(1.0), basePrice(1.0) {
 //TODO: fix description
-std::cerr<<"Constructor CargoType(): "<<this->name<<std::endl;
 }
 
 CargoType::CargoType(std::string name, std::string category, float mass,
@@ -26,7 +25,6 @@ CargoType::CargoType(std::string name, std::string category, float mass,
 	basePrice(price)
 {
 //TODO: fix description
-std::cerr<<"Constructor CargoType(name, category, mass, volume, price): "<<this->name<<std::endl;
 }
 
 std::string CargoType::getName() { return this->name; }

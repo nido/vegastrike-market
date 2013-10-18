@@ -86,8 +86,6 @@ int main(int argc, char *argv[]) {
   // initialise regular vegastrike cargo
   MPLParse p = MPLParse();
   cargo = p.Parse();
-  int cargosize = cargo.size();
-  std::cerr << cargosize << " CargoTypes known" << std::endl;
 
   std::cout << "building Economy" << std::endl;
 

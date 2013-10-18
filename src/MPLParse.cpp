@@ -13,7 +13,6 @@ MPLParse::MPLParse():
 filename((getdatadir() + "/master_part_list.csv")),
 file(this->filename.c_str())
 {
-  std::cerr<<"MPLParse: "<<this->filename<<std::endl;
   assert(file.is_open());
 }
 
@@ -21,14 +20,12 @@ MPLParse::MPLParse(const MPLParse &that) :
 filename(that.filename),
 file(this->filename.c_str())
 {
-  std::cerr<<"MPLParse &that: "<<this->filename<<std::endl;
   assert(file.is_open());
 }
 
 MPLParse::MPLParse(std::string fileName) : filename(fileName),
 file(this->filename.c_str())
 {
-  std::cerr<<"MPLParse std::string: "<<this->filename<<std::endl;
   assert(file.is_open());
 }
 
@@ -59,14 +56,12 @@ CargoType *MPLParse::ParseLine(std::string line) {
     size_t fieldEnd;
     fieldEnd = line.find(",", fieldBegin);
     if (fieldEnd == std::string::npos) {
-      std::cerr << "warning: invalid line in MPL: " << line << std::endl;
       return NULL;
     }
     try {
       substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
     }
     catch (std::out_of_range) {
-      std::cerr << "warning: out_of_range in MPL: " << line << std::endl;
       return NULL;
     }
     boost::algorithm::trim(substring);
@@ -77,32 +72,25 @@ CargoType *MPLParse::ParseLine(std::string line) {
         name = substring.substr(1, substring.size() - 2);
       }
       catch (std::out_of_range) {
-        std::cerr << "warning: out_of_range in MPL: " << line << std::endl;
         return NULL;
       }
-      //std::cerr<<"Name: "<<name<<std::endl;
       break;
     case 1:
       try {
         category = substring.substr(1, substring.size() - 2);
       }
       catch (std::out_of_range) {
-        std::cerr << "warning: out_of_range in MPL: " << line << std::endl;
         return NULL;
       }
-      //std::cerr<<"category: "<<category<<std::endl;
       break;
     case 2:
       price = atof(substring.c_str());
-      //std::cerr<<"Price: "<<price<<std::endl;
       break;
     case 3:
       mass = atof(substring.c_str());
-      //std::cerr<<"Mass: "<<mass<<std::endl;
       break;
     case 4:
       volume = atof(substring.c_str());
-      //std::cerr<<"volume: "<<volume<<std::endl;
       break;
       //		case 5:
       // description we don't yet care about
@@ -128,7 +116,6 @@ std::vector<CargoType> MPLParse::Parse() {
       continue;
     }
     cargo = ParseLine(line);
-	std::cerr<<"parsed cargo: "<<cargo->getXML()<<std::endl;
     if (cargo != NULL) {
       list.push_back(*cargo);
     }
