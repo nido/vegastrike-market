@@ -25,14 +25,9 @@
 /** Empty constructor for cpptest */
 ProductionOption::ProductionOption() : consumes(Cargo()), produces(Cargo()) {}
 
-/*ProductionOption::ProductionOption(const ProductionOption& that) :
-	consumes(new Cargo(*that.consumes)),
-	produces(new Cargo(*that.produces))
-{
-}*/
-
-
-/** TODO: Make sure it has its own stores of Cargo to draw from. Cargo is sorted
+/** Create a ProductionOption with a set input/output
+ * @param consumes what is needed to produce
+ * @param produces what is produces out of consumes
  */
 ProductionOption::ProductionOption(const Cargo& consumes, const Cargo& produces)
     : consumes(Cargo(consumes)), produces(Cargo(produces)) {}
@@ -67,15 +62,3 @@ bool ProductionOption::operator==(const ProductionOption &that) const {
   }
   return false;
 }
-/*
-ProductionOption& ProductionOption::operator=(const ProductionOption& that)
-{
-	if(this == &that){
-		return *this;
-	}
-	delete this->consumes;
-	delete this->produces;
-	this->consumes = new Cargo(that.consumes);
-	this->produces = new Cargo(that.produces);
-	return *this;
-}*/

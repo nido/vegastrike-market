@@ -18,7 +18,7 @@ public:
 
   /** constructor for turning consumes into produces
    * @param consumes what is consumes by production
-   * @param the resulting Cargo from this transaction
+   * @param produces resulting Cargo from this transaction
    */
   ProductionOption(const Cargo& consumes, const Cargo& produces);
 
@@ -27,7 +27,7 @@ public:
   ~ProductionOption();
 
   /** (if possible) Do produce.
-   * @param cargoStore the Cargo to draw from and store to */
+   * @param cargoStore Cargo to draw from and store to */
   void Produce(Cargo& cargoStore) const;
 
   /** determine whether production is possible
