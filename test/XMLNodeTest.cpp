@@ -49,14 +49,15 @@ void XMLNodeTest::testParseXMLNodeEnd() { //TODO: Implement test
 
 void XMLNodeTest::testgetCargoType() {
   XMLNode *n =
-      XMLNode::ParseString("<CargoType name=\"cargo\" catagory=\"catagory\" "
+      XMLNode::ParseString("<CargoType name=\"cargo\" category=\"category\" "
                            "mass=\"1\" volume=\"2\" price=\"3\" />");
   CargoType *test = n->getCargoType();
 
-  CargoType reference = CargoType("cargo", "catagory", 1, 2, 3);
+  CargoType reference = CargoType("cargo", "category", 1, 2, 3);
 
   CPPUNIT_ASSERT(test != NULL);
   if (test != NULL) {
+	std::cout<<reference.getXML()<<"  "<<test->getXML()<<std::endl;
     CPPUNIT_ASSERT(reference == *test);
   }
   delete n;
