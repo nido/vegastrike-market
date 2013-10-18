@@ -13,29 +13,37 @@ class ProductionOption;
 class ProductionOption {
 
 public:
+  /** Ability to turn nothing into nothing */
   ProductionOption();
-  /** Create a new ProductionOption which turns consumes Cargo into
- 	 * produces Cargo. consumes and produces becomes owned by the
- 	 * ProductionOption. */
+
+  /** constructor for turning consumes into produces
+   * @param consumes what is consumes by production
+   * @param the resulting Cargo from this transaction
+   */
   ProductionOption(const Cargo& consumes, const Cargo& produces);
-  /** Copy constructor */
-  //ProductionOption(const ProductionOption&);
 
   /** Delete the ProductionOption and its consumes and produces.
  	 */
   ~ProductionOption();
 
-  /** (if possible) Do produce */
+  /** (if possible) Do produce.
+   * @param cargoStore the Cargo to draw from and store to */
   void Produce(Cargo& cargoStore) const;
 
-  /** determine whether production is possible */
+  /** determine whether production is possible
+   * @param cargoStore the Cargo on which to base this decision
+   * @return true when production is possible, false otherwise
+  */
   bool canProduce(const Cargo& cargoStore) const;
-  /** check equality of two ProductionOptions */
+
+  /** check equality of two ProductionOptions
+   * @param that the ProductionOption to compare to
+   * @return true when equal, false otherwise
+  */
   bool operator==(const ProductionOption& that) const;
 
-//  ProductionOption& operator=(const ProductionOption&);
-
 private:
+
   /** Cargo consumed by production. */
   Cargo consumes;
 
