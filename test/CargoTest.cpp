@@ -78,11 +78,17 @@ void CargoTest::testoperatorEquals() {
   CPPUNIT_ASSERT((pile1 == pile2) == false);
 }
 
+void CargoTest::testgetCount() {
+  pile1.addCargo(type1, 100);
+  CPPUNIT_ASSERT(pile1.getCount(type1)==100);
+
+  pile1.addCargo(type2, 200);
+  CPPUNIT_ASSERT(pile1.getCount(type2)==200);
+
+}
+
 CppUnit::Test *CargoTest::suite() {
   CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("CargoTest");
-  //	suiteOfTests->addTest( new CppUnit::TestCaller<CargoTest>(
-  //			"testFunction",
-  //			&CargoTest::testFunction));
 
   suiteOfTests->addTest(new CppUnit::TestCaller<CargoTest>(
       "testaddCargo", &CargoTest::testaddCargo));
@@ -95,6 +101,9 @@ CppUnit::Test *CargoTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<CargoTest>(
       "testoperatorEquals", &CargoTest::testoperatorEquals));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<CargoTest>(
+      "testgetCount", &CargoTest::testgetCount));
 
   return suiteOfTests;
 }

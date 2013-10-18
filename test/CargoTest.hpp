@@ -9,6 +9,7 @@ public:
   void testcontains();
   void testdelCargo();
   void testoperatorEquals();
+  void testgetCount();
   static CppUnit::Test *suite();
 
 private:
