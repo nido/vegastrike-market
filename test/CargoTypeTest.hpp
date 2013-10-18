@@ -1,9 +1,3 @@
-#include <cppunit/TestFixture.h>
-#include <cppunit/TestCaller.h>
-#include <cppunit/TestResult.h>
-#include <cppunit/TestSuite.h>
-#include <cppunit/ui/text/TestRunner.h>
-
 #include "CargoType.hpp"
 
 class CargoTypeTest : public CppUnit::TestFixture {
@@ -14,6 +8,8 @@ public:
   void testoperatorEquals();
   void testoperatorLessThen();
   void testgetBasePrice();
+  void testgetName();
+  void testgetXML();
   static CppUnit::Test *suite();
 
 private:

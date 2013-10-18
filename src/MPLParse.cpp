@@ -1,13 +1,9 @@
-#include <boost/algorithm/string.hpp>
-#include <iostream>
 #include <fstream>
-#include <cstdlib>
-#include <cstring>
+
+#include <boost/algorithm/string.hpp>
 
 #include "common/common.h"
-
 #include "MPLParse.hpp"
-#include "CargoType.hpp"
 
 MPLParse::MPLParse():
 filename((getdatadir() + "/master_part_list.csv")),

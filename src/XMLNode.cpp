@@ -1,11 +1,7 @@
 #include <cassert>
 #include <cstring>
 
-#include <expat.h>
-
 #include "XMLNode.hpp"
-
-#define MAXSTRLEN 100
 
 XMLNode::XMLNode()
     : parent(NULL), children(std::vector<XMLNode *>()),

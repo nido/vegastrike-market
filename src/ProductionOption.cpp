@@ -18,14 +18,9 @@
  * ProductionOption for producing goods, v 0.1.3
  * @author peter.schaefer@gmail.com
  */
-#include <limits>
-#include <algorithm>
-#include <string>
-#include <vector>
+#include <cassert>
 
 #include "ProductionOption.hpp"
-
-#include <assert.h>
 
 /** Empty constructor for cpptest */
 ProductionOption::ProductionOption() : consumes(new Cargo()), produces(new Cargo()) {}

@@ -1,9 +1,7 @@
 #ifndef H_XMLNODE
 #define H_XMLNODE
 
-#include <string>
 #include <vector>
-#include <map>
 
 #include <expat.h>
 

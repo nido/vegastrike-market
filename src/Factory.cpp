@@ -1,16 +1,6 @@
-/*
- */
-
-#include <limits>
-#include <string>
 #include <vector>
-#include <algorithm>
 
 #include "Factory.hpp"
-#include "Cargo.hpp"
-
-#include <assert.h>
-#include <math.h>
 
 Factory::Factory()
     : options(std::vector<ProductionOption>()),

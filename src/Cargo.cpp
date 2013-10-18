@@ -1,17 +1,8 @@
-#include <algorithm>
-#include <iostream>
-#include <stdexcept>
-
-#include <assert.h>
-#include <stdbool.h>
+#include <cassert>
 
 #include "Cargo.hpp"
 
 Cargo::Cargo() : cargo(std::map<CargoType, unsigned int>()) {}
-
-Cargo::Cargo(const Cargo& that) : cargo(that.cargo)
-{
-}
 
 Cargo::~Cargo()
 {

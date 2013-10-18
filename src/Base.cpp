@@ -1,6 +1,5 @@
 #include <algorithm>
-#include <vector>
-#include <iostream>
+
 #include "Base.hpp"
 
 Base::Base() : factories(std::vector<Factory>()), cargoStore(Cargo()) {}

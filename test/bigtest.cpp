@@ -1,17 +1,10 @@
-#include <cppunit/TestFixture.h>
-#include <cppunit/TestCaller.h>
-#include <cppunit/TestResult.h>
-#include <cppunit/TestSuite.h>
-#include <cppunit/ui/text/TestRunner.h>
 #include <algorithm>
-#include <vector>
-#include <iostream>
+#include <cassert>
 
-#include <assert.h>
+#include <cppunit/TestCaller.h>
 
 #include "Economy.hpp"
 #include "MPLParse.hpp"
-#include "Base.hpp"
 
 Cargo *prepareRandomLottaCargo() {
   Cargo *cargo = new Cargo();

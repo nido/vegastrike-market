@@ -1,9 +1,7 @@
 #ifndef H_CARGOTYPE
 #define H_CARGOTYPE
 
-#include <iostream>
 #include <string>
-#include <vector>
 
 class CargoType;
 

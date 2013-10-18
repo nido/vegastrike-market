@@ -1,6 +1,3 @@
-#include <algorithm>
-#include <vector>
-
 #include "Economy.hpp"
 
 Economy::Economy() : bases(std::vector<Base>()) {}

@@ -1,12 +1,9 @@
 #ifndef H_BASE
 #define H_BASE
 
-#include <string>
 #include <vector>
-#include <stdbool.h>
 
 #include "Factory.hpp"
-#include "Cargo.hpp"
 
 class Base;
 

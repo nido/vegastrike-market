@@ -1,12 +1,7 @@
 #ifndef H_ECONOMY
 #define H_ECONOMY
 
-#include <string>
-#include <vector>
-#include <stdbool.h>
-
 #include "Base.hpp"
-#include "Cargo.hpp"
 
 class Economy;
 

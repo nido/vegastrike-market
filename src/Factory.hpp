@@ -5,9 +5,6 @@
  * @author peter.schaefer@gmail.com
  */
 
-#include <string>
-#include <stdbool.h>
-
 #include "ProductionOption.hpp"
 
 class Factory;

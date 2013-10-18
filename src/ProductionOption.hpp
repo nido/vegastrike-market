@@ -5,8 +5,6 @@
  * @author peter.schaefer@gmail.com
  */
 
-#include <stdbool.h>
-
 #include "Cargo.hpp"
 
 class ProductionOption;

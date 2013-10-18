@@ -1,14 +1,6 @@
-#include <iostream>
 #include <sstream>
-#include <algorithm>
-#include <vector>
-#include <cstdlib>
-#include <string>
-
-#include <assert.h>
 
 #include "CargoType.hpp"
-
 
 CargoType::CargoType()
     : name("Debug"), category("Debug"), description(""), mass(1.0), volume(1.0), basePrice(1.0) {

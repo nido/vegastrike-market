@@ -14,15 +14,10 @@ public:
   /** Create an empty Cargo container */
   Cargo();
 
-  /** Cargo copy constructor
-   * @param that the Cargo to copy
-   */
-  Cargo(const Cargo& that);
-
   /** deconstructor */
   ~Cargo();
 
-  /**  Add quantity cargo of type to the cargohold
+  /**  Add quantity cargo of type to this Cargo
    * @param type reference to the CargoType to add
    * @param quantity the amount of cargo to add
    */
@@ -33,7 +28,7 @@ public:
    */
   void addCargo(const Cargo& newCargo);
 
-  /** Removes cargo from this cargohold
+  /** Removes cargo from this Cargo
    * TODO: replace return with exceptions
    * @param newCargo reference to the Cargo to remove.
    * @return true when successfull, false on failure
@@ -46,7 +41,7 @@ public:
    */
   unsigned int getCount(const CargoType& type) const;
 
-  /** check if the content of newCargo is in the cargohold
+  /** check if the content of newCargo is in this Cargo
    * @param newCargo Cargo that we wish to check for
    * @return true if newCargo is in this Cargo, false on failure
    */
