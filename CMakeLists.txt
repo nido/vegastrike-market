@@ -64,7 +64,6 @@ add_custom_target(clang-analyze /usr/lib64/clang-analyzer/scan-build/c++-analyze
 )
 
 add_custom_target(cppcheck cppcheck --suppress="duplicateExpression:*Test.?pp" --suppress="noConstructor:*Test.?pp" --enable=all --force ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/test/
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	COMMENT "Static analysis using cppcheck"
 )
 
