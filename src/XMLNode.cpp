@@ -1,4 +1,5 @@
 #include <cassert>
+#include <cstring>
 
 #include <expat.h>
 
@@ -93,6 +94,7 @@ void XMLNode::ParseXMLNodeEnd(void *xmlnode, const XML_Char *name) {
   } else {
     root->parent = last->parent;
   }
+  assert(strcmp(last->name. c_str(), name)==0);
 }
 
 void XMLNode::ParseElementCharacterData(const XML_Char *name, int size) {
