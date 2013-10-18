@@ -22,29 +22,44 @@ public:
 
   /** Create a new CargoType
     * @param name name of the cargo
+    * @param category Cargo Category (mainly for the buy interface)
+    * @param mass affects the weight of the Cargo and in extension what
+    * the Cargo is loaded in.
+    * @param volume size of one of this CargoType
+    * @param price the base proce for this kind of CargoType
   	*/
   CargoType(std::string name, std::string category, float mass, float volume,
             float price);
 
   /** Compare cargotypes.
- 	 * Returns true when both the name and category of the cargo are
- 	 * the same. Note you can have two different CargoType's and still
- 	 * have it be the same CargoType in an equastion, though,
- 	 * preferably, one would have all Cargo of the same type point to
- 	 * the same CargoType.
- 	 */
+   * @param that  a CargoType to compare it to
+   * @returns true when both the name and category of the cargo are
+   * the same. Note you can have two different CargoType's and still
+   * have it be the same CargoType in an equastion, though,
+   * preferably, one would have all Cargo of the same type point to
+   * the same CargoType.
+   */
   bool operator==(const CargoType &that) const;
 
-  /** Comparator to have a way to order (types of) cargo */
+  /** Comparator to have a way to order (types of) cargo
+   * @param that the CargoType to compare to
+   * @return true when this is smaller then that; false otherwise
+   */
   bool operator<(const CargoType &that) const;
 
-  /** get base price */
+  /** get base price
+   * @return Base price of the CargoType in credits
+   */
   float getBasePrice();
 
-  /** get the cargo name */
+  /** get the cargo name
+   * @return Name of this CargoType
+   */
   std::string getName();
 
-  /** gives an XML representation of the CargoType */
+  /** gives an XML representation of the CargoType
+   * @return XML representation of this CargoType
+   */
   std::string getXML();
 
 private:
@@ -58,13 +73,17 @@ private:
  	 * vegastrike player trade interface.
  	 */
   std::string category;
+
   /** Long description of the cargo. */
   std::string description;
+
   /** Mass of one cargo. Weight, more or less. */
   float mass;
-  /* space taken up by one unit of this type of cargo */
+
+  /** space taken up by one unit of this type of cargo */
   float volume;
-  /* Base price */
+
+  /** Base price */
   float basePrice;
 };
 #endif // H_CARGOTYPE
