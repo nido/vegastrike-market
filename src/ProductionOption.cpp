@@ -33,8 +33,6 @@ ProductionOption::ProductionOption(const Cargo& consumes, const Cargo& produces)
     : consumes(consumes), produces(produces) {}
 
 ProductionOption::~ProductionOption() {
- // delete this->consumes;
-  //delete this->produces;
 }
 
 bool ProductionOption::canProduce(const Cargo& cargoStore) const {

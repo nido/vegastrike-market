@@ -26,6 +26,11 @@ void CargoTest::testaddCargo() {
   pile1.addCargo(type1, 1);
   CPPUNIT_ASSERT(pile1.getCount(type1) == 2);
   CPPUNIT_ASSERT(pile2.getCount(type1) == 1);
+
+  // add nothing
+  pile1.addCargo(Cargo());
+  CPPUNIT_ASSERT(pile1.getCount(type1) == 2);
+  CPPUNIT_ASSERT(pile2.getCount(type1) == 1);
 }
 
 void CargoTest::testcontains() {
@@ -41,6 +46,9 @@ void CargoTest::testcontains() {
 
   CPPUNIT_ASSERT(pile3.contains(pile1) == true);
   CPPUNIT_ASSERT(pile3.contains(pile2) == false);
+
+  CPPUNIT_ASSERT(pile1.contains(Cargo()) == true);
+  CPPUNIT_ASSERT(Cargo().contains(pile1) == false);
 }
 
 void CargoTest::testdelCargo() {

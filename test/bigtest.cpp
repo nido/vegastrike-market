@@ -23,8 +23,8 @@ Cargo prepareRandomCargo() {
 
 ProductionOption prepareRandomProductionOption() {
   ProductionOption o;
-  Cargo c1 = prepareRandomCargo();
-  Cargo c2 = prepareRandomCargo();
+  const Cargo c1 = prepareRandomCargo();
+  const Cargo c2 = prepareRandomCargo();
   o = ProductionOption(c1, c2);
   return o;
 }

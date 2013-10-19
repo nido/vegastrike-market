@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 #include <cassert>
 
 #include "Factory.hpp"
@@ -33,17 +34,14 @@ void Factory::addProductionOption(const ProductionOption& option) {
   this->options.push_back(option);
   // set the first production option available as default
   if (this->options.size() == 1) {
-    this->setProductionOption(option);
+    this->setProductionOption(*this->options.begin());
   }
 }
 
 void Factory::setProductionOption(const ProductionOption& option) {
-  for (std::vector<ProductionOption>::iterator i = this->options.begin();
-       i != this->options.end(); ++i) {
-    if (*i == option) {
-      this->productionPlan = i;
-    }
-  }
+  std::vector<ProductionOption>::iterator i = std::find(this->options.begin(), this->options.end(), option);
+  //TODO: exceptions when not set
+  this->productionPlan = i;
 }
 
 bool Factory::operator==(const Factory& that) const {

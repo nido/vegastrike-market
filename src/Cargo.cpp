@@ -19,6 +19,9 @@ void Cargo::addCargo(const CargoType& type, unsigned int quantity) {
 }
 
 void Cargo::addCargo(const Cargo& newCargo) {
+  if(newCargo.cargo.empty()){
+	return;
+  }
   Cargo::const_iterator newStock;
   for (newStock = newCargo.begin(); newStock != newCargo.end(); ++newStock) {
     this->addCargo(newStock->first, newStock->second);
@@ -28,6 +31,9 @@ void Cargo::addCargo(const Cargo& newCargo) {
 bool Cargo::delCargo(const Cargo& newCargo) {
   if (this == &newCargo) {
     this->cargo.clear();
+    return true;
+  }
+  if(newCargo.cargo.empty()){
     return true;
   }
 
@@ -55,7 +61,7 @@ unsigned int Cargo::getCount(const CargoType& type) const {
 }
 
 bool Cargo::contains(const Cargo& newCargo) const {
-  if (newCargo.begin() == newCargo.end()) {
+  if (newCargo.cargo.empty()) {
     return true;
   }
   if (this->cargo.empty()) {
