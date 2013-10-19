@@ -57,7 +57,6 @@ void XMLNodeTest::testgetCargoType() {
 
   CPPUNIT_ASSERT(test != NULL);
   if (test != NULL) {
-	std::cout<<reference.getXML()<<"  "<<test->getXML()<<std::endl;
     CPPUNIT_ASSERT(reference == *test);
   }
   delete n;
