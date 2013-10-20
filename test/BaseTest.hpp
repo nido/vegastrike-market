@@ -1,3 +1,6 @@
+#include <cppunit/TestCaller.h>
+#include <cppunit/ui/text/TestRunner.h>
+
 #include "Base.hpp"
 
 class BaseTest : public CppUnit::TestFixture {

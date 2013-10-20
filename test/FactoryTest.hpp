@@ -1,3 +1,6 @@
+#include <cppunit/TestCaller.h>
+#include <cppunit/ui/text/TestRunner.h>
+
 #include "Factory.hpp"
 
 class FactoryTest : public CppUnit::TestFixture {

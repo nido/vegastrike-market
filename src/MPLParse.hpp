@@ -1,6 +1,7 @@
 #ifndef H_MPLPARSE
 #define H_MPLPARSE
 
+#include <fstream>
 #include <vector>
 
 #include "CargoType.hpp"

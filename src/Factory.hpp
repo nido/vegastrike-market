@@ -1,6 +1,8 @@
 #ifndef H_FACTORY
 #define H_FACTORY
 
+#include <vector>
+
 #include "ProductionOption.hpp"
 
 class Factory;
