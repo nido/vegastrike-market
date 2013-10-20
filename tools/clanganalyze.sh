@@ -9,6 +9,8 @@ BUILDDIR=coveragebuild
 mkdir -p "${BUILDDIR}" 
 cd "${BUILDDIR}"
 
-cmake -DCMAKE_CXX_COMPILER=/usr/lib64/clang-analyzer/scan-build/c++-analyzer ..
+cmake \
+ -DCMAKE_CXX_COMPILER=/usr/lib64/clang-analyzer/scan-build/c++-analyzer \
+ -DCMAKE_CXX_FLAGS=-std=c++11  ..
 scan-build --use-analyzer /usr/bin/clang make
 
