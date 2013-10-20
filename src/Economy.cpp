@@ -16,7 +16,7 @@ void Economy::delBase(const Base& base) {
   }
 }
 
-const std::vector<Base>& Economy::getFactories() { return this->bases; }
+const std::vector<Base>& Economy::getBases() { return this->bases; }
 
 void Economy::tick() {
   for (std::vector<Base>::iterator iter = this->bases.begin();
