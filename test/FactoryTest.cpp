@@ -14,18 +14,18 @@ void FactoryTest::setUp() {
   this->input.addCargo(intype, 1);
   this->output.addCargo(outtype, 1);
   this->cargo.addCargo(intype, 2);
-  Cargo *in1 = new Cargo();
-  Cargo *in2 = new Cargo();
-  Cargo *out1 = new Cargo();
-  Cargo *out2 = new Cargo();
+  Cargo in1 = Cargo();
+  Cargo in2 = Cargo();
+  Cargo out1 = Cargo();
+  Cargo out2 = Cargo();
 
-  in1->addCargo(intype, 1);
-  out1->addCargo(outtype, 1);
-  in2->addCargo(intype, 2);
-  out2->addCargo(outtype, 1);
+  in1.addCargo(intype, 1);
+  out1.addCargo(outtype, 1);
+  in2.addCargo(intype, 2);
+  out2.addCargo(outtype, 1);
 
-  this->po = ProductionOption(*in1, *out1);
-  this->bigpo = ProductionOption(*in2, *out2);
+  this->po = ProductionOption(in1, out1);
+  this->bigpo = ProductionOption(in2, out2);
   this->factory = Factory();
 }
 
@@ -80,6 +80,17 @@ void FactoryTest::testsetProductionOption() {
   CPPUNIT_ASSERT(this->cargo.getCount(intype) == 1);
 }
 
+void FactoryTest::testAllocation()
+{
+	Factory* f = new Factory();
+	f->addProductionOption(ProductionOption());
+	Factory g = Factory(*f);
+	delete f;
+	Cargo c = Cargo();
+	c.addCargo(CargoType(), 100);
+	g.Produce(c);
+}
+
 CppUnit::Test *FactoryTest::suite() {
   CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("FactoryTest");
   //	suiteOfTests->addTest( new CppUnit::TestCaller<FactoryTest>(
@@ -94,5 +105,12 @@ CppUnit::Test *FactoryTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<FactoryTest>(
       "testsetProductionOption", &FactoryTest::testsetProductionOption));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<FactoryTest>(
+      "testsetProductionOption", &FactoryTest::testsetProductionOption));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<FactoryTest>(
+      "testAllocation", &FactoryTest::testAllocation));
+
   return suiteOfTests;
 }

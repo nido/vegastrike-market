@@ -9,6 +9,13 @@ public:
   void testcanProduce();
   void testProduce();
   void testsetProductionOption();
+  /** Not a function or even an unit test per se, but this test
+   * exhibits an error that took a while to track down. Running this
+   * test in valgrind will result in read errors and an address
+   * sanitizer will error out upon hitting the Produce function in case
+   * the Factory's productionPlan point to the wrong place.
+   */
+  void testAllocation();
   static CppUnit::Test *suite();
 
 private:
