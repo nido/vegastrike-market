@@ -10,19 +10,19 @@ void BaseTest::setUp() {
   this->cargo.addCargo(CargoType("in2", "test", 1, 1, 1), 1);
   this->cargo.addCargo(CargoType("in1", "test", 1, 1, 1), 5);
 
-  Cargo *in1 = new Cargo();
-  in1->addCargo(CargoType("in1", "test", 1, 1, 1), 1);
-  Cargo *in2 = new Cargo();
-  in2->addCargo(CargoType("in2", "test", 1, 1, 1), 1);
-  Cargo *out1 = new Cargo();
-  out1->addCargo(CargoType("out", "test", 1, 1, 1), 1);
-  Cargo *out2 = new Cargo();
-  out2->addCargo(CargoType("out", "test", 1, 1, 1), 1);
+  Cargo in1 = Cargo();
+  in1.addCargo(CargoType("in1", "test", 1, 1, 1), 1);
+  Cargo in2 = Cargo();
+  in2.addCargo(CargoType("in2", "test", 1, 1, 1), 1);
+  Cargo out1 = Cargo();
+  out1.addCargo(CargoType("out", "test", 1, 1, 1), 1);
+  Cargo out2 = Cargo();
+  out2.addCargo(CargoType("out", "test", 1, 1, 1), 1);
 
 
 
-  ProductionOption po1 = ProductionOption(*in1, *out1);
-  ProductionOption po2 = ProductionOption(*in2, *out2);
+  ProductionOption po1 = ProductionOption(in1, out1);
+  ProductionOption po2 = ProductionOption(in2, out2);
   this->factory1 = Factory();
   this->factory1.addProductionOption(po1);
   this->factory2 = Factory();
