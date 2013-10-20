@@ -20,19 +20,34 @@ public:
 
   /** iterator access */
   typedef std::vector<Factory>::iterator iterator;
+
+  /** iterator access */
   typedef std::vector<Factory>::const_iterator const_iterator;
 
-  /** add a factory for production to the base */
+  /** add a factory for production to the base
+   * @param factory the Factory to add
+   */
   void addFactory(const Factory& factory);
+
+  /** delete a factory from the base
+   * @param factory the Factory to remove
+   */
   void delFactory(const Factory& factory);
 
-  /** Add cargo to the base */
+  /** Add cargo to the base
+   * @param cargo the Cargo to add
+   */
   void addCargo(const Cargo& cargo);
 
-  /** delete cargo from the base */
+  /** delete cargo from the base 
+   * @param cargo the Cargo to delete
+   */
   void delCargo(const Cargo& cargo);
 
-  std::vector<Factory> getFactories();
+  /** return the Factories in this Base
+   * @return vector of factories
+   */
+  const std::vector<Factory>& getFactories();
 
   const Cargo& getCargo() const;
 

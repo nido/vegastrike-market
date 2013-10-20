@@ -16,7 +16,7 @@ void Base::delFactory(const Factory& factory) {
   this->factories.erase(iter);
 }
 
-std::vector<Factory> Base::getFactories() {
+const std::vector<Factory>& Base::getFactories() {
   return this->factories;
 }
 
