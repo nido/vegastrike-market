@@ -8,6 +8,12 @@ Factory::Factory()
     : options(std::vector<ProductionOption>()),
       productionPlan(this->options.end()) {}
 
+Factory::Factory(const Factory& that) :
+  options(that.options)
+{
+  this->setProductionOption(*that.productionPlan);
+}
+
 Factory::~Factory() {
 }
 
@@ -34,7 +40,7 @@ void Factory::addProductionOption(const ProductionOption& option) {
   this->options.push_back(option);
   // set the first production option available as default
   if (this->options.size() == 1) {
-    this->setProductionOption(*this->options.begin());
+    this->setProductionOption(option);
   }
 }
 
@@ -42,6 +48,13 @@ void Factory::setProductionOption(const ProductionOption& option) {
   std::vector<ProductionOption>::iterator i = std::find(this->options.begin(), this->options.end(), option);
   //TODO: exceptions when not set
   this->productionPlan = i;
+}
+
+Factory& Factory::operator=(const Factory& that)
+{
+  this->options = that.options;
+  this->setProductionOption(*that.productionPlan);
+  return *this;
 }
 
 bool Factory::operator==(const Factory& that) const {

@@ -12,6 +12,9 @@ public:
   /** Create an empty Factory */
   Factory();
 
+  /** copy constructor */
+  Factory(const Factory& that);
+
   /** delete a factory */
   ~Factory();
 
@@ -33,6 +36,8 @@ public:
  	 * have exactly the same ProductionOptions.
  	 */
   bool operator==(const Factory &that) const;
+
+  Factory& operator=(const Factory& that);
 
 private:
   std::vector<ProductionOption> options;
