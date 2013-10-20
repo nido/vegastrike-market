@@ -20,7 +20,7 @@ public:
   void addBase(const Base& factory);
   void delBase(const Base& factory);
 
-  const std::vector<Base>& getFactories();
+  const std::vector<Base>& getBases();
   void tick();
 
 private:

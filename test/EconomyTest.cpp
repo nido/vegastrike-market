@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cppunit/TestCaller.h>
 #include <cppunit/ui/text/TestRunner.h>
 
@@ -19,27 +20,46 @@ void EconomyTest::tearDown()
 void EconomyTest::testaddBase()
 {
 	this->e->addBase(*this->b);
-	CPPUNIT_ASSERT(false);
+	CPPUNIT_ASSERT(this->e->getBases().empty() == false);
 }
 
 void EconomyTest::testdelBase()
 {
 	//TODO: Implement test
 	this->e->addBase(*this->b);
+	CPPUNIT_ASSERT(this->e->getBases().empty() == false);
 	this->e->delBase(*this->b);
-	CPPUNIT_ASSERT(false);
+	CPPUNIT_ASSERT(this->e->getBases().empty());
 }
 
-void EconomyTest::testgetFactories()
+void EconomyTest::testgetBases()
 {
-	//TODO: Implement test
-	CPPUNIT_ASSERT(false);
+	this->e->addBase(*this->b);
+	CPPUNIT_ASSERT(std::find(this->e->getBases().begin(), this->e->getBases().end(), *this->b) != this->e->getBases().end());
 }
 
 void EconomyTest::testtick()
 {
-	//TODO: Implement test
-	CPPUNIT_ASSERT(false);
+	// ready an entire economy
+	Cargo c = Cargo();
+	c.addCargo(CargoType(), 1);
+
+	Cargo c2 = Cargo();
+	c2.addCargo(CargoType("test2", "debug", 1,2,3), 2);
+
+	ProductionOption o = ProductionOption(c, c2);
+	Factory f=Factory();
+	f.addProductionOption(o);
+	Base b = Base();
+	b.addFactory(f);
+
+	b.addCargo(c);
+
+	e->addBase(b);
+
+	CPPUNIT_ASSERT(e->getBases().begin()->getCargo().getCount(CargoType()) == 1);
+	e->tick();
+	CPPUNIT_ASSERT(e->getBases().begin()->getCargo().getCount(CargoType()) == 0);
 }
 
 
@@ -58,7 +78,7 @@ CppUnit::Test* EconomyTest::suite()
 			"testdelBase", &EconomyTest::testdelBase));
 
 	suiteOfTests->addTest( new CppUnit::TestCaller<EconomyTest>(
-			"testgetFactories", &EconomyTest::testgetFactories));
+			"testgetBases", &EconomyTest::testgetBases));
 
 	suiteOfTests->addTest( new CppUnit::TestCaller<EconomyTest>(
 			"testtick", &EconomyTest::testtick));

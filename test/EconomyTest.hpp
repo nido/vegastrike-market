@@ -7,7 +7,7 @@ public:
 
 	void testaddBase();
 	void testdelBase();
-	void testgetFactories();
+	void testgetBases();
 	void testtick();
 	static CppUnit::Test* suite();
 private:
