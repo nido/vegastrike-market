@@ -49,14 +49,26 @@ public:
    */
   const std::vector<Factory>& getFactories();
 
+  /** return a reference to this Base cargo
+   * @return this Base Cargo
+   */
   const Cargo& getCargo() const;
 
+  /** Process all activities on this base
+   */
   void Process();
 
+  /** Compare this base to another
+   * @param that the Base to compare to
+   * @return true when equal, false otherwise
+   */
   bool operator==(const Base& that) const;
 
 private:
+  /** The Factories on this Base */
   std::vector<Factory> factories;
+
+  /** The Cargo on this Base */
   Cargo cargoStore;
 };
 
