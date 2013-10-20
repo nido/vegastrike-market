@@ -59,7 +59,7 @@ target_link_libraries(cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES}
 
 add_test(cppunittest cppunittest)
 
-add_custom_target(clang-analyze /usr/lib64/clang-analyzer/scan-build/c++-analyzer -c -I ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[ch]pp ${CMAKE_CURRENT_SOURCE_DIR}/test/*.[ch]pp
+add_custom_target(clang-analyze /usr/lib64/clang-analyzer/scan-build/c++-analyzer -c -std=c++11 -I ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[ch]pp ${CMAKE_CURRENT_SOURCE_DIR}/test/*.[ch]pp
 	COMMENT "Static analysis using clang-analyze"
 )
 
