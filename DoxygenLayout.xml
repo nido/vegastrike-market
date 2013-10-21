@@ -21,10 +21,10 @@
     </tab>
     <tab type="examples" visible="yes" title="" intro=""/>  
     <tab type="usergroup" visible="yes" title="External">
-      <tab type="user" url="/waterfall" title="Buildbot"/>
-      <tab type="user" url="/coverage" title="Coverage"/>
-      <tab type="user" url="/bigtest-gprog.png" title="gprof callgraph"/>
-      <tab type="user" url="/bigtest-callgrind.png" title="callgrind callgraph"/>
+      <tab type="user" url="../waterfall" title="Buildbot"/>
+      <tab type="user" url="../coverage" title="Coverage"/>
+      <tab type="user" url="../bigtest-gprog.png" title="gprof callgraph"/>
+      <tab type="user" url="../bigtest-callgrind.png" title="callgrind callgraph"/>
     </tab>
   </navindex>
 
