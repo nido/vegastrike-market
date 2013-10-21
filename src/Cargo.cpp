@@ -1,4 +1,5 @@
 #include <cassert>
+#include <sstream>
 
 #include "Cargo.hpp"
 
@@ -81,6 +82,18 @@ bool Cargo::contains(const Cargo& newCargo) const {
 
 bool Cargo::operator==(const Cargo &that) const {
   return this->cargo == that.cargo;
+}
+
+std::string Cargo::getXML() const {
+	std::stringstream xmlstream;
+	xmlstream<<"<Cargo>";
+
+	for(Cargo::const_iterator i = this->cargo.begin();
+		i != this->cargo.end(); i++){
+		xmlstream<<"<pair>"<<i->first.getXML()<<"<value>"<<i->second<<"</value></pair>";
+	}
+	xmlstream<<"</Cargo>";
+	return xmlstream.str();
 }
 
 Cargo::const_iterator Cargo::begin() const { return this->cargo.begin(); }

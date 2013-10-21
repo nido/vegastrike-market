@@ -53,6 +53,9 @@ public:
    */
   bool operator==(const Cargo& that) const;
 
+  /** XML representation of this Cargo
+   * @return XML compliant string representing this Cargo */
+  std::string getXML() const; 
 private:
   /** Iterator datastructure iterator */
   typedef std::map<CargoType, unsigned int>::iterator iterator;

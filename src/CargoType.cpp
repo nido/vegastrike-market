@@ -19,7 +19,7 @@ CargoType::CargoType(std::string name, std::string category, float mass,
 //TODO: fix description
 }
 
-std::string CargoType::getName() { return this->name; }
+std::string CargoType::getName() const { return this->name; }
 
 bool CargoType::operator==(const CargoType &that) const {
   return ((this->name.compare(that.name) == 0) &&
@@ -31,13 +31,13 @@ bool CargoType::operator<(const CargoType &that) const {
                                             : (this->category < that.category));
 }
 
-float CargoType::getBasePrice() { return this->basePrice; }
+float CargoType::getBasePrice() const { return this->basePrice; }
 
-std::string CargoType::getXML() {
+std::string CargoType::getXML() const {
   std::stringstream xmlstream;
   xmlstream << "<CargoType name=\"" << this->name << "\" category=\""
             << this->category << "\" mass=\"" << this->mass << "\" volume=\""
-            << this->volume << "\" price=\"" << this->basePrice << "\">";
+            << this->volume << "\" price=\"" << this->basePrice << "\" />";
 
   return xmlstream.str();
 }

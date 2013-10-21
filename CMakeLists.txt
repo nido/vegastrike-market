@@ -53,6 +53,7 @@ add_executable(cppunittest
 	test/XMLNodeTest
 	test/MPLParseTest
 	test/EconomyTest
+	test/xmlTest
 	)
 
 target_link_libraries(cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})

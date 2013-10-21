@@ -1,7 +1,12 @@
 #include <string.h>
 
+#include <cppunit/TestFixture.h>
 #include <cppunit/TestCaller.h>
+#include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
+#include <cppunit/TestSuite.h>
+#include <cppunit/ui/text/TestRunner.h>
+
 
 #include "BaseTest.hpp"
 #include "CargoTest.hpp"
@@ -11,6 +16,7 @@
 #include "MPLParseTest.hpp"
 #include "ProductionOptionTest.hpp"
 #include "XMLNodeTest.hpp"
+#include "xmlTest.hpp"
 
 int main(int argc, char* argv[]){
 	CppUnit::TestSuite suite;
@@ -63,6 +69,12 @@ int main(int argc, char* argv[]){
 	}
 	if (argc == 1 || strcmp(argv[1], "XMLNode") == 0){
 		 runner.addTest( XMLNodeTest::suite());
+	}
+	if (argc != 1 && strcmp(argv[1], "xml") == 0 ){
+		std::cout<<argv[1]<<": ";
+	}
+	if (argc == 1 || strcmp(argv[1], "xml") == 0){
+		 runner.addTest( xmlTest::suite());
 	}
 	runner.run();
 	return runner.result().testFailuresTotal();
