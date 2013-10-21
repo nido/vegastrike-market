@@ -23,12 +23,13 @@ public:
   ~Factory();
 
   /** (if possible) Do producuce 
-   * @param cargoStore the Cargo to take cargo from and put cargo in
+   * @param cargoStore Cargo to take cargo from and put cargo in
    */
   void Produce(Cargo& cargoStore) const;
 
   /** Check if production is possible
-   * @param cargoStore the Cargo from which to make this assessment
+   * @param cargoStore Cargo from which to make this assessment
+   * @return true when Production is possible, false otherwise.
    */
   bool canProduce(const Cargo& cargoStore) const;
 
@@ -45,13 +46,13 @@ public:
 
   /** Compare factories to eachother. Factories are equal if the
    * have exactly the same ProductionOptions.
-   * @param that the Factory to compare to
+   * @param that Factory to compare to
    * @return true when the factories are equal, false otherwise
    */
   bool operator==(const Factory &that) const;
 
   /** Assign a Factory to this one
-   * @param the Factory to copy
+   * @param that Factory to copy
    * @return pointer to this factory
    */
   Factory& operator=(const Factory& that);
