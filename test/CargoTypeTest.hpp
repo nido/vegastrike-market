@@ -1,3 +1,6 @@
+#include <cppunit/TestCaller.h>
+#include <cppunit/ui/text/TestRunner.h>
+
 #include "CargoType.hpp"
 
 class CargoTypeTest : public CppUnit::TestFixture {

@@ -1,3 +1,6 @@
+#include <cppunit/TestCaller.h>
+#include <cppunit/ui/text/TestRunner.h>
+
 #include "ProductionOption.hpp"
 
 class ProductionOptionTest : public CppUnit::TestFixture {
