@@ -89,7 +89,7 @@ std::string Cargo::getXML() const {
 	xmlstream<<"<Cargo>";
 
 	for(Cargo::const_iterator i = this->cargo.begin();
-		i != this->cargo.end(); i++){
+		i != this->cargo.end(); ++i){
 		xmlstream<<"<pair>"<<i->first.getXML()<<"<value>"<<i->second<<"</value></pair>";
 	}
 	xmlstream<<"</Cargo>";
