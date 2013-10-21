@@ -48,17 +48,17 @@ public:
   /** get base price
    * @return Base price of the CargoType in credits
    */
-  float getBasePrice();
+  float getBasePrice() const;
 
   /** get the cargo name
    * @return Name of this CargoType
    */
-  std::string getName();
+  std::string getName() const ;
 
   /** gives an XML representation of the CargoType
    * @return XML representation of this CargoType
    */
-  std::string getXML();
+  std::string getXML() const;
 
 private:
   /** Name of the cargo, for example "Iron Ore" */

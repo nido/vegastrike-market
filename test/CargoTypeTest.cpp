@@ -48,9 +48,9 @@ void CargoTypeTest::testgetName() {
 }
 
 void CargoTypeTest::testgetXML() {
-	CPPUNIT_ASSERT(one.getXML().compare("<CargoType name=\"1\" category=\"1\" mass=\"0\" volume=\"0\" price=\"0\">")==0);
-	CPPUNIT_ASSERT(two.getXML().compare("<CargoType name=\"2\" category=\"1\" mass=\"0\" volume=\"0\" price=\"0\">")==0);
-	CPPUNIT_ASSERT(three.getXML().compare("<CargoType name=\"1\" category=\"2\" mass=\"0\" volume=\"0\" price=\"0\">")==0);
+	CPPUNIT_ASSERT(one.getXML().compare("<CargoType name=\"1\" category=\"1\" mass=\"0\" volume=\"0\" price=\"0\" />")==0);
+	CPPUNIT_ASSERT(two.getXML().compare("<CargoType name=\"2\" category=\"1\" mass=\"0\" volume=\"0\" price=\"0\" />")==0);
+	CPPUNIT_ASSERT(three.getXML().compare("<CargoType name=\"1\" category=\"2\" mass=\"0\" volume=\"0\" price=\"0\" />")==0);
 }
 
 CppUnit::Test *CargoTypeTest::suite() {
