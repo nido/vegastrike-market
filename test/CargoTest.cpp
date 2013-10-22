@@ -95,6 +95,16 @@ void CargoTest::testgetCount() {
 
 }
 
+void CargoTest::testgetXML()
+{
+	Cargo c = Cargo();
+	c.addCargo(CargoType("name", "category", 1, 2, 3), 10);
+	c.addCargo(CargoType("otherstuff", "category", 1, 2, 3), 12);
+	std::string xml = c.getXML();
+	CPPUNIT_ASSERT(xml.compare("<Cargo><entry><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />12</entry></Cargo>") == 0);
+}
+
+
 CppUnit::Test *CargoTest::suite() {
   CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite("CargoTest");
 
@@ -112,6 +122,9 @@ CppUnit::Test *CargoTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<CargoTest>(
       "testgetCount", &CargoTest::testgetCount));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<CargoTest>(
+      "testgetXML", &CargoTest::testgetXML));
 
   return suiteOfTests;
 }

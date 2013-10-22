@@ -13,6 +13,7 @@ public:
   void testdelCargo();
   void testoperatorEquals();
   void testgetCount();
+  void testgetXML();
   static CppUnit::Test *suite();
 
 private:
