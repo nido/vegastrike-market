@@ -29,17 +29,17 @@ make clean
 make bigtest
 
 rm ${compiler}turnstiming
-runtests "`seq 0 1 100`" 10 100 ${compiler}turns
+runtests "`seq 0 1 100`" 100 100 ${compiler}turns
 echo "set terminal ${imageformat}; set output '../turns-runtime-${compiler}.${imageformat}'; set xlabel 'turns'; set ylabel 'seconds'; plot '${compiler}turnstiming'  using 1:4 with lines title 'runtime', '' using 1:9 with lines title 'usertime';" | gnuplot
 echo "set terminal ${imageformat}; set output '../turns-memory-${compiler}.${imageformat}'; set xlabel 'turns'; set ylabel 'seconds'; plot '${compiler}turnstiming' using 1:5 with lines title 'resident memory', '' using 1:10 with lines title 'soft pagefaults', '' using 1:12 with lines title 'hard pagefaults';" | gnuplot
 
 rm ${compiler}basesizetiming
-runtests 10 "`seq 1 1 100`" 100 ${compiler}basesize
+runtests 100 "`seq 1 1 100`" 100 ${compiler}basesize
 echo "set terminal ${imageformat}; set output '../basesize-runtime-${compiler}.${imageformat}'; set xlabel 'basesize'; set ylabel 'seconds'; plot '${compiler}basesizetiming'  using 2:4 with lines title 'runtime', '' using 2:9 with lines title 'usertime';" | gnuplot
 echo "set terminal ${imageformat}; set output '../basesize-memory-${compiler}.${imageformat}'; set xlabel 'basesize'; set ylabel 'seconds'; plot '${compiler}basesizetiming' using 2:5 with lines title 'resident memory', '' using 2:10 with lines title 'soft pagefaults', '' using 2:12 with lines title 'hard pagefaults';" | gnuplot
 
 rm ${compiler}economysizetiming
-runtests 10 100 "`seq 1 1 100`" ${compiler}economysize
+runtests 100 100 "`seq 1 1 100`" ${compiler}economysize
 echo "set terminal ${imageformat}; set output '../economysize-runtime-${compiler}.${imageformat}'; set xlabel 'economysize'; set ylabel 'seconds'; plot '${compiler}economysizetiming'  using 3:4 with lines title 'runtime', '' using 3:9 with lines title 'usertime';" | gnuplot
 echo "set terminal ${imageformat}; set output '../economysize-memory-${compiler}.${imageformat}'; set xlabel 'economysize'; set ylabel 'seconds'; plot '${compiler}economysizetiming' using 3:5 with lines title 'resident memory', '' using 3:10 with lines title 'soft pagefaults', '' using 3:12 with lines title 'hard pagefaults';" | gnuplot
 
