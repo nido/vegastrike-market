@@ -49,6 +49,10 @@ public:
    */
   CargoType* getCargoType();
 
+  /** Parse this XMLNode to a Cargo
+   * @return a Cargo* built from this XMLNode (assuming this is a valid
+   * Cargo node), or NULL on failure.
+   */
   Cargo* getCargo();
 
 private:
