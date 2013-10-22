@@ -136,7 +136,31 @@ std::string XMLNode::buildXMLString() {
   return XML;
 }
 
-CargoType *XMLNode::getCargoType() {
+Cargo* XMLNode::getCargo()
+{
+	if (this->name.compare("Cargo") != 0) {
+		return NULL;
+	}
+	Cargo* c = new Cargo();
+	//<Cargo><entry><CargoType name=\"name\" category=\"category\"
+	//mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType
+	//name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\"
+	//price=\"3\" />12</entry></Cargo>
+	
+	for (std::vector<XMLNode *>::iterator child = this->children.begin();
+		child != this->children.end(); ++child)	{
+		assert((*child)->children.empty() == false);
+		CargoType* t = (*(*child)->children.begin())->getCargoType();
+		assert(t != NULL);
+
+		int i = atoi((*child)->characterdata.c_str());
+		c->addCargo(*t, i);
+		delete t;
+	}
+	return c;
+}
+
+CargoType* XMLNode::getCargoType() {
   if (this->name.compare("CargoType") != 0) {
     return NULL;
   }

@@ -47,7 +47,9 @@ public:
    * @return a CargoType* built from this XMLNode (assuming this is a
    * valid CargoType node), or NULL on failure.
    */
-  CargoType *getCargoType();
+  CargoType* getCargoType();
+
+  Cargo* getCargo();
 
 private:
   /** Expat function computing the current node and calling its

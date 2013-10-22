@@ -63,6 +63,21 @@ void XMLNodeTest::testgetCargoType() {
   delete test;
 }
 
+void XMLNodeTest::testgetCargo()
+{
+	std::string s = "<Cargo><entry><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />12</entry></Cargo>";
+	XMLNode* n = XMLNode::ParseString(s);
+	Cargo* c = n->getCargo();
+	delete n;
+	CPPUNIT_ASSERT(c != NULL);
+	if (c != NULL){
+		CargoType t1 = CargoType("name", "category", 1, 2, 3);
+		CargoType t2 = CargoType("otherstuff", "category", 1, 2, 3);
+		CPPUNIT_ASSERT(c->getCount(t1) == 10);
+		CPPUNIT_ASSERT(c->getCount(t2) == 12);
+		delete c;
+	};	
+}
 void XMLNodeTest::testCopyConstructor()
 {
 	XMLNode* n	= XMLNode::ParseString("<CargoType name=\"cargo\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />");
@@ -100,6 +115,9 @@ CppUnit::Test *XMLNodeTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
       "testgetCargoType", &XMLNodeTest::testgetCargoType));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
+      "testgetCargo", &XMLNodeTest::testgetCargo));
 
   suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
       "testCopyConstructor", &XMLNodeTest::testCopyConstructor));
