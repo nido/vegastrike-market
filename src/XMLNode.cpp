@@ -1,5 +1,6 @@
 #include <cassert>
 #include <cstring>
+#include <iostream>
 
 #include "XMLNode.hpp"
 
@@ -10,7 +11,8 @@ XMLNode::XMLNode()
 XMLNode::XMLNode(const XMLNode& that) :
   parent(that.parent),
   children(std::vector<XMLNode*>()),
-  attributes(std::map<std::string, std::string>(that.attributes))
+  attributes(std::map<std::string, std::string>(that.attributes)),
+  name(that.name)
 {
 	for(std::vector<XMLNode*>::const_iterator i = that.children.begin();
 		i < that.children.end();

@@ -17,6 +17,7 @@ public:
   void testParseXMLNodeBegin();
   void testParseXMLNodeEnd();
   void testgetCargoType();
+  void testCopyConstructor();
   static CppUnit::Test *suite();
 
 private:

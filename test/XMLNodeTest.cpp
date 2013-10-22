@@ -48,7 +48,7 @@ void XMLNodeTest::testParseXMLNodeEnd() { //TODO: Implement test
 }
 
 void XMLNodeTest::testgetCargoType() {
-  XMLNode *n =
+  XMLNode* n =
       XMLNode::ParseString("<CargoType name=\"cargo\" category=\"category\" "
                            "mass=\"1\" volume=\"2\" price=\"3\" />");
   CargoType *test = n->getCargoType();
@@ -61,6 +61,20 @@ void XMLNodeTest::testgetCargoType() {
   }
   delete n;
   delete test;
+}
+
+void XMLNodeTest::testCopyConstructor()
+{
+	XMLNode* n	= XMLNode::ParseString("<CargoType name=\"cargo\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />");
+	XMLNode m = *n;
+	delete n;
+	CargoType* c = m.getCargoType();
+	CPPUNIT_ASSERT(c != NULL);
+	if (c != NULL){
+		CPPUNIT_ASSERT(c->getBasePrice() == 3);
+		CPPUNIT_ASSERT(c->getName().compare("cargo") == 0);
+	}
+	delete c;
 }
 
 CppUnit::Test *XMLNodeTest::suite() {
@@ -86,6 +100,9 @@ CppUnit::Test *XMLNodeTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
       "testgetCargoType", &XMLNodeTest::testgetCargoType));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
+      "testCopyConstructor", &XMLNodeTest::testCopyConstructor));
 
   return suiteOfTests;
 }
