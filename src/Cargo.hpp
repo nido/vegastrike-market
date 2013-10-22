@@ -64,22 +64,6 @@ private:
   typedef std::map<CargoType, unsigned int>::const_iterator
       const_iterator;
 
-  /** const Begin of the Cargo datastructure
-   * @return const iterator to the begin of cargo */
-  const_iterator begin() const;
-
-  /** const End of the Cargo datastructure
-   * @return const iterator to the end of cargo */
-  const_iterator end() const;
-
-  /** Begin of the Cargo datastructure
-   * @return iterator to the begin of cargo */
-  iterator begin();
-
-  /** End of the Cargo datastructure
-   * @return iterator to the end of cargo */
-  iterator end();
-
   /** The datastructure holding the actual cargo itself. */
   std::map<CargoType, unsigned int> cargo;
 };
