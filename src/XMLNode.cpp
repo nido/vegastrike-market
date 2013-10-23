@@ -107,7 +107,7 @@ void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char *name,
   last->ParseElementCharacterData(name, size);
 }
 
-std::string XMLNode::buildXMLString() {
+std::string XMLNode::getXML() {
   // TODO: Properly warn for shoddy implementation
 
   std::string XML = "<" + this->name;
@@ -125,7 +125,7 @@ std::string XMLNode::buildXMLString() {
   }
   for (std::vector<XMLNode *>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
-    XML += (*child)->buildXMLString();
+    XML += (*child)->getXML();
   }
   if (this->characterdata.empty() != true) {
     XML += this->characterdata;

@@ -37,7 +37,7 @@ void XMLNodeTest::testParseString() { //TODO: Implement test
   std::string inputstring = "<a><b vega=\"strike\" /><c><b /></c><text "
                             "hilight=\"true\">Hi</text>atext</a>";
   XMLNode* n = XMLNode::ParseString(inputstring);
-  CPPUNIT_ASSERT(inputstring.compare(n->buildXMLString()) == 0);
+  CPPUNIT_ASSERT(inputstring.compare(n->getXML()) == 0);
   delete n;
 }
 

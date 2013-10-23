@@ -32,7 +32,7 @@ public:
   /** Parse an XML string to populate this root node
    * @return XML string representing this XMLNode
    */
-  std::string buildXMLString();
+  std::string getXML();
 
   /** Delete an XMLNode (and it's children) */
   ~XMLNode();
