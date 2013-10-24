@@ -105,4 +105,5 @@ int main(int argc, char *argv[]) {
     economysize = atoi(argv[3]);
     std::cout << "Finished " << economysize << " bases." << std::endl;
   }
+  return 0;
 }

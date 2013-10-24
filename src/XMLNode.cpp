@@ -12,8 +12,8 @@ XMLNode::XMLNode()
 XMLNode::XMLNode(const XMLNode& that) :
   parent(that.parent),
   children(std::vector<XMLNode*>()),
-  attributes(std::map<std::string, std::string>(that.attributes)),
-  name(that.name)
+  name(that.name),
+  attributes(std::map<std::string, std::string>(that.attributes))
 {
 	for(std::vector<XMLNode*>::const_iterator i = that.children.begin();
 		i < that.children.end();
@@ -38,8 +38,8 @@ XMLNode::~XMLNode() {
 
 XMLNode::XMLNode(CargoType& c) : parent(NULL),
 	children(std::vector<XMLNode *>()),
-	attributes(std::map<std::string, std::string>()),
-	name("CargoType")
+	name("CargoType"),
+	attributes(std::map<std::string, std::string>())
 {
 	std::stringstream s;
 	this->attributes["name"] = c.getName();
