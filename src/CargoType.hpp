@@ -55,6 +55,21 @@ public:
    */
   std::string getName() const ;
 
+  /** Get the Category of this CargoType
+   * @return string reference to the Category
+   */
+  const std::string& getCategory() const;
+
+  /** get the mass of this CargoType
+   * @return mass of this CargoType
+   */
+  float getMass() const;
+
+  /** Volume occupied by this CargoType
+   * @return volume of this object
+   */
+  float getVolume() const;
+
   /** gives an XML representation of the CargoType
    * @return XML representation of this CargoType
    */

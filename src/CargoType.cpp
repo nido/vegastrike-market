@@ -31,6 +31,18 @@ bool CargoType::operator<(const CargoType &that) const {
                                             : (this->category < that.category));
 }
 
+const std::string& CargoType::getCategory() const {
+	return this->category;
+}
+
+float CargoType::getMass() const {
+	return this->mass;
+}
+
+float CargoType::getVolume() const {
+	return this->volume;
+}
+
 float CargoType::getBasePrice() const { return this->basePrice; }
 
 std::string CargoType::getXML() const {

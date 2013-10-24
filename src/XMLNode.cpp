@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 #include "XMLNode.hpp"
 
@@ -33,6 +34,29 @@ XMLNode::~XMLNode() {
 	){
 		delete *i;
 	}
+}
+
+XMLNode::XMLNode(CargoType& c) : parent(NULL),
+	children(std::vector<XMLNode *>()),
+	attributes(std::map<std::string, std::string>()),
+	name("CargoType")
+{
+	std::stringstream s;
+	this->attributes["name"] = c.getName();
+	this->attributes["category"] = c.getCategory();
+
+	s<<c.getMass();
+	this->attributes["mass"] = s.str();
+
+	s.str("");
+	s.clear();
+	s<<c.getVolume();
+	this->attributes["value"] = s.str();
+
+	s.str("");
+	s.clear();
+	s<<c.getBasePrice();
+	this->attributes["price"] = s.str();
 }
 
 void XMLNode::ParseElementBegin(const XML_Char *name, const XML_Char **atts) {

@@ -11,6 +11,7 @@ public:
   void setUp();
   void tearDown();
 
+  void testConstructors();
   void testParseElementBegin();
   void testParseElementEnd();
   void testParseString();

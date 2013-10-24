@@ -27,6 +27,13 @@ void XMLNodeTest::tearDown() {
   delete root;
 }
 
+void XMLNodeTest::testConstructors()
+{
+	CargoType t = CargoType("name", "category", 1, 2, 3);
+	XMLNode n = XMLNode(t);
+	CPPUNIT_ASSERT(*n.getCargoType() == t);
+}
+
 void XMLNodeTest::testParseElementBegin() { //TODO: Implement test
 }
 
@@ -121,6 +128,9 @@ CppUnit::Test *XMLNodeTest::suite() {
 
   suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
       "testCopyConstructor", &XMLNodeTest::testCopyConstructor));
+
+  suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
+      "testConstructors", &XMLNodeTest::testConstructors));
 
   return suiteOfTests;
 }

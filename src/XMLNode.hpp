@@ -29,6 +29,11 @@ public:
    */
   XMLNode(XMLNode *parent);
 
+  /** Create an XMLNode out of a CargoType
+   * @param c the CargoType to create the XMLNode from
+   */
+  XMLNode(CargoType& c);	
+
   /** Parse an XML string to populate this root node
    * @return XML string representing this XMLNode
    */
