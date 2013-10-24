@@ -31,7 +31,9 @@ void XMLNodeTest::testConstructors()
 {
 	CargoType t = CargoType("name", "category", 1, 2, 3);
 	XMLNode n = XMLNode(t);
-	CPPUNIT_ASSERT(*n.getCargoType() == t);
+	CargoType* xmltype = n.getCargoType();
+	CPPUNIT_ASSERT(*xmltype == t);
+	delete xmltype;
 }
 
 void XMLNodeTest::testParseElementBegin() { //TODO: Implement test
