@@ -53,7 +53,11 @@ void Factory::setProductionOption(const ProductionOption& option) {
 Factory& Factory::operator=(const Factory& that)
 {
   this->options = that.options;
-  this->setProductionOption(*that.productionPlan);
+  if (that.productionPlan == that.options.end()){
+    this->productionPlan = this->options.end();
+  } else {
+    this->setProductionOption(*that.productionPlan);
+  }
   return *this;
 }
 
