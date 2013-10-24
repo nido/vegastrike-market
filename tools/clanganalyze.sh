@@ -11,6 +11,6 @@ cd "${BUILDDIR}"
 
 cmake \
  -DCMAKE_CXX_COMPILER=/usr/lib64/clang-analyzer/scan-build/c++-analyzer \
- -DCMAKE_CXX_FLAGS=-std=c++11  ..
+ -DCMAKE_CXX_FLAGS="-std=c++11 -Wall -Wextra -Wpedantic -pedantic" ..
 scan-build --use-analyzer /usr/bin/clang make
 
