@@ -21,7 +21,11 @@ void MPLParseTest::testParse() {
   // default should get system mpl
   MPLParse p = MPLParse();
   std::vector<CargoType> cargo = p.Parse();
-  CPPUNIT_ASSERT(!cargo.empty());
+  CPPUNIT_ASSERT(cargo.empty() == false);
+  MPLParse p2 = MPLParse(getdatadir() + "/master_part_list.csv");
+  std::vector<CargoType> cargo2 = p2.Parse();
+  CPPUNIT_ASSERT(cargo2.empty() == false);
+  CPPUNIT_ASSERT(cargo == cargo2);
 }
 
 void MPLParseTest::testParseFile() {

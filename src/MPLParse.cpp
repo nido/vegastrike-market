@@ -19,7 +19,8 @@ file(this->filename.c_str())
   assert(file.is_open());
 }
 
-MPLParse::MPLParse(std::string fileName) : filename(fileName),
+MPLParse::MPLParse(std::string fileName) :
+filename(fileName),
 file(this->filename.c_str())
 {
   assert(file.is_open());
