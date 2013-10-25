@@ -31,25 +31,49 @@ make bigtest
 rm ${compiler}turnstiming
 runtests "`seq 0 1 100`" 100 100 ${compiler}turns
 echo "set terminal ${imageformat}; set output '../turns-runtime-${compiler}.${imageformat}'; set xlabel 'turns'; set ylabel 'seconds'; plot '${compiler}turnstiming'  using 1:4 with lines title 'runtime', '' using 1:9 with lines title 'usertime';" | gnuplot
-echo "set terminal ${imageformat}; set output '../turns-memory-${compiler}.${imageformat}'; set xlabel 'turns'; set ylabel 'seconds'; plot '${compiler}turnstiming' using 1:5 with lines title 'resident memory', '' using 1:10 with lines title 'soft pagefaults', '' using 1:12 with lines title 'hard pagefaults';" | gnuplot
+echo "set terminal ${imageformat}; set output '../turns-memory-${compiler}.${imageformat}'; set xlabel 'turns'; set ylabel 'bytes'; plot '${compiler}turnstiming' using 1:5 with lines title 'resident memory', '' using 1:10 with lines title 'soft pagefaults', '' using 1:12 with lines title 'hard pagefaults';" | gnuplot
 
 rm ${compiler}basesizetiming
 runtests 100 "`seq 1 1 100`" 100 ${compiler}basesize
 echo "set terminal ${imageformat}; set output '../basesize-runtime-${compiler}.${imageformat}'; set xlabel 'basesize'; set ylabel 'seconds'; plot '${compiler}basesizetiming'  using 2:4 with lines title 'runtime', '' using 2:9 with lines title 'usertime';" | gnuplot
-echo "set terminal ${imageformat}; set output '../basesize-memory-${compiler}.${imageformat}'; set xlabel 'basesize'; set ylabel 'seconds'; plot '${compiler}basesizetiming' using 2:5 with lines title 'resident memory', '' using 2:10 with lines title 'soft pagefaults', '' using 2:12 with lines title 'hard pagefaults';" | gnuplot
+echo "set terminal ${imageformat}; set output '../basesize-memory-${compiler}.${imageformat}'; set xlabel 'basesize'; set ylabel 'bytes'; plot '${compiler}basesizetiming' using 2:5 with lines title 'resident memory', '' using 2:10 with lines title 'soft pagefaults', '' using 2:12 with lines title 'hard pagefaults';" | gnuplot
 
 rm ${compiler}economysizetiming
 runtests 100 100 "`seq 1 1 100`" ${compiler}economysize
 echo "set terminal ${imageformat}; set output '../economysize-runtime-${compiler}.${imageformat}'; set xlabel 'economysize'; set ylabel 'seconds'; plot '${compiler}economysizetiming'  using 3:4 with lines title 'runtime', '' using 3:9 with lines title 'usertime';" | gnuplot
-echo "set terminal ${imageformat}; set output '../economysize-memory-${compiler}.${imageformat}'; set xlabel 'economysize'; set ylabel 'seconds'; plot '${compiler}economysizetiming' using 3:5 with lines title 'resident memory', '' using 3:10 with lines title 'soft pagefaults', '' using 3:12 with lines title 'hard pagefaults';" | gnuplot
+echo "set terminal ${imageformat}; set output '../economysize-memory-${compiler}.${imageformat}'; set xlabel 'economysize'; set ylabel 'bytess'; plot '${compiler}economysizetiming' using 3:5 with lines title 'resident memory', '' using 3:10 with lines title 'soft pagefaults', '' using 3:12 with lines title 'hard pagefaults';" | gnuplot
 
-#for x in `seq 0 10 100`; do
-#for y in `seq 0 100 1000`; do
-#echo bigtest 10 $x $y
-#/usr/bin/time -a -o ${compiler}timing -f "${x}	${y}	%e	%M	%K	%D	%F	%U	%R	%W" ./bigtest 10 ${x} ${y} >/dev/null
-#done
-#done
-#echo "set terminal ${imageformat}; set output '../time-${compiler}.${imageformat}'; set dgrid3d; splot '${compiler}timing' using 1:2:3 with lines" | gnuplot
-#10 echo "set terminal ${imageformat}; set output '../memory-${compiler}.${imageformat}'; set dgrid3d; splot '${compiler}timing' using 1:2:4 with lines" | gnuplot
+DATAFILE="massif.results"
+PLOTDATA="massif.gnuplot"
+
+function gnuplotcompatibilitize(){
+	grep -v "^[ n#]" "${1}" | while read line;
+	do
+		value=$(echo "${line}" | grep -Go "[0-9]\+$")
+		if echo "${line}" | grep -q "^snapshot=" 
+		then
+			test -n "${dataline}" && echo "${dataline}"
+			dataline="${value}"
+		else
+			dataline="${dataline}	${value}"
+		fi
+	done
+}
+
+echo "valgrind bigtest 100 100 100"
+valgrind \
+	--tool=massif --stacks=yes --depth=1 \
+	--threshold=0 \
+	--peak-inaccuracy=0 \
+	--detailed-freq=1000000 \
+	--massif-out-file="${DATAFILE}" \
+	./bigtest 10 10 10
+
+echo "making plotdata"
+gnuplotcompatibilitize "${DATAFILE}" > "${PLOTDATA}"
+
+echo "plotting"
+echo "set terminal ${imageformat}; set output '../massif-${compiler}.${imageformat}'; set xlabel 'time'; set ylabel 'bytes'; plot '${PLOTDATA}' using 2:3 with lines title 'heap size', '' using 2:4 with lines title 'heap extra', '' using 2:5 with lines title 'stacks size';" | gnuplot 
+echo "done"
 
 done
