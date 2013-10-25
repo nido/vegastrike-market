@@ -26,6 +26,10 @@ void MPLParseTest::testParse() {
   std::vector<CargoType> cargo2 = p2.Parse();
   CPPUNIT_ASSERT(cargo2.empty() == false);
   CPPUNIT_ASSERT(cargo == cargo2);
+  MPLParse p3 = p2;
+  std::vector<CargoType> cargo3 = p3.Parse();
+  CPPUNIT_ASSERT(cargo3.empty() == false);
+  CPPUNIT_ASSERT(cargo == cargo3);
 }
 
 void MPLParseTest::testParseFile() {
