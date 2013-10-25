@@ -6,7 +6,9 @@
 #include "Economy.hpp"
 #include "MPLParse.hpp"
 
-Cargo prepareRandomLottaCargo() {
+Cargo prepareRandomLottaCargo();
+Cargo prepareRandomLottaCargo()
+{
   Cargo cargo = Cargo();
   for (int i = 0; i < 500; i++) {
     cargo.addCargo(CargoType(), (rand() % 10000) + 100);
@@ -14,14 +16,18 @@ Cargo prepareRandomLottaCargo() {
   return cargo;
 }
 
-Cargo prepareRandomCargo() {
+Cargo prepareRandomCargo();
+Cargo prepareRandomCargo()
+{
   Cargo cargo = Cargo();
   cargo.addCargo(CargoType(), (rand() % 10) + 1);
   assert((cargo == Cargo()) == false);
   return cargo;
 }
 
-ProductionOption prepareRandomProductionOption() {
+ProductionOption prepareRandomProductionOption();
+ProductionOption prepareRandomProductionOption()
+{
   ProductionOption o;
   const Cargo c1 = prepareRandomCargo();
   const Cargo c2 = prepareRandomCargo();
@@ -29,14 +35,18 @@ ProductionOption prepareRandomProductionOption() {
   return o;
 }
 
-Factory prepareRandomFactory() {
+Factory prepareRandomFactory();
+Factory prepareRandomFactory()
+{
   Factory factory = Factory();
   ProductionOption o = prepareRandomProductionOption();
   factory.addProductionOption(o);
   return factory;
 }
 
-Base prepareRandomBase(int basesize) {
+Base prepareRandomBase(int basesize);
+Base prepareRandomBase(int basesize)
+{
   Base base = Base();
   Factory f;
   for (int i = 0; i < basesize; i++) {

@@ -50,12 +50,12 @@ void EconomyTest::testtick()
 	ProductionOption o = ProductionOption(c, c2);
 	Factory f=Factory();
 	f.addProductionOption(o);
-	Base b = Base();
-	b.addFactory(f);
+	Base ba = Base();
+	ba.addFactory(f);
 
-	b.addCargo(c);
+	ba.addCargo(c);
 
-	e->addBase(b);
+	e->addBase(ba);
 
 	CPPUNIT_ASSERT(e->getBases().begin()->getCargo().getCount(CargoType()) == 1);
 	e->tick();
