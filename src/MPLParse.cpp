@@ -48,17 +48,10 @@ CargoType *MPLParse::ParseLine(std::string line) {
   do {
     size_t fieldEnd;
     fieldEnd = line.find(",", fieldBegin);
-    if (fieldEnd == std::string::npos) {
+    if (fieldEnd == std::string::npos || fieldEnd <= fieldBegin + 1 ) {
       return NULL;
     }
-    try {
-      substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
-    }
-    catch (std::out_of_range) {
-      return NULL;
-    }
-    boost::algorithm::trim(substring);
-
+    substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
     switch (fieldNumber) {
     case 0:
       try {
