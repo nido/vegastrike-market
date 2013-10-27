@@ -78,8 +78,6 @@ CargoType *MPLParse::ParseLine(std::string line) {
     case 4:
       volume = atof(substring.c_str());
       break;
-      //		case 5:
-      // description we don't yet care about
     }
     fieldNumber++;
     fieldBegin = fieldEnd + 1;
@@ -115,6 +113,3 @@ std::vector<CargoType> MPLParse::ParseFile(std::string fileName) {
   std::vector<CargoType> v = parser.Parse();
   return v;
 }
-
-//private:
-//	std::ifstream file;
