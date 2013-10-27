@@ -30,33 +30,40 @@ ProductionOption::ProductionOption() : consumes(Cargo()), produces(Cargo()) {}
  * @param produces what is produces out of consumes
  */
 ProductionOption::ProductionOption(const Cargo& consumes, const Cargo& produces)
-    : consumes(consumes), produces(produces) {}
+: consumes(consumes), produces(produces) {}
 
-ProductionOption::~ProductionOption() {
+ProductionOption::~ProductionOption()
+{
 }
 
-bool ProductionOption::canProduce(const Cargo& cargoStore) const {
-  return cargoStore.contains(this->consumes);
+
+bool ProductionOption::canProduce(const Cargo& cargoStore) const
+{
+    return cargoStore.contains(this->consumes);
 }
 
-void ProductionOption::Produce(Cargo& cargoStore) const {
-  if (this->canProduce(cargoStore) == false) {
-    return;
-  }
+
+void ProductionOption::Produce(Cargo& cargoStore) const
+{
+    if (this->canProduce(cargoStore) == false) {
+        return;
+    }
 #ifndef NDEBUG
-  bool result =
-#endif //NDEBUG result is only used when NDEBUG is defined
-      cargoStore.delCargo(consumes);
-  // make sure this actually happened
-  assert(result != false);
+    bool result =
+    #endif                                        //NDEBUG result is only used when NDEBUG is defined
+        cargoStore.delCargo(consumes);
+    // make sure this actually happened
+    assert(result != false);
 
-  cargoStore.addCargo(produces);
+    cargoStore.addCargo(produces);
 }
 
-bool ProductionOption::operator==(const ProductionOption &that) const {
-  if ((this->consumes == that.consumes) &&
-      (this->produces == that.produces)) {
-    return true;
-  }
-  return false;
+
+bool ProductionOption::operator==(const ProductionOption &that) const
+{
+    if ((this->consumes == that.consumes) &&
+    (this->produces == that.produces)) {
+        return true;
+    }
+    return false;
 }

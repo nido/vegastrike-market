@@ -3,20 +3,21 @@
 
 #include "CargoType.hpp"
 
-class CargoTypeTest : public CppUnit::TestFixture {
-public:
-  void setUp();
-  void tearDown();
+class CargoTypeTest : public CppUnit::TestFixture
+{
+    public:
+        void setUp();
+        void tearDown();
 
-  void testoperatorEquals();
-  void testoperatorLessThen();
-  void testgetBasePrice();
-  void testgetName();
-  void testgetXML();
-  static CppUnit::Test *suite();
+        void testoperatorEquals();
+        void testoperatorLessThen();
+        void testgetBasePrice();
+        void testgetName();
+        void testgetXML();
+        static CppUnit::Test *suite();
 
-private:
-  CargoType one;
-  CargoType two;
-  CargoType three;
+    private:
+        CargoType one;
+        CargoType two;
+        CargoType three;
 };
