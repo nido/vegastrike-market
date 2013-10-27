@@ -22,14 +22,16 @@ void MPLParseTest::testParse() {
   MPLParse p = MPLParse();
   std::vector<CargoType> cargo = p.Parse();
   CPPUNIT_ASSERT(cargo.empty() == false);
+
   MPLParse p2 = MPLParse(getdatadir() + "/master_part_list.csv");
   std::vector<CargoType> cargo2 = p2.Parse();
   CPPUNIT_ASSERT(cargo2.empty() == false);
   CPPUNIT_ASSERT(cargo == cargo2);
-  MPLParse p3 = p2;
-  std::vector<CargoType> cargo3 = p3.Parse();
+
+  p = p2;
+  std::vector<CargoType> cargo3 = p.Parse();
   CPPUNIT_ASSERT(cargo3.empty() == false);
-  CPPUNIT_ASSERT(cargo == cargo3);
+  CPPUNIT_ASSERT(cargo2 == cargo3);
 }
 
 void MPLParseTest::testParseFile() {

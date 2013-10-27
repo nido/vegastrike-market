@@ -29,13 +29,9 @@ file(this->filename.c_str())
 MPLParse& MPLParse::operator=(const MPLParse &that)
 {
   this->filename = that.filename;
-  this->initStream();
-  return *this;
-}
-
-void MPLParse::initStream() {
   this->file.open(this->filename.c_str());
-  assert(file.is_open());
+  assert(this->file.is_open());
+  return *this;
 }
 
 MPLParse::~MPLParse() { this->file.close(); }
@@ -104,8 +100,8 @@ std::vector<CargoType> MPLParse::Parse() {
   std::string line;
 
   assert(this->file.is_open());
-  this->file.seekg(0, this->file.beg);
-
+  this->file.clear();
+  this->file.seekg(0);
   while (std::getline(this->file, line)) {
     CargoType *cargo;
     if (line.compare(",,,,,") == 0) {

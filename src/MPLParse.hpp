@@ -55,9 +55,6 @@ public:
   static std::vector<CargoType> ParseFile(std::string fileName);
 
 private:
-  /** Initialises the ifstream bases on the filename given */
-  void initStream();
-
   /** The name of the file to parse */
   std::string filename;
 
