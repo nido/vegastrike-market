@@ -6,20 +6,11 @@ project(VegastrikeEconomy)
 enable_testing()
 
 include(FindCppUnit)
-#find_package(CppUnit)
 include_directories(${CPPUNIT_INCLUDE_DIRS})
 
 include(FindEXPAT)
 find_package(EXPAT REQUIRED)
 include_directories(${EXPAT_INCLUDE_DIRS})
-
-
-
-#include_directories(${EXPAT_INCLUDE_DIRS})
-#include_directories(${EXPAT_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src)
-
-#set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -Wall -Wextra")
-#set(CMAKE_BUILD_TYPE "Debug")
 
 add_library(market
 	src/CargoType
