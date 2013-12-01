@@ -50,7 +50,6 @@ INLINE_GROUPED_CLASSES = YES
 
 TYPEDEF_HIDES_STRUCT   = NO
 
-SYMBOL_CACHE_SIZE      = 0
 # Build related configuration options
 #---------------------------------------------------------------------------
 EXTRACT_ALL            = NO
