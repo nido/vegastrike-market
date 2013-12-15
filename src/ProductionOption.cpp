@@ -48,13 +48,8 @@ void ProductionOption::Produce(Cargo& cargoStore) const
     if (this->canProduce(cargoStore) == false) {
         return;
     }
-#ifndef NDEBUG
-    bool result =
-    #endif                                        //NDEBUG result is only used when NDEBUG is defined
-        cargoStore.delCargo(consumes);
-    // make sure this actually happened
+    bool result = cargoStore.delCargo(consumes);
     assert(result != false);
-
     cargoStore.addCargo(produces);
 }
 
