@@ -3,6 +3,28 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
 project(VegastrikeEconomy)
 
+set(MARKET_SRCS
+	src/CargoType.cpp
+	src/Cargo.cpp
+	src/ProductionOption.cpp
+	src/Factory.cpp
+	src/Base.cpp
+	src/XMLNode.cpp
+	src/MPLParse.cpp
+	src/Economy.cpp
+	src/common/common.cpp
+)
+
+set(CPPUNIT_SRCS
+	test/CargoTypeTest.cpp
+	test/CargoTest.cpp
+	test/ProductionOptionTest.cpp
+	test/FactoryTest.cpp
+	test/BaseTest.cpp
+	test/XMLNodeTest.cpp
+	test/MPLParseTest.cpp
+	test/EconomyTest.cpp
+)
 enable_testing()
 
 include(FindCppUnit)
@@ -12,17 +34,9 @@ include(FindEXPAT)
 find_package(EXPAT REQUIRED)
 include_directories(${EXPAT_INCLUDE_DIRS})
 
-add_library(market
-	src/CargoType
-	src/Cargo
-	src/ProductionOption
-	src/Factory
-	src/Base
-	src/XMLNode
-	src/MPLParse
-	src/Economy
-	src/common/common
-)
+
+add_library(market ${MARKET_SRCS})
+add_library(cppunittest ${CPPUNIT_SRCS})
 
 target_link_libraries(market stdc++)
 
@@ -34,19 +48,11 @@ add_executable(bigtest
 
 target_link_libraries(bigtest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
-add_executable(cppunittest
-	test/main
-	test/CargoTypeTest
-	test/CargoTest
-	test/ProductionOptionTest
-	test/FactoryTest
-	test/BaseTest
-	test/XMLNodeTest
-	test/MPLParseTest
-	test/EconomyTest
-	)
+add_executable(test_cppunit
+	test/main.cpp
+)
 
-target_link_libraries(cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
+target_link_libraries(test_cppunit cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
 add_test(cppunittest cppunittest)
 
