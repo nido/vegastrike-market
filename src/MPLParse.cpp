@@ -60,22 +60,10 @@ CargoType *MPLParse::ParseLine(std::string line)
         substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
         switch (fieldNumber) {
             case 0:
-                try
-                {
-                    name = substring.substr(1, substring.size() - 2);
-                }
-                catch (std::out_of_range) {
-                    return NULL;
-                }
+                name = substring.substr(1, substring.size() - 2);
                 break;
             case 1:
-                try
-                {
-                    category = substring.substr(1, substring.size() - 2);
-                }
-                catch (std::out_of_range) {
-                    return NULL;
-                }
+                category = substring.substr(1, substring.size() - 2);
                 break;
             case 2:
                 price = atof(substring.c_str());
