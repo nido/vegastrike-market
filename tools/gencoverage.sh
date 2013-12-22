@@ -1,4 +1,6 @@
 #!/bin/bash -x
+UNITTEST=./test_cppunit
+
 test -f CMakeLists.txt || 
 	echo You wanna execute this from the directory containing CMakeLists.txt.
 test -f CMakeLists.txt || 
@@ -30,7 +32,7 @@ find . -type f -iname \*.gcno -exec rm -f {} \;
 make clean
 
 # compile
-make
+make -j5
 
 # Get all unit tests
 TESTCASES=$(ls "../test/" | grep -Go ".*Test" |sed "s/Test//g" | sort | uniq)
@@ -45,7 +47,7 @@ fi
 for TEST in ${TESTCASES};
 do
         $LCOV -z --directory "." -o coverage${TEST}.info
-        ./cppunittest ${TEST} 2>&1 | grep -v "^[[:space:]]*$"
+        ${UNITTEST} ${TEST} 2>&1 | grep -v "^[[:space:]]*$"
         $LCOV -c -t ${TEST} --directory "." -o coverage${TEST}.info 2>&1 |
 			grep -v "geninfo: WARNING: no data found for .*usr.*include.*"
         $LCOV -r coverage${TEST}.info "*usr*include*" -o codecoverage${TEST}.info
