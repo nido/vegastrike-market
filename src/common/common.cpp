@@ -24,6 +24,8 @@
 
 #ifndef _WIN32
 #include <unistd.h>
+#else
+#include <direct.h>
 #endif
 
 using std::string;
@@ -32,6 +34,7 @@ using std::string;
 #ifndef _WIN32
 #define DATA_DIR "/usr/share/vegastrike/"
 
+#endif //!_WIN32
 //Directories to look for data
 const char *datadirs[] = {
     ".",
@@ -95,5 +98,4 @@ string getdatadir()
     return datadir;
 }
 
-#endif //!_WIN32
 
