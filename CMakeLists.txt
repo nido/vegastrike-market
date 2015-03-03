@@ -24,7 +24,7 @@ add_library(market
 	src/common/common
 )
 
-target_link_libraries(market stdc++)
+target_link_libraries(market stdc++ ${EXPAT_LIBRARIES})
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
