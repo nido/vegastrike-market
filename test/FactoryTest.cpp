@@ -91,18 +91,12 @@ void FactoryTest::testsetProductionOption()
 void FactoryTest::testAllocation()
 {
     Factory* f = new Factory();
-    Factory* g = new Factory();
     f->addProductionOption(ProductionOption());
-    g->addProductionOption(ProductionOption());
-    Factory h = Factory(*f);
+    Factory g = Factory(*f);
     delete f;
     Cargo c = Cargo();
     c.addCargo(CargoType(), 100);
-    h.Produce(c);
-    h = *g;
-    delete g;
-    c.addCargo(CargoType(), 100);
-    h.Produce(c);
+    g.Produce(c);
 }
 
 
