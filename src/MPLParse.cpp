@@ -1,5 +1,8 @@
 #include <fstream>
 #include <string>
+#include <stdexcept>
+#include <cstdlib>
+#include <cassert>
 //#include <boost/algorithm/string.hpp>
 
 #include "common/common.h"
