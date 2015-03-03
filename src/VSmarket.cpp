@@ -1,12 +1,15 @@
 // VSmarket.cpp : Defines the entry point for the console application.
 //
 #ifdef WIN32
-  #include <windows.h> //for sleep()
-  #include <tchar.h>
+#include <windows.h> //for sleep()
+#include <tchar.h>
 
-  #ifndef _WIN32_WINNT            // Specifies that the minimum required platform is Windows Vista.
-    #define _WIN32_WINNT 0x0600     // Change this to the appropriate value to target other versions of Windows.
-  #endif
+#ifndef _WIN32_WINNT // Specifies that the minimum required platform is Windows
+// Vista.
+#define _WIN32_WINNT                                                           \
+  0x0600 // Change this to the appropriate value to target other versions of
+// Windows.
+#endif
 #endif
 
 #include <string.h>
@@ -75,7 +78,7 @@ void realmain(void) {
       printf("\n\n***  Vessel launched to moon *** \n");
     }
 
-    //Sleep(100);  // gameplay eh eh
+    // Sleep(100);  // gameplay eh eh
     printf("."); // movement of the vessel
     distanceToMoon--;
 
@@ -86,7 +89,7 @@ void realmain(void) {
       // decoration ...
       for (int i = 0; i < 20; i++) {
         printf(".");
-        //Sleep(100);
+        // Sleep(100);
       }
       moonbase.addCargo(earthbase.getCargo());
       // empty the vessel
@@ -104,13 +107,12 @@ void realmain(void) {
 
 #ifdef WIN32
 int _tmain(int argc, _TCHAR *argv[]) {
-    realmain();
-    return 0;
+  realmain();
+  return 0;
 }
 #else
 int main(int argc, char *argv[]) {
-    realmain();
-    return 0;
+  realmain();
+  return 0;
 }
 #endif
-

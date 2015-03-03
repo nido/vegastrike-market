@@ -29,36 +29,27 @@ ProductionOption::ProductionOption() : consumes(Cargo()), produces(Cargo()) {}
  * @param consumes what is needed to produce
  * @param produces what is produces out of consumes
  */
-ProductionOption::ProductionOption(const Cargo& consumes, const Cargo& produces)
-: consumes(consumes), produces(produces) {}
+ProductionOption::ProductionOption(const Cargo &consumes, const Cargo &produces)
+    : consumes(consumes), produces(produces) {}
 
-ProductionOption::~ProductionOption()
-{
+ProductionOption::~ProductionOption() {}
+
+bool ProductionOption::canProduce(const Cargo &cargoStore) const {
+  return cargoStore.contains(this->consumes);
 }
 
-
-bool ProductionOption::canProduce(const Cargo& cargoStore) const
-{
-    return cargoStore.contains(this->consumes);
+void ProductionOption::Produce(Cargo &cargoStore) const {
+  if (this->canProduce(cargoStore) == false) {
+    return;
+  }
+  bool result = cargoStore.delCargo(consumes);
+  assert(result != false);
+  cargoStore.addCargo(produces);
 }
 
-
-void ProductionOption::Produce(Cargo& cargoStore) const
-{
-    if (this->canProduce(cargoStore) == false) {
-        return;
-    }
-    bool result = cargoStore.delCargo(consumes);
-    assert(result != false);
-    cargoStore.addCargo(produces);
-}
-
-
-bool ProductionOption::operator==(const ProductionOption &that) const
-{
-    if ((this->consumes == that.consumes) &&
-    (this->produces == that.produces)) {
-        return true;
-    }
-    return false;
+bool ProductionOption::operator==(const ProductionOption &that) const {
+  if ((this->consumes == that.consumes) && (this->produces == that.produces)) {
+    return true;
+  }
+  return false;
 }
