@@ -1,10 +1,9 @@
 #include <fstream>
-#include <stdexcept>
-#include <cassert>
-#include <cstdlib>
 
-#include "MPLParse.hpp"
+#include <boost/algorithm/string.hpp>
+
 #include "common/common.h"
+#include "MPLParse.hpp"
 
 MPLParse::MPLParse():
 filename((getdatadir() + "/master_part_list.csv")),
@@ -60,10 +59,22 @@ CargoType *MPLParse::ParseLine(std::string line)
         substring = line.substr(fieldBegin, fieldEnd - fieldBegin);
         switch (fieldNumber) {
             case 0:
-                name = substring.substr(1, substring.size() - 2);
+                try
+                {
+                    name = substring.substr(1, substring.size() - 2);
+                }
+                catch (std::out_of_range) {
+                    return NULL;
+                }
                 break;
             case 1:
-                category = substring.substr(1, substring.size() - 2);
+                try
+                {
+                    category = substring.substr(1, substring.size() - 2);
+                }
+                catch (std::out_of_range) {
+                    return NULL;
+                }
                 break;
             case 2:
                 price = atof(substring.c_str());
