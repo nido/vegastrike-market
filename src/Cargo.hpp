@@ -48,6 +48,8 @@ class Cargo
          */
         bool contains(const Cargo& newCargo) const;
 
+	std::string getName() const;
+
         /** Compare one cargo to another
          * @param that reference to the other cargo
          * @return true when this and that are equal, false otherwise

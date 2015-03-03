@@ -9,6 +9,15 @@ Cargo::~Cargo()
 {
 }
 
+std::string Cargo::getName() const
+{
+   if (this->cargo.begin() == this->cargo.end())
+   {
+      return (this->cargo.begin())->first.getName();
+   } else {
+      return "stuff";
+   }
+}
 
 void Cargo::addCargo(const CargoType& type, unsigned int quantity)
 {
