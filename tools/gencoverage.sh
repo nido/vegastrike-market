@@ -1,5 +1,5 @@
 #!/bin/bash -x
-UNITTEST=./test_cppunit
+UNITTEST=./cppunittest
 
 test -f CMakeLists.txt || 
 	echo You wanna execute this from the directory containing CMakeLists.txt.
