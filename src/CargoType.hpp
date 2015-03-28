@@ -73,7 +73,7 @@ public:
   /** gives an XML representation of the CargoType
  * @return XML representation of this CargoType
  */
-  std::string getXML() const;
+  std::string getXML(bool endTag=true) const;
 
 private:
   /** Name of the cargo, for example "Iron Ore" */

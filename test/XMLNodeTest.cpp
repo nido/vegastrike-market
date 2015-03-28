@@ -91,7 +91,7 @@ void XMLNodeTest::testgetCargoType()
 
 void XMLNodeTest::testgetCargo()
 {
-    std::string s = "<Cargo><entry><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />12</entry></Cargo>";
+    std::string s = "<Cargo><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\">10</CargoType><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" >12</CargoType></Cargo>";
     XMLNode* n = XMLNode::ParseString(s);
     Cargo* c = n->getCargo();
     delete n;

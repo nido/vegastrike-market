@@ -113,7 +113,7 @@ void CargoTest::testgetXML()
     c.addCargo(CargoType("name", "category", 1, 2, 3), 10);
     c.addCargo(CargoType("otherstuff", "category", 1, 2, 3), 12);
     std::string xml = c.getXML();
-    CPPUNIT_ASSERT(xml.compare("<Cargo><entry><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" />12</entry></Cargo>") == 0);
+    CPPUNIT_ASSERT(xml.compare("<Cargo><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" >10</CargoType><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" >12</CargoType></Cargo>") == 0);
 }
 
 

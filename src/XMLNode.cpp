@@ -156,15 +156,17 @@ Cargo *XMLNode::getCargo() {
     return NULL;
   }
   Cargo *c = new Cargo();
+  // old
   //<Cargo><entry><CargoType name=\"name\" category=\"category\"
   // mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType
   // name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\"
   // price=\"3\" />12</entry></Cargo>
-
+  //
+  // new
+  //   <Cargo> <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1">1</CargoType> <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Standard_Mealpacks" price="100" volume="1">1</CargoType> </Cargo> 
   for (std::vector<XMLNode *>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
-    assert((*child)->children.empty() == false);
-    CargoType *t = (*(*child)->children.begin())->getCargoType();
+    CargoType *t = (*child)->getCargoType();
     assert(t != NULL);
 
     int i = atoi((*child)->characterdata.c_str());

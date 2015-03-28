@@ -98,7 +98,7 @@ std::string Cargo::getXML() const {
 
   for (Cargo::const_iterator i = this->cargo.begin(); i != this->cargo.end();
        ++i) {
-    xmlstream << "<entry>" << i->first.getXML() << i->second << "</entry>";
+    xmlstream << i->first.getXML(false) << i->second << "</CargoType>";
   }
   xmlstream << "</Cargo>";
   return xmlstream.str();
