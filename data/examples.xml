@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE economy SYSTEM "economy.dtd">
 
-<vector type="CargoType">
+<vector type="mixed">
   <ProductionOption>
     <Cargo type="in">
       <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1">1</CargoType>

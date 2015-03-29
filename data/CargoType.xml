@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE vector_cargo SYSTEM "vector_cargo.dtd">
+<!DOCTYPE economy SYSTEM "economy.dtd">
 
 <vector type="CargoType">
   <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1"/>
@@ -214,4 +214,4 @@
   <CargoType category="Fragments" mass="100" name="small_asteroid5" price="0" volume="1000"/>
   <CargoType category="Fragments" mass="100" name="small_asteroid6" price="0" volume="1000"/>
   <CargoType category="Fragments" mass="100" name="small_asteroid7" price="0" volume="1000"/>
-</vector_cargo>
+</vector>
