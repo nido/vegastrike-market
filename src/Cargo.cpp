@@ -103,3 +103,19 @@ std::string Cargo::getXML() const {
   xmlstream << "</Cargo>";
   return xmlstream.str();
 }
+
+std::map<CargoType, unsigned int>::iterator Cargo::begin() {
+  return this->cargo.begin();
+}
+
+std::map<CargoType, unsigned int>::iterator Cargo::end() {
+  return this->cargo.end();
+}
+
+std::map<CargoType, unsigned int>::const_iterator Cargo::begin() const {
+  return this->cargo.begin();
+}
+
+std::map<CargoType, unsigned int>::const_iterator Cargo::end() const {
+  return this->cargo.end();
+}

@@ -59,6 +59,10 @@ public:
  * @return XML compliant string representing this Cargo */
   std::string getXML() const;
 
+  std::map<CargoType, unsigned int>::iterator begin();
+  std::map<CargoType, unsigned int>::const_iterator begin() const;
+  std::map<CargoType, unsigned int>::iterator end();
+  std::map<CargoType, unsigned int>::const_iterator end() const;
 private:
   /** Iterator datastructure iterator */
   typedef std::map<CargoType, unsigned int>::iterator iterator;
