@@ -15,12 +15,13 @@ public:
   /** Create an empty XMLNode to be used as root. */
   XMLNode();
 
-  XMLNode(std::string name, XMLNode *parent, std::vector<XMLNode *> children,
-          std::map<std::string, std::string> attributes);
+  XMLNode(std::string name, XMLNode *parent, std::vector<XMLNode> children,
+          std::map<std::string, std::string> attributes, std::string characterdata);
   /** Copy constructor
  * @param that the XMLNode to copy
  */
   XMLNode(const XMLNode &that);
+
 
   /** Assignment operator
  * @param that the XMLNode to copy
@@ -36,7 +37,8 @@ public:
   /** Create an XMLNode out of a CargoType
  * @param c the CargoType to create the XMLNode from
  */
-  XMLNode(CargoType &c);
+  XMLNode(const CargoType &c);
+  XMLNode(const Cargo &c);
 
   /** Parse an XML string to populate this root node
  * @return XML string representing this XMLNode
@@ -46,7 +48,7 @@ public:
   /** add a child node
    * @param child the child to add
    */
-  void addChild(XMLNode *child);
+  XMLNode& addChild(const XMLNode& child);
 
   /** Delete an XMLNode (and it's children) */
   ~XMLNode();
@@ -75,6 +77,8 @@ public:
   * ProductionOption node), or NULL on failure.
   */
   ProductionOption *getProductionOption();
+
+  void setCharacterdata(std::string chardata);
 
 private:
   /** Expat function computing the current node and calling its
@@ -108,17 +112,11 @@ private:
  */
   void ParseElementBegin(const XML_Char *name, const XML_Char **atts);
 
-  /** XMLNode function setting up the XML node
- * @param name name of this XML node
- * @param size number of bytes of this CharacterData entry
- */
-  void ParseElementCharacterData(const XML_Char *name, int size);
-
   /** Pointer to the parent XMLNode */
   XMLNode *parent;
 
   /** Pointers to the child XMLNodes */
-  std::vector<XMLNode *> children;
+  std::vector<XMLNode> children;
 
   /** Name of this XMLNode */
   std::string name;
@@ -130,5 +128,5 @@ private:
   std::map<std::string, std::string> attributes;
 };
 
-XMLNode getXMLNode(const CargoType &c);
+XMLNode getXMLNode(const Cargo &c);
 #endif // H_XMLNODE

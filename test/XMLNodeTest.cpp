@@ -133,11 +133,21 @@ void XMLNodeTest::testCopyConstructor() {
 
 void XMLNodeTest::testGetXMLNode() {
   CargoType ct = CargoType("cargo", "category", 1, 2, 3);
-  XMLNode n = getXMLNode(ct);
+  XMLNode n = XMLNode(ct);
   CargoType *check = n.getCargoType();
   CPPUNIT_ASSERT(check != NULL);
   if (check != NULL) {
     CPPUNIT_ASSERT(ct == *check);
+    delete check;
+  }
+
+  Cargo c = Cargo();
+  c.addCargo(ct, 4);
+  XMLNode m = XMLNode(c);
+  Cargo* cargocheck = m.getCargo();
+  CPPUNIT_ASSERT(cargocheck != NULL);
+  if (cargocheck != NULL){
+    CPPUNIT_ASSERT(*cargocheck == c);
   }
 }
 

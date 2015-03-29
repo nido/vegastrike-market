@@ -6,42 +6,40 @@
 #include "XMLNode.hpp"
 
 XMLNode::XMLNode()
-    : parent(NULL), children(std::vector<XMLNode *>()),
+    : parent(NULL), children(std::vector<XMLNode>()),
       attributes(std::map<std::string, std::string>()) {}
 
 // may be dangerous not to set parent and child relationships
 XMLNode::XMLNode(std::string name, XMLNode *parent,
-                 std::vector<XMLNode *> children,
-                 std::map<std::string, std::string> attributes)
-    : name(name), parent(parent), children(children), attributes(attributes) {}
+                 std::vector<XMLNode> children,
+                 std::map<std::string, std::string> attributes, std::string characterdata)
+    : name(name), parent(parent), children(children), attributes(attributes), characterdata(characterdata) {}
 
 XMLNode::XMLNode(const XMLNode &that)
-    : parent(that.parent), children(std::vector<XMLNode *>()), name(that.name),
-      attributes(std::map<std::string, std::string>(that.attributes)) {
-  for (std::vector<XMLNode *>::const_iterator i = that.children.begin();
+    : parent(that.parent), children(std::vector<XMLNode>()), name(that.name),
+      attributes(std::map<std::string, std::string>(that.attributes)), characterdata(that.characterdata) {
+  for (std::vector<XMLNode>::const_iterator i = that.children.begin();
        i < that.children.end(); ++i) {
-    this->children.push_back(new XMLNode(*i));
+    addChild(*i);
   }
 }
 
-void XMLNode::addChild(XMLNode *child) {
+XMLNode& XMLNode::addChild(const XMLNode& child){
   this->children.push_back(child);
-  child->parent = this;
+  XMLNode& kid = this->children.back();
+  kid.parent = this;
+  return kid;
 }
 
 XMLNode::XMLNode(XMLNode *parent)
-    : parent(parent), children(std::vector<XMLNode *>()),
+    : parent(parent), children(std::vector<XMLNode>()),
       attributes(std::map<std::string, std::string>()) {}
 
 XMLNode::~XMLNode() {
-  for (std::vector<XMLNode *>::const_iterator i = this->children.begin();
-       i < this->children.end(); ++i) {
-    delete *i;
-  }
 }
 
-XMLNode::XMLNode(CargoType &c)
-    : parent(NULL), children(std::vector<XMLNode *>()), name("CargoType"),
+XMLNode::XMLNode(const CargoType &c)
+    : parent(NULL), children(std::vector<XMLNode>()), name("CargoType"),
       attributes(std::map<std::string, std::string>()) {
   std::stringstream s;
   this->attributes["name"] = c.getName();
@@ -84,7 +82,6 @@ XMLNode *XMLNode::ParseString(std::string string) {
   XML_Parse(parser, data, string.size(), 0);
 
   XML_ParserFree(parser);
-
   return (root);
 }
 
@@ -98,16 +95,14 @@ void XMLNode::ParseXMLNodeBegin(void *xmlnode, const XML_Char *name,
     // pointer, we need to pay special attention to handling
     // root
     root->ParseElementBegin(name, atts);
-    last = root;
+    root->parent = root;
   } else {
-
     XMLNode *current = new XMLNode(last);
     current->ParseElementBegin(name, atts);
-
-    last->children.push_back(current);
-    last = current;
+    XMLNode& n = last->addChild(*current);
+    root->parent = &n;
+    delete current;
   }
-  root->parent = last;
 }
 
 void XMLNode::ParseXMLNodeEnd(void *xmlnode, const XML_Char *name) {
@@ -118,11 +113,7 @@ void XMLNode::ParseXMLNodeEnd(void *xmlnode, const XML_Char *name) {
   } else {
     root->parent = last->parent;
   }
-  assert(strcmp(last->name.c_str(), name) == 0);
-}
-
-void XMLNode::ParseElementCharacterData(const XML_Char *name, int size) {
-  this->characterdata = std::string(name, size);
+//  assert(strcmp(last->name.c_str(), name) == 0);
 }
 
 void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char *name,
@@ -130,12 +121,13 @@ void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char *name,
   XMLNode *root = static_cast<XMLNode *>(xmlnode);
   XMLNode *last = root->parent;
   assert(last != NULL);
-  last->ParseElementCharacterData(name, size);
+  last->characterdata = std::string(name, size);
+
+  //root->characterdata = std::string(name, size);
 }
 
 std::string XMLNode::getXML() {
   // TODO: Properly warn for shoddy implementation
-
   std::string XML = "<" + this->name;
 
   if (!this->attributes.empty()) {
@@ -149,11 +141,12 @@ std::string XMLNode::getXML() {
   } else {
     XML += ">";
   }
-  for (std::vector<XMLNode *>::iterator child = this->children.begin();
+
+  for (std::vector<XMLNode>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
-    XML += (*child)->getXML();
+    XML += child->getXML();
   }
-  if (this->characterdata.empty() != true) {
+  if (!this->characterdata.empty()) {
     XML += this->characterdata;
   }
   if (!(this->children.empty() && this->characterdata.empty())) {
@@ -166,13 +159,13 @@ ProductionOption *XMLNode::getProductionOption() {
   ProductionOption *p;
   Cargo *in;
   Cargo *out;
-  for (std::vector<XMLNode *>::iterator child = this->children.begin();
+  for (std::vector<XMLNode>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
-    std::string type = (*child)->attributes["type"];
+    std::string type = child->attributes["type"];
     if (type.compare("in")) {
-      in = (*child)->getCargo();
+      in = child->getCargo();
     } else if (type.compare("out")) {
-      out = (*child)->getCargo();
+      out = child->getCargo();
     }
   }
   assert(in != NULL);
@@ -188,16 +181,11 @@ Cargo *XMLNode::getCargo() {
     return NULL;
   }
   Cargo *c = new Cargo();
-  //   <Cargo> <CargoType category="Natural_Products/Food/Confed" mass="1.2"
-  //   name="Ration_Mealpacks" price="100" volume="1">1</CargoType> <CargoType
-  //   category="Natural_Products/Food/Confed" mass="1.2"
-  //   name="Standard_Mealpacks" price="100" volume="1">1</CargoType> </Cargo>
-  for (std::vector<XMLNode *>::iterator child = this->children.begin();
+  for (std::vector<XMLNode>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
-    CargoType *t = (*child)->getCargoType();
+    CargoType *t = child->getCargoType();
     assert(t != NULL);
-
-    int i = atoi((*child)->characterdata.c_str());
+    int i = atoi(child->characterdata.c_str());
     c->addCargo(*t, i);
     delete t;
   }
@@ -219,24 +207,26 @@ CargoType *XMLNode::getCargoType() {
   return cargo;
 }
 
-XMLNode getXMLNode(const CargoType &c) {
-  std::map<std::string, std::string> attributes;
-  attributes.insert(
-      std::pair<std::string, std::string>(std::string("name"), c.getName()));
-  attributes.insert(std::pair<std::string, std::string>(std::string("category"),
-                                                        c.getCategory()));
-  std::ostringstream s;
-  s << c.getMass();
-  attributes.insert(
-      std::pair<std::string, std::string>(std::string("mass"), s.str()));
-  s.flush();
-  s << c.getVolume();
-  attributes.insert(
-      std::pair<std::string, std::string>(std::string("volume"), s.str()));
-  s.flush();
-  s << c.getBasePrice();
-  attributes.insert(
-      std::pair<std::string, std::string>(std::string("price"), s.str()));
-  XMLNode n = XMLNode("CargoType", NULL, std::vector<XMLNode *>(), attributes);
-  return n;
+XMLNode::XMLNode(const Cargo &c) :
+  name("Cargo"), parent(NULL), children(std::vector<XMLNode>()), attributes(std::map<std::string, std::string>()), characterdata(std::string())
+{
+  for (std::map<CargoType, unsigned int>::const_iterator ct = c.begin(); ct != c.end(); ++ct){
+    XMLNode ctn = XMLNode(ct->first);
+    std::ostringstream s;
+    s << ct->second;
+    ctn.setCharacterdata(s.str());
+    this->addChild(ctn);
+  }
+}
+
+void XMLNode::setCharacterdata(std::string chardata){
+  this->characterdata = chardata;
+}
+
+XMLNode& XMLNode::operator=(const XMLNode &that){
+  this->children = that.children;
+  this->name = that.name;
+  this->characterdata = that.characterdata;
+  this->attributes = that.attributes;
+  this->parent = that.parent;
 }
