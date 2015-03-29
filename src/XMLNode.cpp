@@ -9,6 +9,12 @@ XMLNode::XMLNode()
     : parent(NULL), children(std::vector<XMLNode *>()),
       attributes(std::map<std::string, std::string>()) {}
 
+// may be dangerous not to set parent and child relationships
+XMLNode::XMLNode(std::string name, XMLNode* parent, std::vector<XMLNode *> children, std::map<std::string, std::string> attributes)
+    : name(name), parent(parent), children(children),
+      attributes(attributes) {
+}
+
 XMLNode::XMLNode(const XMLNode &that)
     : parent(that.parent), children(std::vector<XMLNode *>()), name(that.name),
       attributes(std::map<std::string, std::string>(that.attributes)) {
@@ -16,6 +22,12 @@ XMLNode::XMLNode(const XMLNode &that)
        i < that.children.end(); ++i) {
     this->children.push_back(new XMLNode(*i));
   }
+}
+
+
+void XMLNode::addChild(XMLNode* child){
+  this->children.push_back(child);
+  child->parent = this;
 }
 
 XMLNode::XMLNode(XMLNode *parent)
@@ -151,18 +163,34 @@ std::string XMLNode::getXML() {
   return XML;
 }
 
+ProductionOption *XMLNode::getProductionOption()
+{
+  ProductionOption* p;
+  Cargo* in;
+  Cargo* out;
+  for (std::vector<XMLNode *>::iterator child = this->children.begin();
+       child != this->children.end(); ++child) {
+    std::string type = (*child)->attributes["type"];
+    if (type.compare("in")){
+      in = (*child)->getCargo();
+    } else if (type.compare("out")){
+      out = (*child)->getCargo();
+    }
+  }
+  assert(in != NULL);
+  assert(out != NULL);  
+  p = new ProductionOption(*out, *in);
+  delete(in);
+  delete(out);
+  return p;
+}
+
+
 Cargo *XMLNode::getCargo() {
   if (this->name.compare("Cargo") != 0) {
     return NULL;
   }
   Cargo *c = new Cargo();
-  // old
-  //<Cargo><entry><CargoType name=\"name\" category=\"category\"
-  // mass=\"1\" volume=\"2\" price=\"3\" />10</entry><entry><CargoType
-  // name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\"
-  // price=\"3\" />12</entry></Cargo>
-  //
-  // new
   //   <Cargo> <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1">1</CargoType> <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Standard_Mealpacks" price="100" volume="1">1</CargoType> </Cargo> 
   for (std::vector<XMLNode *>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
@@ -190,3 +218,23 @@ CargoType *XMLNode::getCargoType() {
                                    cargoVolume, cargoPrice);
   return cargo;
 }
+
+
+
+XMLNode getXMLNode(const CargoType& c) {
+  std::map<std::string, std::string> attributes;
+  attributes.insert(std::pair<std::string,std::string>(std::string("name"), c.getName()));
+  attributes.insert(std::pair<std::string,std::string>(std::string("category"), c.getCategory()));
+  std::ostringstream s;
+   s<< c.getMass();
+  attributes.insert(std::pair<std::string,std::string>(std::string("mass"), s.str()));
+  s.flush();
+  s<<c.getVolume();
+  attributes.insert(std::pair<std::string,std::string>(std::string("volume"), s.str()));
+  s.flush();
+  s<<c.getBasePrice();
+  attributes.insert(std::pair<std::string,std::string>(std::string("price"), s.str()));
+  XMLNode n = XMLNode("CargoType", NULL,  std::vector<XMLNode*>(), attributes);
+  return n;
+}
+

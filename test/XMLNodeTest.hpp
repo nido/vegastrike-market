@@ -20,6 +20,8 @@ class XMLNodeTest : public CppUnit::TestFixture
         void testParseXMLNodeEnd();
         void testgetCargoType();
         void testgetCargo();
+void testGetXMLNode();
+        void testgetProductionOption();
         void testCopyConstructor();
         static CppUnit::Test *suite();
 

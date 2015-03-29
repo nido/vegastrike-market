@@ -5,7 +5,9 @@
 
 #include <expat.h>
 
+#include "ProductionOption.hpp"
 #include "Cargo.hpp"
+#include "CargoType.hpp"
 
 /** Class representing a Node in an XML Structure */
 class XMLNode {
@@ -13,6 +15,7 @@ public:
   /** Create an empty XMLNode to be used as root. */
   XMLNode();
 
+  XMLNode(std::string name, XMLNode* parent, std::vector<XMLNode *> children, std::map<std::string, std::string> attributes);
   /** Copy constructor
  * @param that the XMLNode to copy
  */
@@ -39,6 +42,11 @@ public:
  */
   std::string getXML();
 
+  /** add a child node
+   * @param child the child to add
+   */
+  void addChild(XMLNode* child);
+
   /** Delete an XMLNode (and it's children) */
   ~XMLNode();
 
@@ -59,6 +67,12 @@ public:
  * Cargo node), or NULL on failure.
  */
   Cargo *getCargo();
+
+ /** Parse this XMLNode to a ProductionOption
+ * @return a ProductionOption* build from this XMLNode (assuming this is a valid
+ * ProductionOption node), or NULL on failure.
+ */
+  ProductionOption* getProductionOption();
 
 private:
   /** Expat function computing the current node and calling its
@@ -113,4 +127,6 @@ private:
   /** Attributes of this XMLNode */
   std::map<std::string, std::string> attributes;
 };
+
+XMLNode getXMLNode(const CargoType &c);
 #endif // H_XMLNODE

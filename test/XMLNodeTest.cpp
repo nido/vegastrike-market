@@ -105,6 +105,27 @@ void XMLNodeTest::testgetCargo()
     };
 }
 
+void XMLNodeTest::testgetProductionOption()
+{
+    std::string s = "<ProductionOption><Cargo type=\"in\"><CargoType name=\"name\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\">10</CargoType></Cargo><Cargo type=\"out\"><CargoType name=\"otherstuff\" category=\"category\" mass=\"1\" volume=\"2\" price=\"3\" >12</CargoType></Cargo>";
+    XMLNode* n = XMLNode::ParseString(s);
+    ProductionOption* p = n->getProductionOption();
+    delete n;
+    CPPUNIT_ASSERT(p != NULL);
+    if (p != NULL) {
+        CargoType t1 = CargoType("name", "category", 1, 2, 3);
+        CargoType t2 = CargoType("otherstuff", "category", 1, 2, 3);
+        Cargo c = Cargo();
+        c.addCargo(t1, 10);
+        CPPUNIT_ASSERT(c.getCount(t1) == 10);
+        CPPUNIT_ASSERT(c.getCount(t2) == 0);
+        p->Produce(c);
+        CPPUNIT_ASSERT(c.getCount(t1) == 0);
+        CPPUNIT_ASSERT(c.getCount(t2) == 12);
+        delete p;
+    };
+}
+
 
 void XMLNodeTest::testCopyConstructor()
 {
@@ -120,6 +141,16 @@ void XMLNodeTest::testCopyConstructor()
     delete c;
 }
 
+void XMLNodeTest::testGetXMLNode()
+{
+  CargoType ct = CargoType("cargo", "category", 1, 2, 3);
+  XMLNode n = getXMLNode(ct);
+  CargoType* check = n.getCargoType();
+  CPPUNIT_ASSERT(check != NULL);
+  if (check != NULL){
+    CPPUNIT_ASSERT(ct == *check);
+  }
+}
 
 CppUnit::Test *XMLNodeTest::suite()
 {
@@ -127,6 +158,9 @@ CppUnit::Test *XMLNodeTest::suite()
     //	suiteOfTests->addTest( new CppUnit::TestCaller<XMLNodeTest>(
     //			"testFunction",
     //			&XMLNodeTest::testFunction));
+
+    suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
+        "testGetXMLNode", &XMLNodeTest::testGetXMLNode));
 
     suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
         "testParseElementBegin", &XMLNodeTest::testParseElementBegin));
@@ -148,6 +182,9 @@ CppUnit::Test *XMLNodeTest::suite()
 
     suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
         "testgetCargo", &XMLNodeTest::testgetCargo));
+
+    suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
+        "testgetProductionOption", &XMLNodeTest::testgetProductionOption));
 
     suiteOfTests->addTest(new CppUnit::TestCaller<XMLNodeTest>(
         "testCopyConstructor", &XMLNodeTest::testCopyConstructor));
