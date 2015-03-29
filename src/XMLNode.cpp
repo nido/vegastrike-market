@@ -155,6 +155,17 @@ std::string XMLNode::getXML() {
   return XML;
 }
 
+XMLNode::XMLNode(ProductionOption& o) :
+  name("ProductionOption"), parent(NULL), children(std::vector<XMLNode>()), attributes(std::map<std::string, std::string>()), characterdata(std::string())
+{
+  XMLNode in = XMLNode(o.input());
+  in.attributes["type"]="in";
+  this->addChild(in);
+  XMLNode out = XMLNode(o.output());
+  out.attributes["type"]="out";
+  this->addChild(out);
+}
+
 ProductionOption *XMLNode::getProductionOption() {
   ProductionOption *p;
   Cargo *in;

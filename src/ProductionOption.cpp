@@ -53,3 +53,12 @@ bool ProductionOption::operator==(const ProductionOption &that) const {
   }
   return false;
 }
+
+const Cargo ProductionOption::input()
+{
+  return this->consumes;
+}
+const Cargo ProductionOption::output()
+{
+  return this->produces;
+}

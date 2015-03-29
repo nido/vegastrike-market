@@ -77,6 +77,7 @@ public:
   * ProductionOption node), or NULL on failure.
   */
   ProductionOption *getProductionOption();
+  XMLNode(ProductionOption& o);
 
   void setCharacterdata(std::string chardata);
 

@@ -100,7 +100,6 @@ void XMLNodeTest::testgetProductionOption() {
                   ">12</CargoType></Cargo>";
   XMLNode *n = XMLNode::ParseString(s);
   ProductionOption *p = n->getProductionOption();
-  delete n;
   CPPUNIT_ASSERT(p != NULL);
   if (p != NULL) {
     CargoType t1 = CargoType("name", "category", 1, 2, 3);
@@ -112,8 +111,16 @@ void XMLNodeTest::testgetProductionOption() {
     p->Produce(c);
     CPPUNIT_ASSERT(c.getCount(t1) == 0);
     CPPUNIT_ASSERT(c.getCount(t2) == 12);
+    XMLNode m = XMLNode(*p);
+    ProductionOption* q = m.getProductionOption();
+    CPPUNIT_ASSERT(q != NULL);
+    if( q != NULL){
+      CPPUNIT_ASSERT(*p == *q);
+      delete q;
+    }
     delete p;
   };
+  delete n;
 }
 
 void XMLNodeTest::testCopyConstructor() {
@@ -148,6 +155,7 @@ void XMLNodeTest::testGetXMLNode() {
   CPPUNIT_ASSERT(cargocheck != NULL);
   if (cargocheck != NULL){
     CPPUNIT_ASSERT(*cargocheck == c);
+    delete cargocheck;
   }
 }
 

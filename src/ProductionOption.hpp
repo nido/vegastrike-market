@@ -42,6 +42,9 @@ public:
  */
   bool operator==(const ProductionOption &that) const;
 
+  const Cargo input();
+  const Cargo output();
+
 private:
   /** Cargo consumed by production. */
   Cargo consumes;
