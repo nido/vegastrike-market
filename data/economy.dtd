@@ -1,7 +1,12 @@
-<!ELEMENT Cargo (CargoType+)>
-<!ATTLIST Cargo>
+<!ELEMENT ProductionOption (Cargo, Cargo)>
+<!ATTLIST ProductionOption>
 
-<!ELEMENT vector ((CargoType|Cargo)+)>
+<!ELEMENT Cargo (CargoType+)>
+<!ATTLIST Cargo
+	type (in|out) #IMPLIED
+>
+
+<!ELEMENT vector ((CargoType|Cargo|ProductionOption)+)>
 <!ATTLIST vector
 	type CDATA #REQUIRED
 >

@@ -2,8 +2,15 @@
 <!DOCTYPE economy SYSTEM "economy.dtd">
 
 <vector type="CargoType">
+  <ProductionOption>
+    <Cargo type="in">
+      <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1">1</CargoType>
+    </Cargo>
+    <Cargo type="out">
+      <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Standard_Mealpacks" price="100" volume="1">1</CargoType>
+    </Cargo>
+  </ProductionOption>
   <Cargo>
-    <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1">1</CargoType>
     <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Standard_Mealpacks" price="100" volume="1">1</CargoType>
   </Cargo>
   <CargoType category="Natural_Products/Food/Confed" mass="1.2" name="Ration_Mealpacks" price="100" volume="1"/>
