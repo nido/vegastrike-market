@@ -34,6 +34,12 @@ add_executable(bigtest
 
 target_link_libraries(bigtest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
+add_executable(makestupidproductionoptions
+	test/MakeStupidProductionOptions.cpp
+)
+
+target_link_libraries(makestupidproductionoptions market ${EXPAT_LIBRARIES})
+
 add_executable(cppunittest
 	test/main
 	test/CargoTypeTest

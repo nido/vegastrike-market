@@ -51,7 +51,7 @@ XMLNode::XMLNode(const CargoType &c)
   s.str("");
   s.clear();
   s << c.getVolume();
-  this->attributes["value"] = s.str();
+  this->attributes["volume"] = s.str();
 
   s.str("");
   s.clear();
