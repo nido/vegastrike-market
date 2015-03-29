@@ -37,13 +37,14 @@ float CargoType::getBasePrice() const { return this->basePrice; }
 
 std::string CargoType::getXML(bool endTag) const {
   std::string endtag = "";
-  if (endTag){
-    endtag="/";
+  if (endTag) {
+    endtag = "/";
   }
   std::stringstream xmlstream;
   xmlstream << "<CargoType name=\"" << this->name << "\" category=\""
             << this->category << "\" mass=\"" << this->mass << "\" volume=\""
-            << this->volume << "\" price=\"" << this->basePrice << "\" " << endtag << ">";
+            << this->volume << "\" price=\"" << this->basePrice << "\" "
+            << endtag << ">";
 
   return xmlstream.str();
 }

@@ -6,27 +6,26 @@
 
 #include "XMLNode.hpp"
 
-class XMLNodeTest : public CppUnit::TestFixture
-{
-    public:
-        void setUp();
-        void tearDown();
+class XMLNodeTest : public CppUnit::TestFixture {
+public:
+  void setUp();
+  void tearDown();
 
-        void testConstructors();
-        void testParseElementBegin();
-        void testParseElementEnd();
-        void testParseString();
-        void testParseXMLNodeBegin();
-        void testParseXMLNodeEnd();
-        void testgetCargoType();
-        void testgetCargo();
-void testGetXMLNode();
-        void testgetProductionOption();
-        void testCopyConstructor();
-        static CppUnit::Test *suite();
+  void testConstructors();
+  void testParseElementBegin();
+  void testParseElementEnd();
+  void testParseString();
+  void testParseXMLNodeBegin();
+  void testParseXMLNodeEnd();
+  void testgetCargoType();
+  void testgetCargo();
+  void testGetXMLNode();
+  void testgetProductionOption();
+  void testCopyConstructor();
+  static CppUnit::Test *suite();
 
-    private:
-        std::string singleNode;
-        XMLNode *root;
-        XML_Parser parser;
+private:
+  std::string singleNode;
+  XMLNode *root;
+  XML_Parser parser;
 };

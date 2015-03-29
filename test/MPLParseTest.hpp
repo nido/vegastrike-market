@@ -6,14 +6,13 @@
 
 #include <vector>
 
-class MPLParseTest : public CppUnit::TestFixture
-{
-    public:
-        void setUp();
-        void tearDown();
+class MPLParseTest : public CppUnit::TestFixture {
+public:
+  void setUp();
+  void tearDown();
 
-        void testParse();
-        void testParseFile();
-        void testParseLine();
-        static CppUnit::Test *suite();
+  void testParse();
+  void testParseFile();
+  void testParseLine();
+  static CppUnit::Test *suite();
 };
