@@ -64,13 +64,13 @@ CargoType *MPLParse::ParseLine(std::string line) {
       }
       break;
     case 2:
-      price = atof(substring.c_str());
+      price = static_cast<float>(atof(substring.c_str()));
       break;
     case 3:
-      mass = atof(substring.c_str());
+      mass = static_cast<float>(atof(substring.c_str()));
       break;
     case 4:
-      volume = atof(substring.c_str());
+      volume = static_cast<float>(atof(substring.c_str()));
       break;
     }
     fieldNumber++;

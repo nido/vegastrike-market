@@ -240,4 +240,5 @@ XMLNode& XMLNode::operator=(const XMLNode &that){
   this->characterdata = that.characterdata;
   this->attributes = that.attributes;
   this->parent = that.parent;
+  return *this;
 }
