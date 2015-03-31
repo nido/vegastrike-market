@@ -1,15 +1,21 @@
+<!ELEMENT vector ((CargoType|Cargo|ProductionOption|Factory)+)>
+<!ATTLIST vector
+	type CDATA #REQUIRED
+>
+
+<!ELEMENT Factory (ProductionOption+)>
+<!ATTLIST Factory>
+
 <!ELEMENT ProductionOption (Cargo, Cargo)>
-<!ATTLIST ProductionOption>
+<!ATTLIST ProductionOption
+	active (true) #IMPLIED
+>
 
 <!ELEMENT Cargo (CargoType+)>
 <!ATTLIST Cargo
 	type (in|out) #IMPLIED
 >
 
-<!ELEMENT vector ((CargoType|Cargo|ProductionOption)+)>
-<!ATTLIST vector
-	type CDATA #REQUIRED
->
 <!ELEMENT CargoType (#PCDATA)>
 <!ATTLIST CargoType
 	name CDATA #REQUIRED
