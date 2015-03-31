@@ -5,6 +5,7 @@
 
 #include <expat.h>
 
+#include "Factory.hpp"
 #include "ProductionOption.hpp"
 #include "Cargo.hpp"
 #include "CargoType.hpp"
@@ -77,7 +78,11 @@ public:
   * ProductionOption node), or NULL on failure.
   */
   ProductionOption *getProductionOption();
-  XMLNode(ProductionOption& o);
+  XMLNode(const ProductionOption& o);
+  XMLNode(const Factory& f);
+  Factory* getFactory();
+  
+
 
   void setCharacterdata(std::string chardata);
 
@@ -128,6 +133,4 @@ private:
   /** Attributes of this XMLNode */
   std::map<std::string, std::string> attributes;
 };
-
-XMLNode getXMLNode(const Cargo &c);
 #endif // H_XMLNODE

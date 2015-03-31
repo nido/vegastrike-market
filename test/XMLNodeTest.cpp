@@ -140,6 +140,7 @@ void XMLNodeTest::testCopyConstructor() {
 
 void XMLNodeTest::testGetXMLNode() {
   CargoType ct = CargoType("cargo", "category", 1, 2, 3);
+  CargoType ct2 = CargoType("carg2", "category", 4, 5, 6);
   XMLNode n = XMLNode(ct);
   CargoType *check = n.getCargoType();
   CPPUNIT_ASSERT(check != NULL);
@@ -156,6 +157,20 @@ void XMLNodeTest::testGetXMLNode() {
   if (cargocheck != NULL){
     CPPUNIT_ASSERT(*cargocheck == c);
     delete cargocheck;
+  }
+  Cargo d = Cargo();
+  d.addCargo(ct2, 6);
+  ProductionOption p = ProductionOption(c, d);
+  ProductionOption q = ProductionOption(d, c);
+  Factory f = Factory();
+  f.addProductionOption(p);
+  f.addProductionOption(q);
+  f.setProductionOption(q);
+  XMLNode o = XMLNode(f);
+  Factory* g = o.getFactory();
+  CPPUNIT_ASSERT(g != NULL);
+  if(g != NULL){
+    CPPUNIT_ASSERT(*g == f);
   }
 }
 

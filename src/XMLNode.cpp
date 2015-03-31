@@ -155,7 +155,7 @@ std::string XMLNode::getXML() {
   return XML;
 }
 
-XMLNode::XMLNode(ProductionOption& o) :
+XMLNode::XMLNode(const ProductionOption& o) :
   name("ProductionOption"), parent(NULL), children(std::vector<XMLNode>()), attributes(std::map<std::string, std::string>()), characterdata(std::string())
 {
   XMLNode in = XMLNode(o.input());
@@ -241,4 +241,37 @@ XMLNode& XMLNode::operator=(const XMLNode &that){
   this->attributes = that.attributes;
   this->parent = that.parent;
   return *this;
+}
+
+XMLNode::XMLNode(const Factory& f) :
+  name("Factory"),
+  parent(NULL),
+  children(std::vector<XMLNode>()),
+  attributes(std::map<std::string, std::string>()),
+  characterdata(std::string())
+{
+  for (std::vector<ProductionOption>::const_iterator i = f.begin();
+     i != f.end(); ++i){
+    XMLNode n = XMLNode(*i);
+    if(i == f.indicator()) {
+      n.attributes["active"] = "true";
+    }
+    this->addChild(n);
+  }
+  std::cout<<"XMLNode(): "<<this->getXML()<<std::endl;
+}
+
+Factory* XMLNode::getFactory(){
+  Factory* f = new Factory();
+  for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
+  {
+    ProductionOption* p = i->getProductionOption();
+    f->addProductionOption(*p);
+    if (i->attributes.find("active") != i->attributes.end()){
+      //I assume this is enough information. Changing it to 'false' is invalid anyhow.
+      f->setProductionOption(*p);
+      
+    }
+  }
+  std::cout<<"getFactory(): "<<this->getXML()<<std::endl;
 }

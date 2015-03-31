@@ -57,6 +57,10 @@ public:
  */
   Factory &operator=(const Factory &that);
 
+  std::vector<ProductionOption>::const_iterator begin() const;
+  std::vector<ProductionOption>::const_iterator end() const;
+  std::vector<ProductionOption>::const_iterator indicator() const;
+
 private:
   /** list of possible ProductionOptions */
   std::vector<ProductionOption> options;

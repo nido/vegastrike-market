@@ -45,6 +45,7 @@ void Factory::setProductionOption(const ProductionOption &option) {
   std::vector<ProductionOption>::iterator i =
       std::find(this->options.begin(), this->options.end(), option);
   // TODO: exceptions when not set
+  assert(i != this->end());
   this->productionPlan = i;
 }
 
@@ -60,4 +61,19 @@ Factory &Factory::operator=(const Factory &that) {
 
 bool Factory::operator==(const Factory &that) const {
   return this->options == that.options;
+}
+
+std::vector<ProductionOption>::const_iterator Factory::begin() const
+{
+  return this->options.begin();
+}
+
+std::vector<ProductionOption>::const_iterator Factory::end() const
+{
+  return this->options.end();
+}
+
+std::vector<ProductionOption>::const_iterator Factory::indicator() const
+{
+  return this->productionPlan;
 }
