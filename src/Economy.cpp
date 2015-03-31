@@ -24,3 +24,7 @@ void Economy::tick() {
     iter->Process();
   }
 }
+
+void Economy::preallocate(unsigned int x){
+  this->bases.reserve(x);
+}

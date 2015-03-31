@@ -87,6 +87,7 @@ int main(int argc, char *argv[]) {
 
   // build an economy with 10k bases
   Economy economy = Economy();
+  economy.preallocate(economysize);
   for (int i = 0; i < economysize; i++) {
     Base b = prepareRandomBase(basesize);
     economy.addBase(b);

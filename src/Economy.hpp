@@ -34,6 +34,8 @@ public:
   /** Process an economic turn */
   void tick();
 
+  void preallocate(unsigned int x);
+
 private:
   /** All Bases in this Economy */
   std::vector<Base> bases;
