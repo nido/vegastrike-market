@@ -10,9 +10,9 @@ int main(int argc, char* argv[])
   std::vector<CargoType> cts = parser.ParseFile("../data/master_part_list.csv");
   std::vector<ProductionOption> pos;
   for (std::vector<CargoType>::iterator i = cts.begin(); i != cts.end(); ++i){
-    if (std::next(i, 1) != cts.end()){
+    if ((i+ 1) != cts.end()){
       CargoType t = *i;
-      CargoType u = *(std::next(i, 1));
+      CargoType u = *(i+1);
       Cargo in, out;
       in.addCargo(t, 1);
       out.addCargo(u, 2);
