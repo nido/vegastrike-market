@@ -266,6 +266,7 @@ Factory* XMLNode::getFactory(){
   for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
   {
     ProductionOption* p = i->getProductionOption();
+    assert (p != NULL);
     f->addProductionOption(*p);
     if (i->attributes.find("active") != i->attributes.end()){
       //I assume this is enough information. Changing it to 'false' is invalid anyhow.
@@ -274,4 +275,5 @@ Factory* XMLNode::getFactory(){
     }
   }
   std::cout<<"getFactory(): "<<this->getXML()<<std::endl;
+  return f;
 }
