@@ -258,7 +258,6 @@ XMLNode::XMLNode(const Factory& f) :
     }
     this->addChild(n);
   }
-  std::cout<<"XMLNode(): "<<this->getXML()<<std::endl;
 }
 
 Factory* XMLNode::getFactory(){
@@ -274,6 +273,5 @@ Factory* XMLNode::getFactory(){
       
     }
   }
-  std::cout<<"getFactory(): "<<this->getXML()<<std::endl;
   return f;
 }

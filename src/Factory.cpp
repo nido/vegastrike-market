@@ -60,7 +60,8 @@ Factory &Factory::operator=(const Factory &that) {
 }
 
 bool Factory::operator==(const Factory &that) const {
-  return this->options == that.options;
+  return (this->options == that.options)
+    && (*(this->productionPlan) == *(that.productionPlan));
 }
 
 std::vector<ProductionOption>::const_iterator Factory::begin() const

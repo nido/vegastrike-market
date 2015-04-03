@@ -168,6 +168,7 @@ void XMLNodeTest::testGetXMLNode() {
   f.setProductionOption(q);
   XMLNode o = XMLNode(f);
   Factory* g = o.getFactory();
+  XMLNode zzz = XMLNode(*g);
   CPPUNIT_ASSERT(g != NULL);
   if(g != NULL){
     CPPUNIT_ASSERT(*g == f);
