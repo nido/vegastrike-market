@@ -5,6 +5,7 @@
 
 #include <expat.h>
 
+#include "Economy.hpp"
 #include "Base.hpp"
 #include "Factory.hpp"
 #include "ProductionOption.hpp"
@@ -86,6 +87,8 @@ public:
   XMLNode(const Base& b);
   Base* getBase();
 
+  XMLNode(const Economy& e);
+  Economy* getEconomy();
 
   void setCharacterdata(std::string chardata);
 

@@ -182,7 +182,16 @@ void XMLNodeTest::testGetXMLNode() {
   CPPUNIT_ASSERT(bb != NULL);
   if (bb != NULL){
   CPPUNIT_ASSERT(b == *bb);
+  }
     
+  Economy e = Economy();
+  e.addBase(b);
+  e.addBase(*bb);
+  XMLNode en = XMLNode(e);
+  Economy* ee = en.getEconomy();
+  CPPUNIT_ASSERT(ee != NULL);
+  if (ee != NULL){
+    CPPUNIT_ASSERT(*ee == e);
   }
 }
 

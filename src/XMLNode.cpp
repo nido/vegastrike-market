@@ -302,3 +302,23 @@ Base* XMLNode::getBase(){
   }
   return b;
 }
+
+XMLNode::XMLNode(const Economy& e){
+  for (std::vector<Base>::const_iterator i = e.begin();
+     i != e.end(); ++i){
+     XMLNode n = XMLNode(*i);
+    this->addChild(n);
+  }
+}
+
+Economy* XMLNode::getEconomy(){
+  Economy* e = new Economy();
+  for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
+  {
+    Base* b = i->getBase();
+    assert(b != NULL);
+    e->addBase(*b);
+    free(b);
+  }
+  return e;
+}
