@@ -67,6 +67,9 @@ public:
  */
   bool operator==(const Base &that) const;
 
+  std::vector<Factory>::const_iterator begin() const;
+  std::vector<Factory>::const_iterator end() const;
+
 private:
   /** The Factories on this Base */
   std::vector<Factory> factories;

@@ -275,3 +275,30 @@ Factory* XMLNode::getFactory(){
   }
   return f;
 }
+
+
+XMLNode::XMLNode(const Base& b) :
+  name("Base"),
+  parent(NULL),
+  children(std::vector<XMLNode>()),
+  attributes(std::map<std::string, std::string>()),
+  characterdata(std::string())
+{
+  for (std::vector<Factory>::const_iterator i = b.begin();
+     i != b.end(); ++i){
+    XMLNode n = XMLNode(*i);
+    this->addChild(n);
+  }
+}
+
+Base* XMLNode::getBase(){
+  Base* b = new Base();
+  for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
+  {
+    Factory* f = i->getFactory();
+    assert(f != NULL);
+    b->addFactory(*f);
+    free(f);
+  }
+  return b;
+}

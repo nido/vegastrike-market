@@ -35,3 +35,10 @@ void Base::Process() {
     iter->Produce(this->cargoStore);
   }
 }
+
+std::vector<Factory>::const_iterator Base::begin() const {
+  return this->factories.begin();
+}
+std::vector<Factory>::const_iterator Base::end() const {
+  return this->factories.end();
+}

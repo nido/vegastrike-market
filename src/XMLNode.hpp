@@ -5,6 +5,7 @@
 
 #include <expat.h>
 
+#include "Base.hpp"
 #include "Factory.hpp"
 #include "ProductionOption.hpp"
 #include "Cargo.hpp"
@@ -82,6 +83,8 @@ public:
   XMLNode(const Factory& f);
   Factory* getFactory();
   
+  XMLNode(const Base& b);
+  Base* getBase();
 
 
   void setCharacterdata(std::string chardata);

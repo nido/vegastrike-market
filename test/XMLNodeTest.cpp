@@ -158,6 +158,7 @@ void XMLNodeTest::testGetXMLNode() {
     CPPUNIT_ASSERT(*cargocheck == c);
     delete cargocheck;
   }
+
   Cargo d = Cargo();
   d.addCargo(ct2, 6);
   ProductionOption p = ProductionOption(c, d);
@@ -168,10 +169,20 @@ void XMLNodeTest::testGetXMLNode() {
   f.setProductionOption(q);
   XMLNode o = XMLNode(f);
   Factory* g = o.getFactory();
-  XMLNode zzz = XMLNode(*g);
   CPPUNIT_ASSERT(g != NULL);
   if(g != NULL){
     CPPUNIT_ASSERT(*g == f);
+  }
+
+  Base b = Base();
+  b.addFactory(f);
+  b.addFactory(*g);
+  XMLNode bx = XMLNode(b);
+  Base* bb = bx.getBase();
+  CPPUNIT_ASSERT(bb != NULL);
+  if (bb != NULL){
+  CPPUNIT_ASSERT(b == *bb);
+    
   }
 }
 
