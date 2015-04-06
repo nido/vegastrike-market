@@ -3,6 +3,12 @@
 	type CDATA #REQUIRED
 >
 
+<!ELEMENT Economy (Base+)>
+<!ATTLIST Economy>
+
+<!ELEMENT Base (Factory+)>
+<!ATTLIST Base>
+
 <!ELEMENT Factory (ProductionOption+)>
 <!ATTLIST Factory>
 
