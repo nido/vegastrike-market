@@ -95,6 +95,7 @@ string getdatadir()
     } else {
         datadir = datadirs[i];
     }
+    chdir(tmppwd);
     return datadir;
 }
 
