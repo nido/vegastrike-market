@@ -1,8 +1,10 @@
 #include <algorithm>
+#include <fstream>
 #include <cassert>
 
 #include <cppunit/TestCaller.h>
 
+#include "XMLNode.hpp"
 #include "Economy.hpp"
 #include "MPLParse.hpp"
 
@@ -62,7 +64,7 @@ int main(int argc, char *argv[]) {
   int count = 10;
   int basesize = 10;
   int economysize = 10;
-
+  std::string filename;
   if (argc > 1) {
     count = atoi(argv[1]);
     std::cout << "Doing " << count << " rounds." << std::endl;
@@ -74,6 +76,10 @@ int main(int argc, char *argv[]) {
   if (argc > 3) {
     economysize = atoi(argv[3]);
     std::cout << "Doing " << economysize << " bases." << std::endl;
+  }
+  if (argc > 4) {
+    filename = argv[4]; 
+    std::cout << "Saving economy to " << filename << "." << std::endl;
   }
 
   std::vector<CargoType> cargo;
@@ -110,6 +116,15 @@ int main(int argc, char *argv[]) {
   if (argc > 3) {
     economysize = atoi(argv[3]);
     std::cout << "Finished " << economysize << " bases." << std::endl;
+  }
+  if (argc > 4){
+    std::cout << "Saving economy to " << filename << "." << std::endl;
+    XMLNode n = XMLNode(economy);
+    std::ofstream XMLFile(filename.c_str(), std::ios::trunc);
+    XMLFile<<"<?xml version=\"1.0\"?>"<<std::endl;
+    XMLFile<<"<!DOCTYPE economy SYSTEM \"economy.dtd\">"<<std::endl<<std::endl;;
+    XMLFile<<n.getXML()<<std::endl;
+    XMLFile.close();
   }
   return 0;
 }
