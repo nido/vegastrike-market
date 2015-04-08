@@ -13,11 +13,12 @@ XMLNode::XMLNode()
 XMLNode::XMLNode(std::string name, XMLNode *parent,
                  std::vector<XMLNode> children,
                  std::map<std::string, std::string> attributes, std::string characterdata)
-    : name(name), parent(parent), children(children), attributes(attributes), characterdata(characterdata) {}
+    : parent(parent), children(children), name(name), characterdata(characterdata), attributes(attributes)
+{}
 
 XMLNode::XMLNode(const XMLNode &that)
-    : parent(that.parent), children(std::vector<XMLNode>()), name(that.name),
-      attributes(std::map<std::string, std::string>(that.attributes)), characterdata(that.characterdata) {
+    : parent(that.parent), children(std::vector<XMLNode>()), name(that.name), characterdata(that.characterdata), attributes(that.attributes)
+{
   for (std::vector<XMLNode>::const_iterator i = that.children.begin();
        i < that.children.end(); ++i) {
     addChild(*i);
@@ -25,6 +26,7 @@ XMLNode::XMLNode(const XMLNode &that)
 }
 
 XMLNode& XMLNode::addChild(const XMLNode& child){
+  //becomes a problem when multithreading (though xml processing isn't really something that should be eligable for that
   this->children.push_back(child);
   XMLNode& kid = this->children.back();
   kid.parent = this;
@@ -108,6 +110,7 @@ void XMLNode::ParseXMLNodeBegin(void *xmlnode, const XML_Char *name,
 void XMLNode::ParseXMLNodeEnd(void *xmlnode, const XML_Char *name) {
   XMLNode *root = static_cast<XMLNode *>(xmlnode);
   XMLNode *last = root->parent;
+  assert(last->name == name);
   if (last == root) {
     root->parent = NULL;
   } else {
@@ -126,12 +129,47 @@ void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char *name,
   //root->characterdata = std::string(name, size);
 }
 
-std::string XMLNode::getXML() {
+std::stringstream& XMLNode::getXML(std::stringstream& ss) const
+{
+  // TODO: Properly warn for shoddy implementation
+  std::string XML = "<" + this->name;
+  ss<<"<"<< this->name;
+
+  if (!this->attributes.empty()) {
+    for (std::map<std::string, std::string>::const_iterator i = attributes.begin();
+         i != attributes.end(); ++i) {
+      ss<< " " << i->first << "=\"" << i->second << "\"";
+    }
+  }
+  if (this->children.empty() && this->characterdata.empty()) {
+    ss << " />";
+  } else {
+    ss << ">";
+  }
+
+  for (std::vector<XMLNode>::const_iterator child = this->children.begin();
+       child != this->children.end(); ++child) {
+    child->getXML(ss);
+  }
+  if (!this->characterdata.empty()) {
+    ss << this->characterdata;
+  }
+  if (!(this->children.empty() && this->characterdata.empty())) {
+    ss << "</" << this->name << ">";
+  }
+ return ss;
+}
+std::string XMLNode::getXML() const
+{
+  std::stringstream ss;
+  getXML(ss);
+  return(ss.str());
+/*
   // TODO: Properly warn for shoddy implementation
   std::string XML = "<" + this->name;
 
   if (!this->attributes.empty()) {
-    for (std::map<std::string, std::string>::iterator i = attributes.begin();
+    for (std::map<std::string, std::string>::const_iterator i = attributes.begin();
          i != attributes.end(); ++i) {
       XML += " " + i->first + "=\"" + i->second + "\"";
     }
@@ -142,7 +180,7 @@ std::string XMLNode::getXML() {
     XML += ">";
   }
 
-  for (std::vector<XMLNode>::iterator child = this->children.begin();
+  for (std::vector<XMLNode>::const_iterator child = this->children.begin();
        child != this->children.end(); ++child) {
     XML += child->getXML();
   }
@@ -153,10 +191,15 @@ std::string XMLNode::getXML() {
     XML += "</" + this->name + ">";
   }
   return XML;
+*/
 }
 
 XMLNode::XMLNode(const ProductionOption& o) :
-  name("ProductionOption"), parent(NULL), children(std::vector<XMLNode>()), attributes(std::map<std::string, std::string>()), characterdata(std::string())
+parent(NULL),
+children(std::vector<XMLNode>()),
+  name("ProductionOption"),
+characterdata(std::string()),
+attributes(std::map<std::string, std::string>())
 {
   XMLNode in = XMLNode(o.input());
   in.attributes["type"]="in";
@@ -219,7 +262,11 @@ CargoType *XMLNode::getCargoType() {
 }
 
 XMLNode::XMLNode(const Cargo &c) :
-  name("Cargo"), parent(NULL), children(std::vector<XMLNode>()), attributes(std::map<std::string, std::string>()), characterdata(std::string())
+parent(NULL), 
+children(std::vector<XMLNode>()), 
+  name("Cargo"), 
+characterdata(std::string()),
+attributes(std::map<std::string, std::string>())
 {
   for (std::map<CargoType, unsigned int>::const_iterator ct = c.begin(); ct != c.end(); ++ct){
     XMLNode ctn = XMLNode(ct->first);
@@ -244,11 +291,11 @@ XMLNode& XMLNode::operator=(const XMLNode &that){
 }
 
 XMLNode::XMLNode(const Factory& f) :
-  name("Factory"),
   parent(NULL),
   children(std::vector<XMLNode>()),
-  attributes(std::map<std::string, std::string>()),
-  characterdata(std::string())
+  name("Factory"),
+  characterdata(std::string()),
+  attributes(std::map<std::string, std::string>())
 {
   for (std::vector<ProductionOption>::const_iterator i = f.begin();
      i != f.end(); ++i){
@@ -278,11 +325,11 @@ Factory* XMLNode::getFactory(){
 
 
 XMLNode::XMLNode(const Base& b) :
-  name("Base"),
   parent(NULL),
   children(std::vector<XMLNode>()),
-  attributes(std::map<std::string, std::string>()),
-  characterdata(std::string())
+  name("Base"),
+  characterdata(std::string()),
+  attributes(std::map<std::string, std::string>())
 {
   for (std::vector<Factory>::const_iterator i = b.begin();
      i != b.end(); ++i){
@@ -303,7 +350,13 @@ Base* XMLNode::getBase(){
   return b;
 }
 
-XMLNode::XMLNode(const Economy& e){
+XMLNode::XMLNode(const Economy& e):
+  parent(NULL),
+  children(std::vector<XMLNode>()),
+  name("Economy"),
+  characterdata(std::string()),
+  attributes(std::map<std::string, std::string>())
+{
   for (std::vector<Base>::const_iterator i = e.begin();
      i != e.end(); ++i){
      XMLNode n = XMLNode(*i);

@@ -46,7 +46,8 @@ public:
   /** Parse an XML string to populate this root node
  * @return XML string representing this XMLNode
  */
-  std::string getXML();
+  std::string getXML() const;
+  std::stringstream& getXML(std::stringstream& ss) const;
 
   /** add a child node
    * @param child the child to add
