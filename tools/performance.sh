@@ -7,7 +7,9 @@ test -f  CMakeCache.txt && rm CMakeCache.txt && echo "warning: removed CMakeCach
 
 imageformat=png
 
-test -d performance || mkdir performance
+test -d performance && rm -rf performance
+mkdir performance
+
 cd performance
 
 function runtests(){
@@ -60,7 +62,7 @@ function gnuplotcompatibilitize(){
 	done
 }
 
-echo "valgrind bigtest 100 100 100"
+echo "valgrind massif bigtest 10 10 10"
 valgrind \
 	--tool=massif --stacks=yes --depth=1 \
 	--threshold=0 \
