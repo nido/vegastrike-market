@@ -111,7 +111,7 @@ int _tmain(int argc, _TCHAR *argv[]) {
   return 0;
 }
 #else
-int main(int argc, char *argv[]) {
+int main(void) {
   realmain();
   return 0;
 }

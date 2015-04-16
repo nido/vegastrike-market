@@ -4,7 +4,7 @@
 #include "MPLParse.hpp"
 #include "XMLNode.hpp"
 
-int main(int argc, char* argv[])
+int main(void)
 {
   MPLParse parser = MPLParse();
   std::vector<CargoType> cts = parser.ParseFile("../data/master_part_list.csv");
