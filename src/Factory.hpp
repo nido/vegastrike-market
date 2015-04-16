@@ -44,6 +44,8 @@ public:
  */
   void setProductionOption(const ProductionOption &option);
 
+  void stopProduction();
+
   /** Compare factories to eachother. Factories are equal if the
  * have exactly the same ProductionOptions.
  * @param that Factory to compare to

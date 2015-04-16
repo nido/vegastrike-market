@@ -78,3 +78,8 @@ std::vector<ProductionOption>::const_iterator Factory::indicator() const
 {
   return this->productionPlan;
 }
+
+void Factory::stopProduction()
+{
+  this->productionPlan = this->options.end();
+}
