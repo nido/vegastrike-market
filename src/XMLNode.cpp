@@ -12,23 +12,25 @@ XMLNode::XMLNode()
 // may be dangerous not to set parent and child relationships
 XMLNode::XMLNode(std::string name, XMLNode *parent,
                  std::vector<XMLNode> children,
-                 std::map<std::string, std::string> attributes, std::string characterdata)
-    : parent(parent), children(children), name(name), characterdata(characterdata), attributes(attributes)
-{}
+                 std::map<std::string, std::string> attributes,
+                 std::string characterdata)
+    : parent(parent), children(children), name(name),
+      characterdata(characterdata), attributes(attributes) {}
 
 XMLNode::XMLNode(const XMLNode &that)
-    : parent(that.parent), children(std::vector<XMLNode>()), name(that.name), characterdata(that.characterdata), attributes(that.attributes)
-{
+    : parent(that.parent), children(std::vector<XMLNode>()), name(that.name),
+      characterdata(that.characterdata), attributes(that.attributes) {
   for (std::vector<XMLNode>::const_iterator i = that.children.begin();
        i < that.children.end(); ++i) {
     addChild(*i);
   }
 }
 
-XMLNode& XMLNode::addChild(const XMLNode& child){
-  //becomes a problem when multithreading (though xml processing isn't really something that should be eligable for that
+XMLNode &XMLNode::addChild(const XMLNode &child) {
+  // becomes a problem when multithreading (though xml processing isn't really
+  // something that should be eligable for that
   this->children.push_back(child);
-  XMLNode& kid = this->children.back();
+  XMLNode &kid = this->children.back();
   kid.parent = this;
   return kid;
 }
@@ -37,8 +39,7 @@ XMLNode::XMLNode(XMLNode *parent)
     : parent(parent), children(std::vector<XMLNode>()),
       attributes(std::map<std::string, std::string>()) {}
 
-XMLNode::~XMLNode() {
-}
+XMLNode::~XMLNode() {}
 
 XMLNode::XMLNode(const CargoType &c)
     : parent(NULL), children(std::vector<XMLNode>()), name("CargoType"),
@@ -101,7 +102,7 @@ void XMLNode::ParseXMLNodeBegin(void *xmlnode, const XML_Char *name,
   } else {
     XMLNode *current = new XMLNode(last);
     current->ParseElementBegin(name, atts);
-    XMLNode& n = last->addChild(*current);
+    XMLNode &n = last->addChild(*current);
     root->parent = &n;
     delete current;
   }
@@ -116,7 +117,7 @@ void XMLNode::ParseXMLNodeEnd(void *xmlnode, const XML_Char *name) {
   } else {
     root->parent = last->parent;
   }
-//  assert(strcmp(last->name.c_str(), name) == 0);
+  //  assert(strcmp(last->name.c_str(), name) == 0);
 }
 
 void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char *name,
@@ -126,19 +127,19 @@ void XMLNode::ParseXMLNodeCharacterData(void *xmlnode, const XML_Char *name,
   assert(last != NULL);
   last->characterdata = std::string(name, size);
 
-  //root->characterdata = std::string(name, size);
+  // root->characterdata = std::string(name, size);
 }
 
-std::stringstream& XMLNode::getXML(std::stringstream& ss) const
-{
+std::stringstream &XMLNode::getXML(std::stringstream &ss) const {
   // TODO: Properly warn for shoddy implementation
   std::string XML = "<" + this->name;
-  ss<<"<"<< this->name;
+  ss << "<" << this->name;
 
   if (!this->attributes.empty()) {
-    for (std::map<std::string, std::string>::const_iterator i = attributes.begin();
+    for (std::map<std::string, std::string>::const_iterator i =
+             attributes.begin();
          i != attributes.end(); ++i) {
-      ss<< " " << i->first << "=\"" << i->second << "\"";
+      ss << " " << i->first << "=\"" << i->second << "\"";
     }
   }
   if (this->children.empty() && this->characterdata.empty()) {
@@ -157,55 +158,23 @@ std::stringstream& XMLNode::getXML(std::stringstream& ss) const
   if (!(this->children.empty() && this->characterdata.empty())) {
     ss << "</" << this->name << ">";
   }
- return ss;
+  return ss;
 }
-std::string XMLNode::getXML() const
-{
+std::string XMLNode::getXML() const {
   std::stringstream ss;
   getXML(ss);
-  return(ss.str());
-/*
-  // TODO: Properly warn for shoddy implementation
-  std::string XML = "<" + this->name;
-
-  if (!this->attributes.empty()) {
-    for (std::map<std::string, std::string>::const_iterator i = attributes.begin();
-         i != attributes.end(); ++i) {
-      XML += " " + i->first + "=\"" + i->second + "\"";
-    }
-  }
-  if (this->children.empty() && this->characterdata.empty()) {
-    XML += " />";
-  } else {
-    XML += ">";
-  }
-
-  for (std::vector<XMLNode>::const_iterator child = this->children.begin();
-       child != this->children.end(); ++child) {
-    XML += child->getXML();
-  }
-  if (!this->characterdata.empty()) {
-    XML += this->characterdata;
-  }
-  if (!(this->children.empty() && this->characterdata.empty())) {
-    XML += "</" + this->name + ">";
-  }
-  return XML;
-*/
+  return (ss.str());
 }
 
-XMLNode::XMLNode(const ProductionOption& o) :
-parent(NULL),
-children(std::vector<XMLNode>()),
-  name("ProductionOption"),
-characterdata(std::string()),
-attributes(std::map<std::string, std::string>())
-{
+XMLNode::XMLNode(const ProductionOption &o)
+    : parent(NULL), children(std::vector<XMLNode>()), name("ProductionOption"),
+      characterdata(std::string()),
+      attributes(std::map<std::string, std::string>()) {
   XMLNode in = XMLNode(o.input());
-  in.attributes["type"]="in";
+  in.attributes["type"] = "in";
   this->addChild(in);
   XMLNode out = XMLNode(o.output());
-  out.attributes["type"]="out";
+  out.attributes["type"] = "out";
   this->addChild(out);
 }
 
@@ -261,14 +230,12 @@ CargoType *XMLNode::getCargoType() {
   return cargo;
 }
 
-XMLNode::XMLNode(const Cargo &c) :
-parent(NULL), 
-children(std::vector<XMLNode>()), 
-  name("Cargo"), 
-characterdata(std::string()),
-attributes(std::map<std::string, std::string>())
-{
-  for (std::map<CargoType, unsigned int>::const_iterator ct = c.begin(); ct != c.end(); ++ct){
+XMLNode::XMLNode(const Cargo &c)
+    : parent(NULL), children(std::vector<XMLNode>()), name("Cargo"),
+      characterdata(std::string()),
+      attributes(std::map<std::string, std::string>()) {
+  for (std::map<CargoType, unsigned int>::const_iterator ct = c.begin();
+       ct != c.end(); ++ct) {
     XMLNode ctn = XMLNode(ct->first);
     std::ostringstream s;
     s << ct->second;
@@ -277,11 +244,11 @@ attributes(std::map<std::string, std::string>())
   }
 }
 
-void XMLNode::setCharacterdata(std::string chardata){
+void XMLNode::setCharacterdata(std::string chardata) {
   this->characterdata = chardata;
 }
 
-XMLNode& XMLNode::operator=(const XMLNode &that){
+XMLNode &XMLNode::operator=(const XMLNode &that) {
   this->children = that.children;
   this->name = that.name;
   this->characterdata = that.characterdata;
@@ -290,88 +257,76 @@ XMLNode& XMLNode::operator=(const XMLNode &that){
   return *this;
 }
 
-XMLNode::XMLNode(const Factory& f) :
-  parent(NULL),
-  children(std::vector<XMLNode>()),
-  name("Factory"),
-  characterdata(std::string()),
-  attributes(std::map<std::string, std::string>())
-{
+XMLNode::XMLNode(const Factory &f)
+    : parent(NULL), children(std::vector<XMLNode>()), name("Factory"),
+      characterdata(std::string()),
+      attributes(std::map<std::string, std::string>()) {
   for (std::vector<ProductionOption>::const_iterator i = f.begin();
-     i != f.end(); ++i){
+       i != f.end(); ++i) {
     XMLNode n = XMLNode(*i);
-    if(i == f.indicator()) {
+    if (i == f.indicator()) {
       n.attributes["active"] = "true";
     }
     this->addChild(n);
   }
 }
 
-Factory* XMLNode::getFactory(){
-  Factory* f = new Factory();
-  for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
-  {
-    ProductionOption* p = i->getProductionOption();
-    assert (p != NULL);
+Factory *XMLNode::getFactory() {
+  Factory *f = new Factory();
+  for (std::vector<XMLNode>::iterator i = this->children.begin();
+       i != this->children.end(); ++i) {
+    ProductionOption *p = i->getProductionOption();
+    assert(p != NULL);
     f->addProductionOption(*p);
-    if (i->attributes.find("active") != i->attributes.end()){
-      //I assume this is enough information. Changing it to 'false' is invalid anyhow.
+    if (i->attributes.find("active") != i->attributes.end()) {
+      // I assume this is enough information. Changing it to 'false' is invalid
+      // anyhow.
       f->setProductionOption(*p);
-      
     }
   }
   return f;
 }
 
-
-XMLNode::XMLNode(const Base& b) :
-  parent(NULL),
-  children(std::vector<XMLNode>()),
-  name("Base"),
-  characterdata(std::string()),
-  attributes(std::map<std::string, std::string>())
-{
-  for (std::vector<Factory>::const_iterator i = b.begin();
-     i != b.end(); ++i){
+XMLNode::XMLNode(const Base &b)
+    : parent(NULL), children(std::vector<XMLNode>()), name("Base"),
+      characterdata(std::string()),
+      attributes(std::map<std::string, std::string>()) {
+  for (std::vector<Factory>::const_iterator i = b.begin(); i != b.end(); ++i) {
     XMLNode n = XMLNode(*i);
     this->addChild(n);
   }
 }
 
-Base* XMLNode::getBase(){
-  Base* b = new Base();
-  for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
-  {
-    Factory* f = i->getFactory();
+Base *XMLNode::getBase() {
+  Base *b = new Base();
+  for (std::vector<XMLNode>::iterator i = this->children.begin();
+       i != this->children.end(); ++i) {
+    Factory *f = i->getFactory();
     assert(f != NULL);
     b->addFactory(*f);
-    delete(f);
+    delete (f);
   }
   return b;
 }
 
-XMLNode::XMLNode(const Economy& e):
-  parent(NULL),
-  children(std::vector<XMLNode>()),
-  name("Economy"),
-  characterdata(std::string()),
-  attributes(std::map<std::string, std::string>())
-{
-  for (std::vector<Base>::const_iterator i = e.begin();
-     i != e.end(); ++i){
-     XMLNode n = XMLNode(*i);
+XMLNode::XMLNode(const Economy &e)
+    : parent(NULL), children(std::vector<XMLNode>()), name("Economy"),
+      characterdata(std::string()),
+      attributes(std::map<std::string, std::string>()) {
+  for (std::vector<Base>::const_iterator i = e.begin(); i != e.end(); ++i) {
+    XMLNode n = XMLNode(*i);
     this->addChild(n);
   }
 }
 
-Economy* XMLNode::getEconomy(){
-  Economy* e = new Economy();
-  for (std::vector<XMLNode>::iterator i = this->children.begin(); i != this->children.end(); ++i)
-  {
-    Base* b = i->getBase();
+Economy *XMLNode::getEconomy() {
+  Economy *e = new Economy();
+  for (std::vector<XMLNode>::iterator i = this->children.begin();
+       i != this->children.end(); ++i) {
+    Base *b = i->getBase();
     assert(b != NULL);
     e->addBase(*b);
-    delete(b);
+    delete (b);
   }
   return e;
 }

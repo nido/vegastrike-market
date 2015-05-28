@@ -60,26 +60,20 @@ Factory &Factory::operator=(const Factory &that) {
 }
 
 bool Factory::operator==(const Factory &that) const {
-  return (this->options == that.options)
-    && (*(this->productionPlan) == *(that.productionPlan));
+  return (this->options == that.options) &&
+         (*(this->productionPlan) == *(that.productionPlan));
 }
 
-std::vector<ProductionOption>::const_iterator Factory::begin() const
-{
+std::vector<ProductionOption>::const_iterator Factory::begin() const {
   return this->options.begin();
 }
 
-std::vector<ProductionOption>::const_iterator Factory::end() const
-{
+std::vector<ProductionOption>::const_iterator Factory::end() const {
   return this->options.end();
 }
 
-std::vector<ProductionOption>::const_iterator Factory::indicator() const
-{
+std::vector<ProductionOption>::const_iterator Factory::indicator() const {
   return this->productionPlan;
 }
 
-void Factory::stopProduction()
-{
-  this->productionPlan = this->options.end();
-}
+void Factory::stopProduction() { this->productionPlan = this->options.end(); }

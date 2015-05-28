@@ -40,6 +40,7 @@ public:
 
   std::vector<Base>::const_iterator begin() const;
   std::vector<Base>::const_iterator end() const;
+
 private:
   /** All Bases in this Economy */
   std::vector<Base> bases;

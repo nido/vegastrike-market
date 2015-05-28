@@ -19,12 +19,12 @@ public:
   XMLNode();
 
   XMLNode(std::string name, XMLNode *parent, std::vector<XMLNode> children,
-          std::map<std::string, std::string> attributes, std::string characterdata);
+          std::map<std::string, std::string> attributes,
+          std::string characterdata);
   /** Copy constructor
  * @param that the XMLNode to copy
  */
   XMLNode(const XMLNode &that);
-
 
   /** Assignment operator
  * @param that the XMLNode to copy
@@ -47,12 +47,12 @@ public:
  * @return XML string representing this XMLNode
  */
   std::string getXML() const;
-  std::stringstream& getXML(std::stringstream& ss) const;
+  std::stringstream &getXML(std::stringstream &ss) const;
 
   /** add a child node
    * @param child the child to add
    */
-  XMLNode& addChild(const XMLNode& child);
+  XMLNode &addChild(const XMLNode &child);
 
   /** Delete an XMLNode (and it's children) */
   ~XMLNode();
@@ -81,15 +81,15 @@ public:
   * ProductionOption node), or NULL on failure.
   */
   ProductionOption *getProductionOption();
-  XMLNode(const ProductionOption& o);
-  XMLNode(const Factory& f);
-  Factory* getFactory();
-  
-  XMLNode(const Base& b);
-  Base* getBase();
+  XMLNode(const ProductionOption &o);
+  XMLNode(const Factory &f);
+  Factory *getFactory();
 
-  XMLNode(const Economy& e);
-  Economy* getEconomy();
+  XMLNode(const Base &b);
+  Base *getBase();
+
+  XMLNode(const Economy &e);
+  Economy *getEconomy();
 
   void setCharacterdata(std::string chardata);
 
