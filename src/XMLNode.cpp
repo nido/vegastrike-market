@@ -211,8 +211,8 @@ attributes(std::map<std::string, std::string>())
 
 ProductionOption *XMLNode::getProductionOption() {
   ProductionOption *p;
-  Cargo *in;
-  Cargo *out;
+  Cargo *in = NULL;
+  Cargo *out = NULL;
   for (std::vector<XMLNode>::iterator child = this->children.begin();
        child != this->children.end(); ++child) {
     std::string type = child->attributes["type"];
@@ -345,7 +345,7 @@ Base* XMLNode::getBase(){
     Factory* f = i->getFactory();
     assert(f != NULL);
     b->addFactory(*f);
-    free(f);
+    delete(f);
   }
   return b;
 }
@@ -371,7 +371,7 @@ Economy* XMLNode::getEconomy(){
     Base* b = i->getBase();
     assert(b != NULL);
     e->addBase(*b);
-    free(b);
+    delete(b);
   }
   return e;
 }

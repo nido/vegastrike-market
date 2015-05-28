@@ -169,24 +169,25 @@ void XMLNodeTest::testGetXMLNode() {
   f.setProductionOption(q);
   XMLNode o = XMLNode(f);
   Factory* g = o.getFactory();
+
+  Base b = Base();
   CPPUNIT_ASSERT(g != NULL);
   if(g != NULL){
     CPPUNIT_ASSERT(*g == f);
+    b.addFactory(*g);
   }
 
-  Base b = Base();
   b.addFactory(f);
-  b.addFactory(*g);
   XMLNode bx = XMLNode(b);
   Base* bb = bx.getBase();
   CPPUNIT_ASSERT(bb != NULL);
-  if (bb != NULL){
-  CPPUNIT_ASSERT(b == *bb);
-  }
-    
   Economy e = Economy();
   e.addBase(b);
+  if (bb != NULL){
+  CPPUNIT_ASSERT(b == *bb);
   e.addBase(*bb);
+  }
+    
   XMLNode en = XMLNode(e);
   Economy* ee = en.getEconomy();
   CPPUNIT_ASSERT(ee != NULL);
