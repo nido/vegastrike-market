@@ -8,9 +8,10 @@ test -f CMakeLists.txt ||
 	exit
 test -f  CMakeCache.txt && rm CMakeCache.txt
 
-BUILDDIR=coveragebuild
+BUILDDIR=clanganalyzebuild
 mkdir -p "${BUILDDIR}" 
 cd "${BUILDDIR}"
+make clean
 
 cmake \
  -DCMAKE_CXX_COMPILER="${CLANG_ANALYZER}" \
