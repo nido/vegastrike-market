@@ -3,9 +3,6 @@
 
 #include <vector>
 
-#include <cppunit/TestCaller.h>
-#include <cppunit/ui/text/TestRunner.h>
-
 #include "Factory.hpp"
 
 class Base;
