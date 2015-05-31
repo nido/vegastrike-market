@@ -40,6 +40,13 @@ add_executable(makestupidproductionoptions
 
 target_link_libraries(makestupidproductionoptions market ${EXPAT_LIBRARIES})
 
+add_executable(VSmarket
+	src/VSmarket.cpp
+)
+
+target_link_libraries(VSmarket market ${EXPAT_LIBRARIES})
+
+if(${CPPUNIT_FOUND})
 add_executable(cppunittest
 	test/main
 	test/CargoTypeTest
@@ -54,13 +61,8 @@ add_executable(cppunittest
 
 target_link_libraries(cppunittest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
 
-add_executable(VSmarket
-	src/VSmarket.cpp
-)
-
-target_link_libraries(VSmarket market ${EXPAT_LIBRARIES})
-
 add_test(cppunittest cppunittest)
+endif(${CPPUNIT_FOUND})
 
 add_custom_target(clang-analyze /usr/lib64/clang-analyzer/scan-build/c++-analyzer -c -std=c++11 -I ${CMAKE_CURRENT_SOURCE_DIR}/src/ ${CMAKE_CURRENT_SOURCE_DIR}/src/*.[ch]pp ${CMAKE_CURRENT_SOURCE_DIR}/test/*.[ch]pp
 	COMMENT "Static analysis using clang-analyze"
