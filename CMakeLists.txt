@@ -6,7 +6,6 @@ project(VegastrikeEconomy)
 enable_testing()
 
 include(FindCppUnit)
-include_directories(${CPPUNIT_INCLUDE_DIRS})
 
 include(FindEXPAT)
 find_package(EXPAT REQUIRED)
@@ -33,7 +32,7 @@ add_executable(bigtest
 	test/bigtest.cpp
 )
 
-target_link_libraries(bigtest market ${CPPUNIT_LIBRARIES} ${EXPAT_LIBRARIES})
+target_link_libraries(bigtest market ${EXPAT_LIBRARIES})
 
 add_executable(makestupidproductionoptions
 	test/MakeStupidProductionOptions.cpp
@@ -48,6 +47,7 @@ add_executable(VSmarket
 target_link_libraries(VSmarket market ${EXPAT_LIBRARIES})
 
 if(${CPPUNIT_FOUND})
+include_directories(${CPPUNIT_INCLUDE_DIRS})
 add_executable(cppunittest
 	test/main
 	test/CargoTypeTest
