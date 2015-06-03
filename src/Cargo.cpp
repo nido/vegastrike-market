@@ -81,7 +81,7 @@ bool Cargo::contains(const Cargo &newCargo) const {
     if (this->cargo.find(newStock->first) == this->cargo.end()) {
       return false;
     }
-    if (this->cargo.find(newStock->first)->second< newStock->second) {return false;}
+    if (this->cargo.find(newStock->first)->second< newStock->second) {
       return false;
     }
   }

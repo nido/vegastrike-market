@@ -222,9 +222,9 @@ CargoType *XMLNode::getCargoType() {
 
   std::string cargoName = this->attributes["name"];
   std::string cargoDescription = this->attributes["category"];
-  float cargoMass = atof(this->attributes["mass"].c_str(), NULL);
-  float cargoVolume = atof(this->attributes["volume"].c_str(), NULL);
-  float cargoPrice = atof(this->attributes["price"].c_str(), NULL);
+  float cargoMass = atof(this->attributes["mass"].c_str());
+  float cargoVolume = atof(this->attributes["volume"].c_str());
+  float cargoPrice = atof(this->attributes["price"].c_str());
   CargoType *cargo = new CargoType(cargoName, cargoDescription, cargoMass,
                                    cargoVolume, cargoPrice);
   return cargo;
