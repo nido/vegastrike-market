@@ -1,7 +1,0 @@
-Factories work like this:
-
-A factory has a number of production options. There should not be too many because the factory collects and stores resources that it needs for production.
-
-A factory is calculating the supplies it needs to buy from the market by taking the max over the required inputs for each production options respectively. A factory will calculate the price it is willing to pay by taking what it will get for selling its output, discounting it by the profit rate, and distributing the money over all resources in proportion to the current market value of the resources. Now a buy order can be placed on the market if there is enough money. If there isn't enough money, divide up the remaining money to place buy orders.
-
-Upon receiving new supplies the factories reserve is check whether any production option may be executed fully or partially. Of the executable options, the one with the highest absolute profit is chosen and executed.
