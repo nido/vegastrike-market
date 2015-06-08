@@ -14,7 +14,7 @@ giving it the ability create missions and ships flying around, to having
 the economy production linked into the availability of ships and
 weapons.
 
-he latter will give an extra option for the ongoing war between
+The latter will give an extra option for the ongoing war between
 factions between other then blowing bases to bits. If the parts to make
 missles never arrive, no missles can be made and no missles can be
 fired.
@@ -28,38 +28,33 @@ around regardless of owning a base. The principal implementation will
 be more restricted, but the suggestions mentioned above should be taken
 into account.
 
+CargoType
+---------
+
+The principal unit we are working with is CargoType. CargoType represents
+a kind of resource (for example, Iron Ore). CargoTypes define a fixed volume
+and mass and category per unit.
+
 Cargo
 -----
 
-The principal unit we are working with is Cargo. Cargo has a type (for
-example, Iron Ore. Iron ore has a fixed volume and mass and category per
-unit; but different amounts of units may be owned by different entities.
-The player may have a pile of Hull Patches in his cargo bay, the fighter
-barracks may have a very small pile of Hull Patches and there may be a
-even bigger stack of it back at the factory where the player for it
-from. Each of these piles is a single Cargo. 
-
-Before the economy is integrated into vegastrike itself, it needs to be
-able to work with the player just sitting back, so forget any player
-involvement from this point on.
-
-CargoHold
----------
-
-CargoHolds are 'containers' of multiple types of cargo. One example
-would be the cargo hold on the player ship, another the cargo available
-for trade at a base. Factories could have their own pools of cargo
-separate from the base trader. Cargo can be added to and deleted from a
-CargoHold as well as a Cargo Hold. Removing cargo by any of these
-methods will only work if _all_ cargo can be removed. On success, that
-function returns true, on failure, it will return false.
+Cargo represents 'stuff'. More precisely, it is a collection of different
+amounts of different CargoTypes. A player may have a pile of six 'rare earths'
+in his cargo bay which he got from the mining base. If he proceeds to buy
+an 'atmospheric processor' , this is put together with the 'rare earths' into
+a single Cargo. Cargos can be added using addCargo. delCargo is also defined, however,
+an amount of cargo cannot be negative. Trying to remove 2 'hull patches' from a cargo which
+only has 1 or 0 'hull patches' will return false and no cargo will be removed. from the Cargo it was called from.
 
 ProductionOption
 ----------------
 
 A ProductionOption represents a possible act of production of a Factory.
 A factory may have multiple ProductionOptions available, one of which it
-may use in an economic turn. 
+may use in an economic tick. ProductionOptions have a 'consumes' and a
+'produces' Cargo. When ran, 'consumes' is subtracted from the cargoStore
+the produce function is called with, and if succesful, 'produces' cargo is
+added to the same cargoStore.
 
 Factory
 -------
@@ -79,7 +74,9 @@ Base
 
 Economically, bases are collections of factories packed together on a
 single station. From an economic perspective, Cargo can travel instantly
-within a base. Between bases, transfer takes time (and money?).
+within a base. Between bases, transfer takes time (and money?), though
+inter-base transfer has not yet been implemented. Likely, this will be done using 
+in-game mechanics, in case of vegastrike, sending a physical ship from Base a to Base b.
 
 PriceList
 ---------
@@ -96,7 +93,7 @@ depending on faction standing. Prices for bases of different factions
 may also change depending on mutual standing. Transfer of goods between
 bases will also cost depending on distance (and may or may not succeed
 due to piracy, accidents and the sorts), but that is to be covered
-elsewhere.
+elsewhere. This is not yet implemented and subject to change.
 
 Governor
 --------
@@ -107,7 +104,4 @@ deciding how many or which goods are to be produced in a particular
 factory, though initial factories may use a function choosing a default
 production option. Still, Initially this governer is to call these
 functions and give the factories access to the correct cargo.
-
-
-
-
+This is not yet implemented and subject to change.
